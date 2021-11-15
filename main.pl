@@ -1,3 +1,6 @@
+/* File : Main.pl */
+/* Main program */
+
 startGame :-
     write(' _   _                           _   '), nl,
     write('| | | | __ _ _ ____   _____  ___| |_ '), nl,
@@ -20,4 +23,28 @@ startGame :-
     write('% 7. a      : gerak ke barat 1 langkah                                         %'), nl,
     write('% 9. Status : menampilkan status pemain                                        %'), nl,
     write('% 8. help   : menampilkan segala bantuan                                       %'), nl,
-    write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'), nl,
+    write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'), nl.
+
+game_start(false).
+
+read_job :- 
+    repeat,
+    write('Welcome to Harvest Star. Choose your job'), nl,
+    write('1. Fisherman'), nl,
+    write('2. Farmer'), nl,
+    write('3. Rancher'), nl,
+    read(JobNumber),
+    (   job(JobNumber, JobName)
+    ->  write('You choose '), write(JobName), 
+        asserta(JobName, 1).
+        write(', let’s start farming '), nl, !
+    ;   write('Not a valid choice, try again...'), nl, fail
+    ).
+
+start :-
+    ['player.pl'],
+    ['status.pl'],
+    retract(game_start(false)), !,
+    asserta(game_start(true)),
+
+    read_job.
