@@ -36,7 +36,7 @@ read_job :-
     read(JobNumber),
     (   job(JobNumber, JobName)
     ->  write('You choose '), write(JobName), 
-        asserta(JobName, 1).
+        assertz(playerstats(JobName, 1)).
         write(', let’s start farming '), nl, !
     ;   write('Not a valid choice, try again...'), nl, fail
     ).
