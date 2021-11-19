@@ -30,14 +30,12 @@ game_start(false).
 read_job :- 
     repeat,
     write('Welcome to Harvest Star. Choose your job'), nl,
-    write('1. Fisherman'), nl,
-    write('2. Farmer'), nl,
+    write('1. Farmer'), nl,
+    write('2. Fisherman'), nl,
     write('3. Rancher'), nl,
     read(JobNumber),
-    (   job(JobNumber, JobName)
-    ->  write('You choose '), write(JobName), 
-        assertz(playerstats(JobName, 1)).
-        write(', let’s start farming '), nl, !
+    (   playerChoose(Job).
+        write(', let’s start! Good luck!'), nl, !
     ;   write('Not a valid choice, try again...'), nl, fail
     ).
 
