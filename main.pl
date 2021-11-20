@@ -1,6 +1,8 @@
 /* File : Main.pl */
 /* Main program */
 
+
+
 startGame :-
     write(' _   _                           _   '), nl,
     write('| | | | __ _ _ ____   _____  ___| |_ '), nl,
@@ -25,7 +27,7 @@ startGame :-
     write('% 8. help   : menampilkan segala bantuan                                       %'), nl,
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'), nl.
 
-game_start(false).
+
 
 read_job :- 
     repeat,
@@ -41,7 +43,6 @@ read_job :-
 
 start :-
     ['player.pl'],
-    ['status.pl'],
     retract(game_start(false)), !,
     asserta(game_start(true)),
 
