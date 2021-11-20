@@ -1,11 +1,11 @@
-%:- include('map.pl').
-%:- include('time.pl').
-%:- include('house.pl').
-
 /* When player hit the fence perimeter */
 hit_fence :-
     write('You hit the fence, check where you are on the map.\n'),
     map.
+
+/* When player hit the river */
+hit_river :-
+    write('You cannot walk above the water, are you trying to drown yourself?\n').
 
 enter_house:-
     write('Do you wish to enter your house?'), nl,
@@ -88,16 +88,24 @@ w:-
     X =:= Market_X, Y-1 =:= Market_Y,
     enter_market.
 
+% Enter Questing Place
 w:-
     interiorObject(X, Y, 'P'),
     interiorObject(Quest_X, Quest_Y, 'Q'),
     X =:= Quest_X, Y-1 =:= Quest_Y,
     enter_questing.
 
+% Hit the river
+w:-
+    interiorObject(X, Y, 'P'),
+    interiorObject(Water_X, Water_Y, 'o'),
+    X =:= Water_X, Y-1 =:= Water_Y,
+    hit_river.
+
 w:-
     interiorObject(X, Y, 'P'),
     NextWY is Y - 1,
-    (\+ interiorObject(X, Y, '#')),
+    (\+ interiorObject(X, NextWY, '#')),
     map_size(_,H),
     NextWY > 0,
     NextWY < H-1, !,
@@ -107,7 +115,7 @@ w:-
     map.
 
 w:-
-    hit_fence.
+    hit_fence. 
 
 /* A movement, goes leftwards */
 % Enter House
@@ -131,16 +139,24 @@ a:-
     X-1 =:= Market_X, Y =:= Market_Y,
     enter_market.
 
+% Enter Questing Place
 a:-
     interiorObject(X, Y, 'P'),
     interiorObject(Quest_X, Quest_Y, 'Q'),
     X-1 =:= Quest_X, Y =:= Quest_Y,
     enter_questing.
 
+% Hit the river
+a:-
+    interiorObject(X, Y, 'P'),
+    interiorObject(Water_X, Water_Y, 'o'),
+    X-1 =:= Water_X, Y =:= Water_Y,
+    hit_river.
+
 a:-
     interiorObject(X, Y, 'P'),
     NextAX is X - 1,
-    (\+ interiorObject(X, Y, '#')),
+    (\+ interiorObject(NextAX, Y, '#')),
     map_size(W,_),
     NextAX > 0,
     NextAX < W-1, !,
@@ -174,16 +190,24 @@ s:-
     X =:= Market_X, Y+1 =:= Market_Y,
     enter_market.
 
+% Enter Questing Place
 s:-
     interiorObject(X, Y, 'P'),
     interiorObject(Quest_X, Quest_Y, 'Q'),
     X =:= Quest_X, Y+1 =:= Quest_Y,
     enter_questing.
 
+% Hit the river
+s:-
+    interiorObject(X, Y, 'P'),
+    interiorObject(Water_X, Water_Y, 'o'),
+    X =:= Water_X, Y+1 =:= Water_Y,
+    hit_river.
+
 s:-
     interiorObject(X, Y, 'P'),
     NextSY is Y + 1,
-    (\+ interiorObject(X, Y, '#')),
+    (\+ interiorObject(X, NextSY, '#')),
     map_size(_,H),
     NextSY > 0,
     NextSY < H-1, !,
@@ -217,16 +241,24 @@ d:-
     X+1 =:= Market_X, Y =:= Market_Y,
     enter_market.
 
+% Enter Questing Place
 d:-
     interiorObject(X, Y, 'P'),
     interiorObject(Quest_X, Quest_Y, 'Q'),
     X+1 =:= Quest_X, Y =:= Quest_Y,
     enter_questing.
 
+% Hit the river
+d:-
+    interiorObject(X, Y, 'P'),
+    interiorObject(Water_X, Water_Y, 'o'),
+    X+1 =:= Water_X, Y =:= Water_Y,
+    hit_river.
+
 d:-
     interiorObject(X, Y, 'P'),
     NextDX is X + 1,
-    (\+ interiorObject(X, Y, '#')),
+    (\+ interiorObject(NextDX, Y, '#')),
     map_size(W,_),
     NextDX > 0,
     NextDX < W-1, !,
@@ -234,7 +266,3 @@ d:-
     assertz(interiorObject(NextDX, Y, 'P')),
     add_time,
     map.
-
-d:-
-    hit_fence.
-    
