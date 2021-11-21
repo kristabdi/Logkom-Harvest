@@ -1,19 +1,21 @@
 /* File : fish.pl */
 /* Store fishing information */
 
-fish(zonk, 1, 0).
-fish(sandal, 1, 5).
-fish(ember, 1, 5).
-fish(lele, 2, 300).
-fish(mujair, 2, 400).
-fish(kakap, 3, 600).
-fish(gurame, 3, 600).
-fish(belut, 4, 750).
-fish(kepiting, 6, 900).
-fish(lobster, 8, 1250).
-fish(arwana, 10, 2500).
+fishItem(zonk, 1, 0).
+fishItem(sandal, 1, 5).
+fishItem(ember, 1, 5).
+fishItem(lele, 2, 300).
+fishItem(mujair, 2, 400).
+fishItem(kakap, 3, 600).
+fishItem(gurame, 3, 600).
+fishItem(belut, 4, 750).
+fishItem(kepiting, 6, 900).
+fishItem(lobster, 8, 1250).
+fishItem(arwana, 10, 2500).
 
-letsFish :- (
+
+/* TODO tambah exp */
+fish :- (
   player(_,_,_,Lvl, _,_,_,_),
   (Lvl =:= 1 -> (
     random(1, 4, Type)
@@ -42,52 +44,52 @@ letsFish :- (
     write('Anda tidak mendapatkan apa-apa\n')
   );Type =:= 2 -> (
     write('Anda mendapatkan sandal!\n'),
-    fish(sandal, _, SellPrice),
+    fishItem(sandal, _, SellPrice),
     assertz(inventory(sandal, SellPrice))
   );
   Type =:= 3 -> (
     write('Anda mendapatkan ember!\n'),
-    fish(ember, _, SellPrice),
+    fishItem(ember, _, SellPrice),
     assertz(inventory(ember, SellPrice))
   );
   Type =:= 4 -> (
     write('Anda mendapatkan lele!\n'),
-    fish(lele, _, SellPrice),
+    fishItem(lele, _, SellPrice),
     assertz(inventory(lele, SellPrice))
   );
   Type =:= 5 -> (
     write('Anda mendapatkan mujair!\n'),
-    fish(mujair, _, SellPrice),
+    fishItem(mujair, _, SellPrice),
     assertz(inventory(mujair, SellPrice))
   );
   Type =:= 6 -> (
     write('Anda mendapatkan kakap!\n'),
-    fish(kakap, _, SellPrice),
+    fishItem(kakap, _, SellPrice),
     assertz(inventory(kakap, SellPrice))
   );
   Type =:= 7 -> (
     write('Anda mendapatkan gurame!\n'),
-    fish(gurame, _, SellPrice),
+    fishItem(gurame, _, SellPrice),
     assertz(inventory(gurame, SellPrice))
   );
   Type =:= 8 -> (
     write('Anda mendapatkan belut!\n'),
-    fish(belut, _, SellPrice),
+    fishItem(belut, _, SellPrice),
     assertz(inventory(belut, SellPrice))
   );
   Type =:= 9 -> (
     write('Anda mendapatkan kepiting!\n'),
-    fish(kepiting, _, SellPrice),
+    fishItem(kepiting, _, SellPrice),
     assertz(inventory(kepiting, SellPrice))
   );
   Type =:= 10 -> (
     write('Anda mendapatkan kepiting!\n'),
-    fish(lobster, _, SellPrice),
+    fishItem(lobster, _, SellPrice),
     assertz(inventory(lobster, SellPrice))
   );
   Type =:= 11 -> (
     write('Anda mendapatkan arwana!\n'),
-    fish(arwana, _, SellPrice),
+    fishItem(arwana, _, SellPrice),
     assertz(inventory(arwana, SellPrice))
   ))
 ).

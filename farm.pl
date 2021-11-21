@@ -1,25 +1,24 @@
 /* File : farm.pl */
 /* Store farming information */
-
-%:- include('map.pl').
-%:- include('time.pl').
+:- dynamic(farm/4).
 
 /* Format tanaman: plant(Type, GrowthDuration, BuyPrice, SellPrice) */
-plant(kentang, 8, 50, 220).
-plant(bawang_bombay, 8, 65, 200).
-plant(tomat, 14, 60, 160).
-plant(semangka, 20, 750, 3500).
-plant(brokoli, 12, 30, 110).
-plant(stroberi, 10, 500, 1500).
-plant(teh, 3, 70, 250).
-plant(jagung, 16, 125, 900).
-plant(nanas, 18, 1000, 4000).
-plant(durian, 15, 1250, 5000).
+/* Type 1=kentang, 2=bawang bombay, 3=tomat, 4=semangka, 5=brokoli, 6=stroberi, 7=teh, 8=jagung, 9=nanas, 10=durian*/
+plant(1, 8, 50, 220).
+plant(2, 8, 65, 200).
+plant(3, 14, 60, 160).
+plant(4, 20, 750, 3500).
+plant(5, 12, 30, 110).
+plant(6, 10, 500, 1500).
+plant(7, 3, 70, 250).
+plant(8, 16, 125, 900).
+plant(9, 18, 1000, 4000).
+plant(10, 15, 1250, 5000).
 
 /* farm(plantType, current_duration, PosisiX, PosisiY) */
+farm(1, 8,1,2).
 
-farm(kentang, 8,1,2).
-
+/* TODO samain kaya yang di inventory, tambahin exp, bikin fungsi dig */
 letsFarm:-(
   write('Tanaman apa yang mau ditanam?  \n'),
   write('Pilih menggunakan angka        \n'),
@@ -41,59 +40,58 @@ letsFarm:-(
   read(PosisiY),
 
   (farm(_,_,PosisiX, PosisiY) -> (
-    write('Petak ga kosong')
+    write('Tile is not empty'), !
   );
-    write('Petak masih kosong'),
     (Type =:= 1 -> (
-      plant(kentang, Duration, _, _),
-      assertz(farm(kentang, Duration, PosisiX, PosisiY))
+      plant(1, Duration, _, _),
+      assertz(farm(1, Duration, PosisiX, PosisiY))
     );
     Type =:= 2 -> (
-      plant(bawang_bombay, Duration, _, _),
-      assertz(farm(bawang_bombay, Duration, PosisiX, PosisiY))
+      plant(2, Duration, _, _),
+      assertz(farm(2, Duration, PosisiX, PosisiY))
     );
     Type =:= 3 -> (
-      plant(tomat, Duration, _, _),
-      assertz(farm(tomat, Duration, PosisiX, PosisiY))
+      plant(3, Duration, _, _),
+      assertz(farm(3, Duration, PosisiX, PosisiY))
     );
     Type =:= 4 -> (
-      plant(semangka, Duration, _, _),
-      assertz(farm(semangka, Duration, PosisiX, PosisiY))
+      plant(4, Duration, _, _),
+      assertz(farm(4, Duration, PosisiX, PosisiY))
     );
     Type =:= 5 -> (
-      plant(brokoli, Duration, _, _),
-      assertz(farm(brokoli, Duration, PosisiX, PosisiY))
+      plant(5, Duration, _, _),
+      assertz(farm(5, Duration, PosisiX, PosisiY))
     );
     Type =:= 6 -> (
-      plant(stroberi, Duration, _, _),
-      assertz(farm(stroberi, Duration, PosisiX, PosisiY))
+      plant(6, Duration, _, _),
+      assertz(farm(6, Duration, PosisiX, PosisiY))
     );
     Type =:= 7 -> (
-      plant(teh, Duration, _, _),
-      assertz(farm(teh, Duration, PosisiX, PosisiY))
+      plant(7, Duration, _, _),
+      assertz(farm(7, Duration, PosisiX, PosisiY))
     );
     Type =:= 8 -> (
-      plant(jagung, Duration, _, _),
-      assertz(farm(jagung, Duration, PosisiX, PosisiY))
+      plant(8, Duration, _, _),
+      assertz(farm(8, Duration, PosisiX, PosisiY))
     );
     Type =:= 9 -> (
-      plant(nanas, Duration, _, _),
-      assertz(farm(nanas, Duration, PosisiX, PosisiY))
+      plant(9, Duration, _, _),
+      assertz(farm(9, Duration, PosisiX, PosisiY))
     );
     Type =:= 10 -> (
-      plant(durian, Duration, _, _),
-      assertz(farm(durian, Duration, PosisiX, PosisiY))
+      plant(10, Duration, _, _),
+      assertz(farm(10, Duration, PosisiX, PosisiY))
     )),
 
-    write('Menanam berhasil\n')
+    write('Plant successful\n')
   )
 ).
 
 updateFarm :- (
-  farm(_, Duration, _, _),
+  farm(Type, Duration, PosisiX, PosisiY),
   Duration_now is Duration - 1,
-  retract(farm(kentang, Duration, PosisiX, PosisiY)),
-  assertz(farm(kentang, Duration_now, PosisiX, PosisiY))
+  retract(farm(Type, Duration, PosisiX, PosisiY)),
+  assertz(farm(Type, Duration_now, PosisiX, PosisiY))
 ).
 
 harvest(PosisiX, PosisiY) :- (
@@ -103,6 +101,6 @@ harvest(PosisiX, PosisiY) :- (
     write(SellPrice),
     retract(farm(Type,Duration,PosisiX,PosisiY))
   );(
-    write('Belum siap dijual')
+    write('Im not ready ~plant\n')
   )
 ).
