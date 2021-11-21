@@ -16,6 +16,9 @@ animal(3,3, 5000, 0).
 ranchItem(1, 1).
 ranchItem(1, 0).
 ranchItem(2, 2).
+ranchItem(2, 0).
+ranchItem(2, 0).
+ranchItem(2, 0).
 
 /* TODO Gimana caranya print type pakai nomor? */
 ranch :- (
@@ -50,20 +53,26 @@ cow :- (
 sheep :- (
   assertz(count(0)),
   (ranchItem(2, Duration),
+  count(X),
   Duration < 1 -> (
-    count(X),
-    write(X),
     NewX is X+1,
     retract(count(X)),
     assertz(count(NewX)),
     retract(ranchItem(2, Duration)),
     assertz(ranchItem(2,3))
   )),
-  write('Anda mendapatkan '),
-  count(X),
-  write(X),
-  write(' wool\n'),
-  retract(count(X))
+  count(Y),
+  write(Y),
+  (Y > 0 -> (
+    write('You get '),
+    write(Y),
+    write(' wool\n')
+  )),
+  (Y =:= 0 -> (
+    write('No wool collected\n')
+  )),
+  
+  retract(count(Y))
 ).
 
 goat :- (
