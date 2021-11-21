@@ -17,6 +17,11 @@ plant(10, 15, 1250, 5000).
 
 /* farm(plantType, current_duration, PosisiX, PosisiY) */
 farm(1, 8,1,2).
+farm(2, 7,3,4).
+
+dig:-(
+  write('You digged the tile')
+).
 
 /* TODO samain kaya yang di inventory, tambahin exp, bikin fungsi dig */
 letsFarm:-(
