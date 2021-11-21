@@ -18,6 +18,8 @@ plant(durian, 15, 1250, 5000).
 
 /* farm(plantType, current_duration, PosisiX, PosisiY) */
 
+farm(kentang, 8,1,2).
+
 letsFarm:-(
   write('Tanaman apa yang mau ditanam?  \n'),
   write('Pilih menggunakan angka        \n'),
@@ -33,59 +35,58 @@ letsFarm:-(
   write('10. Durian                     \n'),
   read(Type),
 
-  write('Mau ditanam, dimana?\n'),
-  write('Isi dengan koordinat X Y dipisah spasi\n'),
-  write('Misal 3 5\n'),
+  write('Mau ditanam dimana?\n'),
+  write('Isi dengan koordinat X. dan Y. dipisah enter\n'),
   read(PosisiX),
   read(PosisiY),
 
-  /* \+farm(_,_, x, y) -> (
-    write('Petak masih ada\n')
-  ), */
+  (farm(_,_,PosisiX, PosisiY) -> (
+    write('Petak ga kosong')
+  );
+    write('Petak masih kosong'),
+    (Type =:= 1 -> (
+      plant(kentang, Duration, _, _),
+      assertz(farm(kentang, Duration, PosisiX, PosisiY))
+    );
+    Type =:= 2 -> (
+      plant(bawang_bombay, Duration, _, _),
+      assertz(farm(bawang_bombay, Duration, PosisiX, PosisiY))
+    );
+    Type =:= 3 -> (
+      plant(tomat, Duration, _, _),
+      assertz(farm(tomat, Duration, PosisiX, PosisiY))
+    );
+    Type =:= 4 -> (
+      plant(semangka, Duration, _, _),
+      assertz(farm(semangka, Duration, PosisiX, PosisiY))
+    );
+    Type =:= 5 -> (
+      plant(brokoli, Duration, _, _),
+      assertz(farm(brokoli, Duration, PosisiX, PosisiY))
+    );
+    Type =:= 6 -> (
+      plant(stroberi, Duration, _, _),
+      assertz(farm(stroberi, Duration, PosisiX, PosisiY))
+    );
+    Type =:= 7 -> (
+      plant(teh, Duration, _, _),
+      assertz(farm(teh, Duration, PosisiX, PosisiY))
+    );
+    Type =:= 8 -> (
+      plant(jagung, Duration, _, _),
+      assertz(farm(jagung, Duration, PosisiX, PosisiY))
+    );
+    Type =:= 9 -> (
+      plant(nanas, Duration, _, _),
+      assertz(farm(nanas, Duration, PosisiX, PosisiY))
+    );
+    Type =:= 10 -> (
+      plant(durian, Duration, _, _),
+      assertz(farm(durian, Duration, PosisiX, PosisiY))
+    )),
 
-  (Type =:= 1 -> (
-    plant(kentang, Duration, _, _),
-    assertz(farm(kentang, Duration, PosisiX, PosisiY))
-  );
-  Type =:= 2 -> (
-    plant(bawang_bombay, Duration, _, _),
-    assertz(farm(bawang_bombay, Duration, PosisiX, PosisiY))
-  );
-  Type =:= 3 -> (
-    plant(tomat, Duration, _, _),
-    assertz(farm(tomat, Duration, PosisiX, PosisiY))
-  );
-  Type =:= 4 -> (
-    plant(semangka, Duration, _, _),
-    assertz(farm(semangka, Duration, PosisiX, PosisiY))
-  );
-  Type =:= 5 -> (
-    plant(brokoli, Duration, _, _),
-    assertz(farm(brokoli, Duration, PosisiX, PosisiY))
-  );
-  Type =:= 6 -> (
-    plant(stroberi, Duration, _, _),
-    assertz(farm(stroberi, Duration, PosisiX, PosisiY))
-  );
-  Type =:= 7 -> (
-    plant(teh, Duration, _, _),
-    assertz(farm(teh, Duration, PosisiX, PosisiY))
-  );
-  Type =:= 8 -> (
-    plant(jagung, Duration, _, _),
-    assertz(farm(jagung, Duration, PosisiX, PosisiY))
-  );
-  Type =:= 9 -> (
-    plant(nanas, Duration, _, _),
-    assertz(farm(nanas, Duration, PosisiX, PosisiY))
-  );
-  Type =:= 10 -> (
-    plant(durian, Duration, _, _),
-    assertz(farm(durian, Duration, PosisiX, PosisiY))
-  )),
-
-  write('Menanam berhasil\n')
-  
+    write('Menanam berhasil\n')
+  )
 ).
 
 updateFarm :- (
