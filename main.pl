@@ -4,15 +4,28 @@
 
 
 startGame :-
+    ['farm.pl'],
+    ['fishing.pl'],
+    ['house.pl'],
+    ['inventory.pl'],
+    ['items.pl'],
+    ['map.pl'],
+    ['marketplace.pl'],
+    ['movement.pl'],
+    %['player.pl'],
+    ['ranch.pl'],
+    ['time.pl'],
+    /* Ini ga jalan
     write(' _   _                           _   '), nl,
     write('| | | | __ _ _ ____   _____  ___| |_ '), nl,
-    write("| |_| |/ _` | '__\ \ / / _ \/ __| __| "), nl,
+    print('| |_| |/ _` |  __\ \ / / _ \/ __| __|'), nl,
     write('|  _  | (_| | |   \ V /  __/\__ \ |_ '), nl,
-    write('|_| |_|\__,_|_|    \_/ \___||___/\__|'), nl,
+    write('|_| |_|\__,_|_|    \_/ \___||___/\__|'), nl, */
+    write('Harvest!!'), nl, 
     write(''), nl,
     write('Harvest Star!!!'), nl,
     write(''), nl,
-    write("Let's play and pay our debts together!:"), nl,
+    write('Let us play and pay our debts together'), nl,
     write(''), nl,
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'), nl,
     write('%                              ~Harvest Star~                                  %'), nl,
@@ -36,7 +49,7 @@ read_job :-
     write('2. Fisherman'), nl,
     write('3. Rancher'), nl,
     read(JobNumber),
-    (   playerChoose(Job).
+    (   playerChoose(Job),
         write(', let’s start! Good luck!'), nl, !
     ;   write('Not a valid choice, try again...'), nl, fail
     ).
