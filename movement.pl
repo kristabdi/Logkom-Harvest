@@ -5,8 +5,19 @@ hit_fence :-
 
 /* When player hit the river */
 hit_river :-
-    write('You cannot walk above the water, are you trying to drown yourself?\n').
-
+    write('Do you want to fish?'), nl,
+    write('1. Yes'), nl,
+    write('2. No'), nl,
+    read(X),
+    (
+    X =:= 1 -> (
+        fish
+    );
+    X =:= 2 -> (
+        write('You cannot walk above the water, are you trying to drown yourself?\n')
+    )
+).
+    
 enter_house:-
     write('Do you wish to enter your house?'), nl,
     write('1. Yes'), nl,
