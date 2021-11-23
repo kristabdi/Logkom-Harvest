@@ -53,7 +53,25 @@ interiorObject(13, 3, 'R').
 interiorObject(8, 12, 'M').
 interiorObject(12, 13, 'Q').
 
+/* Setup player position */
 interiorObject(2, 2, 'P').
+
+/* Setup tilled land */
+tilledGround(1, 0, 0, '=').
+tilledGround(2, 0, 0, '=').
+tilledGround(3, 0, 0, '=').
+tilledGround(4, 0, 0, '=').
+tilledGround(5, 0, 0, '=').
+tilledGround(6, 0, 0, '=').
+tilledGround(7, 0, 0, '=').
+tilledGround(8, 0, 0, '=').
+tilledGround(9, 0, 0, '=').
+tilledGround(10, 0, 0,'=').
+tilledGround(11, 0, 0, '=').
+tilledGround(12, 0, 0, '=').
+tilledGround(13, 0, 0, '=').
+tilledGround(14, 0, 0, '=').
+tilledGround(15, 0, 0, '=').
 /* Map command */
 map :- 
     print_map.
@@ -126,6 +144,18 @@ print_point(X, Y) :-
     write(' '),
     NextOtherX is X + 1,
     print_point(NextOtherX, Y).
+
+/* Print Tilled Land */
+print_point(X, Y) :-
+    map_size(W,H),
+    X < W-1,
+    X > 0,
+    Y < H-1,
+    Y > 0,
+    tilledGround(_, X, Y, '='), !,
+    write('= '),
+    NextTilledX is X + 1,
+    print_point(NextTilledX, Y).
 
 /* Print Interior (Empty tile) */
 print_point(X, Y) :-

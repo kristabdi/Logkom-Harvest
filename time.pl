@@ -48,7 +48,11 @@ reset_time:-
     current_time(X),
     start_time(Y),
     retract(current_time(X)),
-    assertz(current_time(Y)).
+    assertz(current_time(Y)),
+    days_count(CurrentDay),
+    NextDay is CurrentDay + 1,
+    retract(days_count(_)),
+    assertz(days_count(NextDay)).
 
 /* Time checking and reset minutes */
 
