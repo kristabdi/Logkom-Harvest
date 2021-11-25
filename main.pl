@@ -1,7 +1,7 @@
 /* File : Main.pl */
 /* Main program */
-
-
+:- include('save.pl').
+:- include('load.pl').
 
 startGame :-
     ['farm.pl'],
