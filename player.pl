@@ -63,6 +63,9 @@ addExp(X) :-
         retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch)),
         NewEXPFarm is EXPFarm + 6,
         NewEXP is (NewEXPFarm + EXPFish + EXPRanch)/3,
+        GainedExp is NewEXP - EXP,
+        write('You gained 6 EXP for Farming EXP'), nl,
+        write('You gained ~d EXP for EXP', [GainedExp]), nl,
         asserta(player(Role, Level, FarmLevel, FishLevel, RanchLevel, NewEXP, NewEXPFarm, EXPFish, EXPRanch)),checkLevelUp(_),!
     )
     ;
@@ -70,6 +73,9 @@ addExp(X) :-
         retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch)),
         NewEXPFish is EXPFish + 3,
         NewEXP is (EXPFarm + NewEXPFish + EXPRanch)/3,
+        GainedExp is NewEXP - EXP,
+        write('You gained 3 EXP for Fishing EXP'), nl,
+        write('You gained ~d EXP for EXP', [GainedExp]), nl,
         asserta(player(Role, Level, FarmLevel, FishLevel, RanchLevel, NewEXP, EXPFarm, NewEXPFish, EXPRanch)),checkLevelUp(_),!
     )
     ;
@@ -77,6 +83,9 @@ addExp(X) :-
         retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch)),
         NewEXPRanch is EXPRanch + 3,
         NewEXP is (EXPFarm + EXPFish + NewEXPRanch)/3,
+        GainedExp is NewEXP - EXP,
+        write('You gained 3 EXP for Ranching EXP'), nl,
+        write('You gained ~d EXP for EXP', [GainedExp]), nl,
         asserta(player(Role, Level, FarmLevel, FishLevel, RanchLevel, NewEXP, EXPFarm, EXPFish, NewEXPRanch)),checkLevelUp(_),!
     )
 ).
@@ -89,6 +98,9 @@ addExp(X) :-
         retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch)),
         NewEXPFarm is EXPFarm + 3,
         NewEXP is (NewEXPFarm + EXPFish + EXPRanch)/3,
+        GainedExp is NewEXP - EXP,
+        write('You gained 3 EXP for Farming EXP'), nl,
+        write('You gained ~d EXP for EXP', [GainedExp]), nl,
         asserta(player(Role, Level, FarmLevel, FishLevel, RanchLevel, NewEXP, NewEXPFarm, EXPFish, EXPRanch)),checkLevelUp(_),!
     )
     ;
@@ -96,6 +108,9 @@ addExp(X) :-
         retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch)),
         NewEXPFish is EXPFish + 6,
         NewEXP is (EXPFarm + NewEXPFish + EXPRanch)/3,
+        GainedExp is NewEXP - EXP,
+        write('You gained 6 EXP for Fishing EXP'), nl,
+        write('You gained ~d EXP for EXP', [GainedExp]), nl,
         asserta(player(Role, Level, FarmLevel, FishLevel, RanchLevel, NewEXP, EXPFarm, NewEXPFish, EXPRanch)),checkLevelUp(_),!
     )
     ;
@@ -103,6 +118,9 @@ addExp(X) :-
         retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch)),
         NewEXPRanch is EXPRanch + 3,
         NewEXP is (EXPFarm + EXPFish + NewEXPRanch)/3,
+        GainedExp is NewEXP - EXP,
+        write('You gained 3 EXP for Ranching EXP'), nl,
+        write('You gained ~d EXP for EXP', [GainedExp]), nl,
         asserta(player(Role, Level, FarmLevel, FishLevel, RanchLevel, NewEXP, EXPFarm, EXPFish, NewEXPRanch)),checkLevelUp(_),!
     )
 ).
@@ -115,6 +133,9 @@ addExp(X) :-
         retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch)),
         NewEXPFarm is EXPFarm + 3,
         NewEXP is (NewEXPFarm + EXPFish + EXPRanch)/3,
+        GainedExp is NewEXP - EXP,
+        write('You gained 3 EXP for Farming EXP'), nl,
+        write('You gained ~d EXP for EXP', [GainedExp]), nl,
         asserta(player(Role, Level, FarmLevel, FishLevel, RanchLevel, NewEXP, NewEXPFarm, EXPFish, EXPRanch)),checkLevelUp(_),!
     )
     ;
@@ -122,6 +143,9 @@ addExp(X) :-
         retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch)),
         NewEXPFish is EXPFish + 3,
         NewEXP is (EXPFarm + NewEXPFish + EXPRanch)/3,
+        GainedExp is NewEXP - EXP,
+        write('You gained 3 EXP for Fishing EXP'), nl,
+        write('You gained ~d EXP for EXP', [GainedExp]), nl,
         asserta(player(Role, Level, FarmLevel, FishLevel, RanchLevel, NewEXP, EXPFarm, NewEXPFish, EXPRanch)),checkLevelUp(_),!
     )
     ;
@@ -129,6 +153,9 @@ addExp(X) :-
         retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch)),
         NewEXPRanch is EXPRanch + 6,
         NewEXP is (EXPFarm + EXPFish + NewEXPRanch)/3,
+        GainedExp is NewEXP - EXP,
+        write('You gained 6 EXP for Ranching EXP'), nl,
+        write('You gained ~d EXP for EXP', [GainedExp]), nl,
         asserta(player(Role, Level, FarmLevel, FishLevel, RanchLevel, NewEXP, EXPFarm, EXPFish, NewEXPRanch)),checkLevelUp(_),!
     )
 ).
