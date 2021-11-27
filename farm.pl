@@ -61,18 +61,7 @@ plant:-(
 updateFarm :- (
   tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration),
   Duration_now is Duration - 1,
-
-  write(Counter),
-  write('\n'),
-  write(Player_X),
-  write('\n'),
-  write(Player_Y),
-  write('\n'),
-  write(Duration),
-  write('\n'),
-  write(Duration_now),
-  write('\n'),
-
+  
   retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration)),
   assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration_now))
 ).
