@@ -9,12 +9,8 @@
 inventory :- inventory(Inv), printInventory(Inv).
 printInventory([]) :- !.
 printInventory([[Name, Count]|T]) :-
-    write(Count), write(' '), write(Name),
-    (equipment(Name, Job, _, _) -> 
-        write(' ('), write(Job), write(')'), nl, printInventory(T)
-    ; 
-        nl, printInventory(T)
-    ).
+    write(Count), write(' '), write(Name), nl,
+    printInventory(T).
 
 /* itemCount(X, Y) berarti dalam inventory X terdapat Y item */
 itemCount([], 0).
