@@ -17,75 +17,75 @@ fishItem(10, 8, 1250).
 fishItem(11, 10, 2500).
 
 fish :- (
-  write('Halo'),
-  player(_,_,_,Lvl,_, _,_,_,_,_),
-  (Lvl =:= 1 -> (
-    random(1, 4, Type)
-  );Lvl =:= 2 -> (
-    random(1, 6, Type)
-  );Lvl =:= 3 -> (
-    random(1, 8, Type)
-  );Lvl =:= 4 -> (
-    random(1, 9, Type)
-  );Lvl > 4 -> (
-    Lvl < 7 -> (
-      random(1, 10, Type)
-    );Lvl > 7 -> (
-      Lvl < 9 -> (
-        random(1, 11, Type)
-      ); Lvl > 9 -> (
-        random(1, 12, Type)
+  interiorObject(Player_X, Player_Y, Karakter),
+  (Karakter == 'o' -> (
+    player(_,_,_,Lvl,_, _,_,_,_,_),
+    (Lvl =:= 1 -> (
+      random(1, 4, Type)
+    );Lvl =:= 2 -> (
+      random(1, 6, Type)
+    );Lvl =:= 3 -> (
+      random(1, 8, Type)
+    );Lvl =:= 4 ->(
+      random(1, 9, Type)
+    );Lvl > 4 -> (
+      Lvl < 7 -> (
+        random(1, 10, Type)
+      );Lvl > 7 -> (
+        Lvl < 9 -> (
+          random(1, 11, Type)
+        ); Lvl > 9 -> (
+          random(1, 12, Type)
+        )
       )
-    )
-  )),
-  
-  write(Type),
-  write('\n'),
-  write('You got '),
-  writeTypeFish(Type),
+    )),
+    
+    write('You got '),
+    writeTypeFish(Type),
 
-  (Type =:= 2 -> (
-    fishItem(Type, _, SellPrice),
-    assertz(inventory(Type, SellPrice))
-  );
-  Type =:= 3 -> (
-    fishItem(Type, _, SellPrice),
-    assertz(inventory(Type, SellPrice))
-  );
-  Type =:= 4 -> (
-    fishItem(Type, _, SellPrice),
-    assertz(inventory(Type, SellPrice))
-  );
-  Type =:= 5 -> (
-    fishItem(Type, _, SellPrice),
-    assertz(inventory(Type, SellPrice))
-  );
-  Type =:= 6 -> (
-    fishItem(Type, _, SellPrice),
-    assertz(inventory(Type, SellPrice))
-  );
-  Type =:= 7 -> (
-    fishItem(Type, _, SellPrice),
-    assertz(inventory(Type, SellPrice))
-  );
-  Type =:= 8 -> (
-    fishItem(Type, _, SellPrice),
-    assertz(inventory(Type, SellPrice))
-  );
-  Type =:= 9 -> (
-    fishItem(Type, _, SellPrice),
-    assertz(inventory(Type, SellPrice))
-  );
-  Type =:= 10 -> (
-    fishItem(Type, _, SellPrice),
-    assertz(inventory(Type, SellPrice))
-  );
-  Type =:= 11 -> (
-    fishItem(Type, _, SellPrice),
-    assertz(inventory(Type, SellPrice))
-  )),
+    (Type =:= 2 -> (
+      fishItem(Type, _, SellPrice),
+      assertz(inventory(Type, SellPrice))
+    );
+    Type =:= 3 -> (
+      fishItem(Type, _, SellPrice),
+      assertz(inventory(Type, SellPrice))
+    );
+    Type =:= 4 -> (
+      fishItem(Type, _, SellPrice),
+      assertz(inventory(Type, SellPrice))
+    );
+    Type =:= 5 -> (
+      fishItem(Type, _, SellPrice),
+      assertz(inventory(Type, SellPrice))
+    );
+    Type =:= 6 -> (
+      fishItem(Type, _, SellPrice),
+      assertz(inventory(Type, SellPrice))
+    );
+    Type =:= 7 -> (
+      fishItem(Type, _, SellPrice),
+      assertz(inventory(Type, SellPrice))
+    );
+    Type =:= 8 -> (
+      fishItem(Type, _, SellPrice),
+      assertz(inventory(Type, SellPrice))
+    );
+    Type =:= 9 -> (
+      fishItem(Type, _, SellPrice),
+      assertz(inventory(Type, SellPrice))
+    );
+    Type =:= 10 -> (
+      fishItem(Type, _, SellPrice),
+      assertz(inventory(Type, SellPrice))
+    );
+    Type =:= 11 -> (
+      fishItem(Type, _, SellPrice),
+      assertz(inventory(Type, SellPrice))
+    )),
 
-  addExp(2)
+    addExp(2)
+  ); write('Youre not at a river!\n'))
 ).
 
 writeTypeFish(TypeFish) :-

@@ -46,22 +46,25 @@ dig:-
   ).
 
 plant:-(
-  write('Which plant?'), nl,
-  read(TypePlant),
-  interiorObject(Player_X, Player_Y, 'P'),
-  tilledGround(Counter, Player_X, Player_Y, _, _),
-  retract(tilledGround(Counter, _, _, _, _)),
+  tilledGround(_, X, Y, _, _),
+  (X==Player_X , Y==Player_Y -> (
+    write('Which plant?'), nl,
+    read(TypePlant),
+    interiorObject(Player_X, Player_Y, 'P'),
+    tilledGround(Counter, Player_X, Player_Y, _, _),
+    retract(tilledGround(Counter, _, _, _, _)),
 
-  plantItem(TypePlant, Duration, _, _),
-  assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration)),
-  write('Successfully planted '),
-  writeTypePlant(TypePlant)
+    plantItem(TypePlant, Duration, _, _),
+    assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration)),
+    write('Successfully planted '),
+    writeTypePlant(TypePlant)
+  ); write('You havent tilled the ground yet!\n'))
 ).
 
 updateFarm :- (
   tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration),
   Duration_now is Duration - 1,
-  
+
   retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration)),
   assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration_now))
 ).
