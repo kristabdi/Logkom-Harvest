@@ -96,3 +96,50 @@ fish :- (
     assertz(inventory(Type, SellPrice))
   ))
 ).
+
+writeTypeFish(TypeFish) :-
+  (
+  TypeFish =:= 1 -> (
+    write('nothing\n')
+  )
+  ;
+  TypeFish =:= 2 -> (
+    write('sandal\n')
+  )
+  ;
+  TypeFish =:= 3 -> (
+    write('ember\n')
+  )
+  ;
+  TypeFish =:= 4 -> (
+    write('lele\n')
+  )
+  ;
+  TypeFish =:= 5 -> (
+    write('mujair\n')
+  )
+  ;
+  TypeFish =:= 6 -> (
+    write('kakap\n')
+  )
+  ;
+  TypeFish =:= 7 -> (
+    write('gurame\n')
+  )
+  ;
+  TypeFish =:= 8 -> (
+    write('belut\n')
+  )
+  ;
+  TypeFish =:= 9 -> (
+    write('kepiting\n')
+  )
+  ;
+  TypeFish =:= 10 -> (
+    write('lobster\n')
+  )
+  ;
+  TypeFish =:= 11 -> (
+    write('arwana\n')
+  )
+).

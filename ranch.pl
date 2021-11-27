@@ -142,5 +142,20 @@ updateRanch :- (
   list_reduce(GoatList,NewGoatList),
 
   assertz(goatAnimal(NewGoatList, GoatLength)),
-  retract(goatAnimal(GoatList, GoatLength)),
+  retract(goatAnimal(GoatList, GoatLength))
+).
+
+writeTypeRanch(TypeRanch) :-
+  (
+  TypeRanch =:= 1 -> (
+    write('cow\n')
+  )
+  ;
+  TypeRanch =:= 2 -> (
+    write('sheep\n')
+  )
+  ;
+  TypeRanch =:= 3 -> (
+    write('goat\n')
+  )
 ).

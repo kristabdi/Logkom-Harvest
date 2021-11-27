@@ -149,3 +149,46 @@ harvest(PosisiX, PosisiY) :- (
     write('Im not ready ~plant\n')
   )
 ).
+
+writeTypePlant(TypePlant) :-
+  (
+  TypePlant =:= 1 -> (
+    write('kentang\n')
+  )
+  ;
+  TypePlant =:= 2 -> (
+    write('labu\n')
+  )
+  ;
+  TypePlant =:= 3 -> (
+    write('tomat\n')
+  )
+  ;
+  TypePlant =:= 4 -> (
+    write('semangka\n')
+  )
+  ;
+  TypePlant =:= 5 -> (
+    write('brokoli\n')
+  )
+  ;
+  TypePlant =:= 6 -> (
+    write('anggur\n')
+  )
+  ;
+  TypePlant =:= 7 -> (
+    write('gandum\n')
+  )
+  ;
+  TypePlant =:= 8 -> (
+    write('jagung\n')
+  )
+  ;
+  TypePlant =:= 9 -> (
+    write('nanas\n')
+  )
+  ;
+  TypePlant =:= 10 -> (
+    write('durian\n')
+  )
+).

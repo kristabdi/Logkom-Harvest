@@ -68,11 +68,17 @@ tasks :-
 tasks :-
     game_start(1), !,
     \+ isQuestFinished,
-    quest(X, TypeX, Y, TypeY, Z, TypeZ), nl,
+    quest(X, TypeX, Y, TypeY, Z, TypeZ),
+    plant(Type, GrowthDuration, BuyPrice, SellPrice),
+    fishItem(id, lvlRequrement, sellPrice),
+    animal(Type, Produk, HargaProduk, Cooldown), nl,
     write('▀█▀ ▄▀█ █▀ █▄▀ █▀  ▀\n'), nl,
     write(' █░ █▀█ ▄█ █░█ ▄█  ▄\n'), nl,
-    write('Here are the tasks that you need to do.\n'),nl.
-/* to do : TULIS tasks */
+    write('Here are the tasks that you need to do.\n'),nl,
+    write('You need to collect : \n'),nl,
+    format('- ~d', [X]), writeTypePlant(TypeX),
+    format('- ~d', [Y]), writeTypeFish(TypeY),
+    format('- ~d', [Z]), writeTypeRanch(TypeZ).
 
 tasks :- 
     game_start(0), !,
