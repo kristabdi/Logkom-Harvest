@@ -1,14 +1,14 @@
-:- dynamic(quest/3).
+:- dynamic(quest/6).
 :- include('player.pl').
 :- include('farm.pl').
 :- include('fishing.pl').
 :- include('farm.pl').
 
 startQuest :-
-    asserta(quest(0,0,0)),!.
+    asserta(quest(0,0,0,0,0,0)),!.
 
 isQuestFinished :-
-    quest(0,0,0).
+    quest(0,_,0,_,0,_).
 
 quest :-
     startQuest,
@@ -69,9 +69,6 @@ tasks :-
     game_start(1), !,
     \+ isQuestFinished,
     quest(X, TypeX, Y, TypeY, Z, TypeZ),
-    plant(Type, GrowthDuration, BuyPrice, SellPrice),
-    fishItem(id, lvlRequrement, sellPrice),
-    animal(Type, Produk, HargaProduk, Cooldown), nl,
     write('▀█▀ ▄▀█ █▀ █▄▀ █▀  ▀\n'), nl,
     write(' █░ █▀█ ▄█ █░█ ▄█  ▄\n'), nl,
     write('Here are the tasks that you need to do.\n'),nl,
@@ -87,7 +84,7 @@ tasks :-
 
 farmCompleted(TypeQuest) :-
     TypeQuest =:= 1, !,
-    quest(0,_,_), nl,
+    quest(0,_,_,_,_,_), nl,
     write('▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄ █\n'), nl,
     write('░█░ █▀█ ▄█ █░█ ▄█   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀ ▄\n'), nl,
     write('You got some rewards!\n'),
@@ -95,7 +92,7 @@ farmCompleted(TypeQuest) :-
 
 fishCompleted(TypeQuest) :-
     TypeQuest =:= 2, !,
-    quest(_,0,_), nl,
+    quest(_,_0,_,_,_), nl,
     write('▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄ █\n'), nl,
     write('░█░ █▀█ ▄█ █░█ ▄█   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀ ▄\n'), nl,
     write('You got some rewards!\n'),
@@ -103,14 +100,14 @@ fishCompleted(TypeQuest) :-
 
 ranchCompleted(TypeQuest) :-
     TypeQuest =:= 3, !,
-    quest(_,_,0), nl,
+    quest(_,_,,_,_0,_), nl,
     write('▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄ █\n'), nl,
     write('░█░ █▀█ ▄█ █░█ ▄█   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀ ▄\n'), nl,
     write('You got some rewards!\n'),
     addExp(3),!.
 
 questCompleted :-
-    quest(0,0,0), nl,
+    quest(0,_,0,_,0,_), nl,
     write('▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄ █\n'), nl,
     write('░█░ █▀█ ▄█ █░█ ▄█   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀ ▄\n'), nl,
     player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold),
@@ -127,28 +124,28 @@ finishQuest(_) :-
 
 finishQuest(TypeQuest) :-
     TypeQuest =:= 1,
-    quest(TempX,Y,Z),
+    quest(TempX,TypeX,Y,TypeY,Z,TypeZ),
     X is TempX - 1,
-    retract(quest(TempX,Y,Z)),
-    asserta(quest(X,Y,Z)),
+    retract(TempX,TypeX,Y,TypeY,Z,TypeZ),
+    asserta(quest(X, TypeX, Y, TypeY, Z, TypeZ)),
     farmCompleted, !,
     questCompleted, !.
 
 finishQuest(TypeQuest) :-
     TypeQuest =:= 2,
-    quest(X,TempY,Z),
+    quest(X,TypeX,TempY,TypeY,Z,TypeZ),
     Y is TempY - 1,
-    retract(quest(X,TempY,Z)),
-    asserta(quest(X,Y,Z)),
+    retract(quest(X,TypeX,TempY,TypeY,Z,TypeZ)),
+    asserta(qquest(X,TypeX,Y,TypeY,Z,TypeZ)),
     fishCompleted, !,
     questCompleted, !.
 
 finishQuest(TypeQuest) :-
     TypeQuest =:= 3,
-    quest(X,Y,TempZ),
+    quest(X,TypeX,Y,TypeY,TempZ,TypeZ),
     Z is TempZ - 1,
-    retract(quest(X,Y,TempZ)),
-    asserta(quest(X,Y,Z)),
+    retract(quest(X,TypeX,Y,TypeY,TempZ,TypeZ)),
+    asserta(quest(X,TypeX,Y,TypeY,Z,TypeZ)),
     ranchCompleted, !,
     questCompleted, !.
 
