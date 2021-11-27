@@ -39,7 +39,7 @@ enter_ranch:-
     read(X),
     (
     X =:= 1 -> (
-        ranch
+        ranch, !
         % ini mengarah ke function ranch nanti
     );
     X =:= 2 -> (
@@ -54,7 +54,7 @@ enter_market:-
     read(X),
     (
     X =:= 1 -> (
-        marketplace
+        marketplace, !
         % ini mengarah ke function marketplace nanti
     );
     X =:= 2 -> (
@@ -69,7 +69,7 @@ enter_questing:-
     read(X),
     (
     X =:= 1 -> (
-        questing
+        questing, !
         % ini mengarah ke function questing nanti
     );
     X =:= 2 -> (

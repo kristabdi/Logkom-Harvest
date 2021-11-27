@@ -1,9 +1,7 @@
-load:-
-    write('Please input your save file name! (end name with a dot (.))'), nl,
-    read(UserSaveName),
-    atom_concat(UserSaveName, '.txt', ConvertedSaveName),
-    write('Reading game file from '),
-    write(ConvertedSaveName), 
-    write('...'), nl,
-    [ConvertedSaveName],
+loadDay(FILEname):-
+    write('Reading your diary so hard...'), nl, !,
+    [FILEname], !,
     write('Game data successfully loaded!'), nl.
+
+loadDay(_):-
+    write('Sadly, you did not write anything that day'), nl.

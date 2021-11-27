@@ -24,41 +24,44 @@ farm(2, 7,3,4).
 counter(1).
 
 dig:-
-    interiorObject(Player_X, Player_Y, 'P'),
-    counter(CurrentCounter),
-    tilledGround(CurrentCounter, Current_X, Current_Y, _),
+  interiorObject(Player_X, Player_Y, 'P'),
+  counter(CurrentCounter),
+  tilledGround(CurrentCounter, Current_X, Current_Y, _, _),
 
-    % Fill tilledGround facts
-    (
-    Current_X =:= 0, Current_Y =:= 0, CurrentCounter =< 15 -> (
-        % Check location to see if there is already digged ground there
-        (
-        tilledGround(_, Player_X, Player_Y, _) -> (
-            write('You already dugged a land here! Move somewhere else!'), !   
-        );
-        (
-            retract(tilledGround(_, _, _, _)),
-            assertz(tilledGround(CurrentCounter, Player_X, Player_Y, 0))
-        )
-        )
-        );    
-    Current_X > 0, Current_Y > 0 -> (
-        NextCounter is CurrentCounter + 1,
-        retract(counter(_)),
-        assertz(counter(NextCounter)),
-        dig
-        )    
-    ).
+  % Fill tilledGround facts
+  (
+  Current_X =:= 0, Current_Y =:= 0, CurrentCounter =< 15 -> (
+      % Check location to see if there is already digged ground there
+      (
+      tilledGround(_, Player_X, Player_Y, _, _) -> (
+          write('You already dugged a land here! Move somewhere else!'), !   
+      );
+      (
+          retract(tilledGround(_, _, _, _)),
+          assertz(tilledGround(CurrentCounter, Player_X, Player_Y, 0, 0))
+      )
+      )
+      );    
+  Current_X > 0, Current_Y > 0 -> (
+      NextCounter is CurrentCounter + 1,
+      retract(counter(_)),
+      assertz(counter(NextCounter)),
+      dig
+      )    
+  ).
+
+dig:-
+  write('You cannot dig anymore ground!').
 
 /* PROTOTYPE FUNGSI PLANT */
 plant:-
-    write('Which plant?'), nl,
-    read(Plant),
-    interiorObject(Player_X, Player_Y, 'P'),
-    tilledGround(Counter, Player_X, Player_Y, _),
-    retract(tilledGround(Counter, _, _, _)),
-    assertz(tilledGround(Counter, Player_X, Player_Y, Plant)),
-    write('Successfully planted!').
+  write('Which plant?'), nl,
+  read(Plant),
+  interiorObject(Player_X, Player_Y, 'P'),
+  tilledGround(Counter, Player_X, Player_Y, _, _),
+  retract(tilledGround(Counter, _, _, _, _)),
+  assertz(tilledGround(Counter, Player_X, Player_Y, Plant, 0)),
+  write('Successfully planted!').
 
 /* TODO samain kaya yang di inventory, tambahin exp, bikin fungsi dig */
 farm:-(
