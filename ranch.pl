@@ -2,6 +2,9 @@
 
 /* File : ranch.pl */
 /* Store ranching information */
+
+:- include('player.pl').
+
 :- dynamic(cowAnimal/2).
 :- dynamic(sheepAnimal/2).
 :- dynamic(goatAnimal/2).
@@ -81,20 +84,26 @@ cow :- (
     read(Choice),
     (Choice =:= 1 -> (
       list_zero(CowList, Zero),
-      list_replace(0, 1, CowList, NewCowList),
+      (Zero>0 -> (
+        list_replace(0, 1, CowList, NewCowList),
 
-      assertz(cowAnimal(NewCowList, CowLength)),
-      retract(cowAnimal(CowList, CowLength)),
+        assertz(cowAnimal(NewCowList, CowLength)),
+        retract(cowAnimal(CowList, CowLength)),
 
-      write('Congratulations, you get '),
-      write(Zero),
-      write(' milk \n')
+        write('Congratulations, you get '),
+        write(Zero),
+        write(' milk \n'),
+
+        addExp(3)
+      ); write('Your cow hasnt produced any milk\n Check again tomorrow\n')),
+      
     ); Choice =:=2 -> (
       retract(cowAnimal(CowList, CowLength)),
-
       write('Congratulations, you get '),
       write(CowLength),
-      write(' beef \n')
+      write(' beef \n'),
+
+      addExp(3)
     ))
   ); write('You dont have any cow! \n'))
 ).
@@ -103,14 +112,18 @@ sheep :- (
   sheepAnimal(SheepList, SheepLength),
   (SheepLength>0 -> (
     list_zero(SheepList, Zero),
-    list_replace(0, 1, SheepList, NewSheepList),
+    (Zero>0 -> (
+      list_replace(0, 1, SheepList, NewSheepList),
 
-    assertz(sheepAnimal(NewSheepList, SheepLength)),
-    retract(sheepAnimal(SheepList, SheepLength)),
+      assertz(sheepAnimal(NewSheepList, SheepLength)),
+      retract(sheepAnimal(SheepList, SheepLength)),
 
-    write('Congratulations, you get '),
-    write(Zero),
-    write(' wool \n')
+      write('Congratulations, you get '),
+      write(Zero),
+      write(' wool \n'),
+
+      addExp(3)
+    ); write('Your sheep hasnt produced any wool\n Check again tomorrow\n'))
   ); write('You dont have any sheep! \n'))
 ).
 
@@ -121,7 +134,9 @@ goat :- (
 
     write('Congratulations, you get '),
     write(GoatLength),
-    write(' goat meat \n')
+    write(' goat meat \n'),
+
+    addExp(3)
   ); write('You dont have any goat! \n'))
 ).
 

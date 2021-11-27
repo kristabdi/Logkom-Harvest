@@ -1,6 +1,8 @@
 /* File : fish.pl */
 /* Store fishing information */
 
+:- include('player.pl').
+
 /* Format fishItem(id, lvlRequrement, sellPrice) */
 /* id: 1=zonk, 2=sandal, 3=ember, 4=lele, 5=mujair, 6=kakap, 7=gurame, 8=belut, 9=kepiting,
 10= lobster, 11=arwana */
@@ -16,8 +18,6 @@ fishItem(9, 6, 900).
 fishItem(10, 8, 1250).
 fishItem(11, 10, 2500).
 
-
-/* TODO tambah exp */
 fish :- (
   player(_,_,_,Lvl, _,_,_,_),
   (Lvl =:= 1 -> (
@@ -42,59 +42,51 @@ fish :- (
   
   write(Type),
   write('\n'),
+  write('You got '),
+  writeTypeFish(Type),
 
-  (Type =:= 1 -> (
-    write('You ddidnt get anything! \n')
-  );Type =:= 2 -> (
-    write('You got sandal!\n'),
+  (Type =:= 2 -> (
     fishItem(Type, _, SellPrice),
     assertz(inventory(Type, SellPrice))
   );
   Type =:= 3 -> (
-    write('You got ember!\n'),
     fishItem(Type, _, SellPrice),
     assertz(inventory(Type, SellPrice))
   );
   Type =:= 4 -> (
-    write('You got lele!\n'),
     fishItem(Type, _, SellPrice),
     assertz(inventory(Type, SellPrice))
   );
   Type =:= 5 -> (
-    write('You got mujair!\n'),
     fishItem(Type, _, SellPrice),
     assertz(inventory(Type, SellPrice))
   );
   Type =:= 6 -> (
-    write('You got kakap!\n'),
     fishItem(Type, _, SellPrice),
     assertz(inventory(Type, SellPrice))
   );
   Type =:= 7 -> (
-    write('You got gurame!\n'),
     fishItem(Type, _, SellPrice),
     assertz(inventory(Type, SellPrice))
   );
   Type =:= 8 -> (
-    write('You got belut!\n'),
     fishItem(Type, _, SellPrice),
     assertz(inventory(Type, SellPrice))
   );
   Type =:= 9 -> (
-    write('You got kepiting!\n'),
     fishItem(Type, _, SellPrice),
     assertz(inventory(Type, SellPrice))
   );
   Type =:= 10 -> (
-    write('You got kepiting!\n'),
     fishItem(Type, _, SellPrice),
     assertz(inventory(Type, SellPrice))
   );
   Type =:= 11 -> (
-    write('You got arwana!\n'),
     fishItem(Type, _, SellPrice),
     assertz(inventory(Type, SellPrice))
-  ))
+  )),
+
+  addExp(2)
 ).
 
 writeTypeFish(TypeFish) :-
