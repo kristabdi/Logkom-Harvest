@@ -1,7 +1,5 @@
 /* File : farm.pl */
 /* Store farming information */
-:- dynamic(farm/4).
-:- dynamic(counter/1).
 
 /* Format tanaman: plant(Type, GrowthDuration, BuyPrice, SellPrice) */
 /* Type 1=kentang, 2=labu, 3=tomat, 4=semangka, 5=brokoli, 6=anggur, 7=gandum, 8=jagung, 9=nanas, 10=durian*/
@@ -15,13 +13,6 @@ plant(7, 3, 70, 250).
 plant(8, 16, 125, 900).
 plant(9, 18, 1000, 4000).
 plant(10, 15, 1250, 5000).
-
-/* farm(plantType, current_duration, PosisiX, PosisiY) */
-farm(1, 8,1,2).
-farm(2, 7,3,4).
-
-/* Dig ground */
-counter(1).
 
 dig:-
   interiorObject(Player_X, Player_Y, 'P'),
@@ -37,7 +28,7 @@ dig:-
           write('You already dugged a land here! Move somewhere else!'), !   
       );
       (
-          retract(tilledGround(_, _, _, _)),
+          retract(tilledGround(_, _, _, _,_)),
           assertz(tilledGround(CurrentCounter, Player_X, Player_Y, 0, 0))
       )
       )
@@ -50,104 +41,38 @@ dig:-
       )    
   ).
 
-dig:-
-  write('You cannot dig anymore ground!').
-
-/* PROTOTYPE FUNGSI PLANT */
-plant:-
+plant:-(
   write('Which plant?'), nl,
-  read(Plant),
+  read(TypePlant),
   interiorObject(Player_X, Player_Y, 'P'),
   tilledGround(Counter, Player_X, Player_Y, _, _),
   retract(tilledGround(Counter, _, _, _, _)),
-  assertz(tilledGround(Counter, Player_X, Player_Y, Plant, 0)),
-  write('Successfully planted!').
 
-/* TODO samain kaya yang di inventory, tambahin exp, bikin fungsi dig */
-farm:-(
-  write('Tanaman apa yang mau ditanam?  \n'),
-  write('Pilih menggunakan angka        \n'),
-  write('1.  Kentang                    \n'),
-  write('2.  Labu                       \n'),
-  write('3.  Tomat                      \n'),
-  write('4.  Semangka                   \n'),
-  write('5.  Brokoli                    \n'),
-  write('6.  Anggur                     \n'),
-  write('7.  Gandum                     \n'),
-  write('8.  Jagung                     \n'),
-  write('9.  Nanas                      \n'),
-  write('10. Durian                     \n'),
-  read(Type),
-
-  write('Mau ditanam dimana?\n'),
-  write('Isi dengan koordinat X. dan Y. dipisah enter\n'),
-  read(PosisiX),
-  read(PosisiY),
-
-  (farm(_,_,PosisiX, PosisiY) -> (
-    write('Tile is not empty'), !
-  );
-    (Type =:= 1 -> (
-      plant(1, Duration, _, _),
-      assertz(farm(1, Duration, PosisiX, PosisiY))
-    );
-    Type =:= 2 -> (
-      plant(2, Duration, _, _),
-      assertz(farm(2, Duration, PosisiX, PosisiY))
-    );
-    Type =:= 3 -> (
-      plant(3, Duration, _, _),
-      assertz(farm(3, Duration, PosisiX, PosisiY))
-    );
-    Type =:= 4 -> (
-      plant(4, Duration, _, _),
-      assertz(farm(4, Duration, PosisiX, PosisiY))
-    );
-    Type =:= 5 -> (
-      plant(5, Duration, _, _),
-      assertz(farm(5, Duration, PosisiX, PosisiY))
-    );
-    Type =:= 6 -> (
-      plant(6, Duration, _, _),
-      assertz(farm(6, Duration, PosisiX, PosisiY))
-    );
-    Type =:= 7 -> (
-      plant(7, Duration, _, _),
-      assertz(farm(7, Duration, PosisiX, PosisiY))
-    );
-    Type =:= 8 -> (
-      plant(8, Duration, _, _),
-      assertz(farm(8, Duration, PosisiX, PosisiY))
-    );
-    Type =:= 9 -> (
-      plant(9, Duration, _, _),
-      assertz(farm(9, Duration, PosisiX, PosisiY))
-    );
-    Type =:= 10 -> (
-      plant(10, Duration, _, _),
-      assertz(farm(10, Duration, PosisiX, PosisiY))
-    )),
-
-    write('Plant successful\n')
-  )
+  plant(TypePlant, Duration, _, _),
+  assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration)),
+  write('Successfully planted '),
+  writeTypePlant(TypePlant)
 ).
 
 updateFarm :- (
-  farm(Type, Duration, PosisiX, PosisiY),
+  tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration),
   Duration_now is Duration - 1,
-  retract(farm(Type, Duration, PosisiX, PosisiY)),
-  assertz(farm(Type, Duration_now, PosisiX, PosisiY))
+  retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration)),
+  assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration_now))
 ).
 
 harvest(PosisiX, PosisiY) :- (
-  farm(Type,Duration,PosisiX,PosisiY),
-  Duration<1 -> (
+  tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration),
+  (Duration<1 -> (
     plant(Type, _,_, SellPrice),
     write(SellPrice),
-    retract(farm(Type,Duration,PosisiX,PosisiY))
+    retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration)),
+    assertz(tilledGround(Counter, 0, 0, 0, 0))
   );(
     write('Im not ready ~plant\n')
-  )
+  )),
+
+  finishQuest(1)
 ).
 
 writeTypePlant(TypePlant) :-

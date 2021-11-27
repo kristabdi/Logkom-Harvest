@@ -95,7 +95,7 @@ cow :- (
         write(' milk \n'),
 
         addExp(3)
-      ); write('Your cow hasnt produced any milk\n Check again tomorrow\n')),
+      ); write('Your cow hasnt produced any milk\n Check again tomorrow\n'))
       
     ); Choice =:=2 -> (
       retract(cowAnimal(CowList, CowLength)),

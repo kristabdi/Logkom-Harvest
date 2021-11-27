@@ -11,7 +11,7 @@ startGame :-
     ['map.pl'],
     ['marketplace.pl'],
     ['movement.pl'],
-    %['player.pl'],
+    ['player.pl'],
     ['ranch.pl'],
     ['time.pl'],
     /* Ini ga jalan
