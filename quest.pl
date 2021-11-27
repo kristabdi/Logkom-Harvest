@@ -13,7 +13,7 @@ isQuestFinished :-
 quest :-
     startQuest,
     isQuestFinished,
-    player(_, Level, _, _, _, _, _, _, _),
+    player(_, Level, _, _, _, _, _, _, _, _),
     questLevel(Level),
     tasks, !.
 
@@ -84,7 +84,6 @@ farmCompleted(TypeQuest) :-
     quest(0,_,_), nl,
     write('▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄ █\n'), nl,
     write('░█░ █▀█ ▄█ █░█ ▄█   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀ ▄\n'), nl,
-    player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch),
     write('You got some rewards!\n'),
     addExp(1),!.
 
@@ -93,7 +92,6 @@ fishCompleted(TypeQuest) :-
     quest(_,0,_s), nl,
     write('▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄ █\n'), nl,
     write('░█░ █▀█ ▄█ █░█ ▄█   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀ ▄\n'), nl,
-    player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch),
     write('You got some rewards!\n'),
     addExp(2),!.
 
@@ -102,7 +100,6 @@ ranchCompleted(TypeQuest) :-
     quest(_,_,0), nl,
     write('▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄ █\n'), nl,
     write('░█░ █▀█ ▄█ █░█ ▄█   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀ ▄\n'), nl,
-    player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch),
     write('You got some rewards!\n'),
     addExp(3),!.
 
@@ -110,10 +107,12 @@ questCompleted :-
     quest(0,0,0), nl,
     write('▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄ █\n'), nl,
     write('░█░ █▀█ ▄█ █░█ ▄█   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀ ▄\n'), nl,
-    player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch),
-    % Add Gold %
+    player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold),
+    NGold is Gold + 25*Level,
     write('You got some rewards!\n'),
-    format('Current Gold: ~d\n', [NGold]).
+    format('Current Gold: ~d\n', [NGold]),
+    retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold)),
+    asserta(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, NGold)).
 
 questCompleted :- !.
 
