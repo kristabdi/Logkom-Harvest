@@ -27,18 +27,24 @@ startGame :-
     write(''), nl,
     write('Let us play and pay our debts together'), nl,
     write(''), nl,
+    write('Welcome to Harvest Star'), nl,
+    write(''), nl,
+    write('Please use the command \'help.\' to list all the available commands'), nl,
+    write(''), nl,
+    write('Enjoy the game!').
+    
+    /*
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'), nl,
     write('%                              ~Harvest Star~                                  %'), nl,
-    write('% 1. start  : untuk memulai petualanganmu                                      %'), nl,
-    write('% 2. map    : menampilkan peta                                                 %'), nl,
-    write('% 3. status : menampilkan kondisimu terkini                                    %'), nl,
-    write('% 4. w      : gerak ke utara 1 langkah                                         %'), nl,
-    write('% 5. s      : gerak ke selatan 1 langkah                                       %'), nl,
-    write('% 6. d      : gerak ke ke timur 1 langkah                                      %'), nl,
-    write('% 7. a      : gerak ke barat 1 langkah                                         %'), nl,
-    write('% 9. Status : menampilkan status pemain                                        %'), nl,
-    write('% 8. help   : menampilkan segala bantuan                                       %'), nl,
-    write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'), nl.
+    write('% 1. start  : start your game                                                  %'), nl,
+    write('% 2. map    : show map                                                         %'), nl,
+    write('% 3. status : show your current condition                                      %'), nl,
+    write('% 4. w      : move 1 step upwards                                              %'), nl,
+    write('% 5. a      : move 1 step leftwards                                            %'), nl,
+    write('% 6. s      : move 1 step downwards                                            %'), nl,
+    write('% 7. d      : move 1 step rightwards                                           %'), nl,
+    write('% 8. help   : show this help menu                                              %'), nl,
+    write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'), nl. */
 
 
 
@@ -60,3 +66,19 @@ start :-
     asserta(game_start(true)),
 
     read_job.
+
+help:-
+    write('Available Commands List:'), nl,
+    write('1. start  : start your game'), nl,
+    write('2. map    : show map'), nl,
+    write('3. status : show your current condition'), nl,
+    write('Movement Commands:'), nl,
+    write('4. w      : move 1 step upwards'), nl,
+    write('5. a      : move 1 step leftwards'), nl,
+    write('6. s      : move 1 step downwards'), nl,
+    write('7. d      : move 1 step rightwards'), nl,
+    write('Farming Commands:'), nl,
+    write('8. dig    : dig a ground for planting'), nl,
+    write('9. plant  : plant a seed inside a digged ground'), nl,
+    write('Other Commands:'), nl,
+    write('8. help   : show this help menu'), nl.

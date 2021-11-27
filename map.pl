@@ -58,21 +58,21 @@ interiorObject(12, 13, 'Q').
 interiorObject(2, 2, 'P').
 
 /* Setup tilled land */
-tilledGround(1, 0, 0, '=').
-tilledGround(2, 0, 0, '=').
-tilledGround(3, 0, 0, '=').
-tilledGround(4, 0, 0, '=').
-tilledGround(5, 0, 0, '=').
-tilledGround(6, 0, 0, '=').
-tilledGround(7, 0, 0, '=').
-tilledGround(8, 0, 0, '=').
-tilledGround(9, 0, 0, '=').
-tilledGround(10, 0, 0,'=').
-tilledGround(11, 0, 0, '=').
-tilledGround(12, 0, 0, '=').
-tilledGround(13, 0, 0, '=').
-tilledGround(14, 0, 0, '=').
-tilledGround(15, 0, 0, '=').
+tilledGround(1, 0, 0, 0).
+tilledGround(2, 0, 0, 0).
+tilledGround(3, 0, 0, 0).
+tilledGround(4, 0, 0, 0).
+tilledGround(5, 0, 0, 0).
+tilledGround(6, 0, 0, 0).
+tilledGround(7, 0, 0, 0).
+tilledGround(8, 0, 0, 0).
+tilledGround(9, 0, 0, 0).
+tilledGround(10, 0, 0, 0).
+tilledGround(11, 0, 0, 0).
+tilledGround(12, 0, 0, 0).
+tilledGround(13, 0, 0, 0).
+tilledGround(14, 0, 0, 0).
+tilledGround(15, 0, 0, 0).
 /* Map command */
 map :- 
     print_map.
@@ -153,8 +153,42 @@ print_point(X, Y) :-
     X > 0,
     Y < H-1,
     Y > 0,
-    tilledGround(_, X, Y, '='), !,
-    write('= '),
+    tilledGround(_, X, Y, PlantType), !,
+    (
+    PlantType =:= 0 -> (
+        write('= '), !
+    );
+    PlantType =:= 1 -> (
+        write('K '), !
+    );
+    PlantType =:= 2 -> (
+        write('L '), !   
+    );
+    PlantType =:= 3 -> (
+        write('T '), !       
+    );
+    PlantType =:= 4 -> (
+        write('S '), !    
+    );
+    PlantType =:= 5 -> (
+        write('B '), !    
+    );  
+    PlantType =:= 6 -> (
+        write('A '), !    
+    ); 
+    PlantType =:= 7 -> (
+        write('G '), !    
+    ); 
+    PlantType =:= 8 -> (
+        write('J '), !   
+    ); 
+    PlantType =:= 9 -> (
+        write('N '), !    
+    );
+    PlantType =:= 10 -> (
+        write('D '), !    
+    )             
+    ),
     NextTilledX is X + 1,
     print_point(NextTilledX, Y).
 

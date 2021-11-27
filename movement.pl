@@ -1,5 +1,3 @@
-:- dynamic(counter/1).
-
 /* When player hit the fence perimeter */
 hit_fence :-
     write('You hit the fence, check where you are on the map.\n'),
@@ -78,31 +76,6 @@ enter_questing:-
         !
     )
 ).
-
-/* DIGGING */
-counter(1).
-
-dig:-
-    interiorObject(Player_X, Player_Y, 'P'),
-    counter(CurrentCounter),
-    tilledGround(CurrentCounter, Current_X, Current_Y, '='),
-
-    % Check location to see if there is any obstacles
-    (
-    CurrentCounter > 15 -> (
-        write('You cannot dig anymore ground!'), nl
-        );
-    Current_X =:= 0, Current_Y =:= 0 -> (
-        retract(tilledGround(_, _, _, _)),
-        assertz(tilledGround(CurrentCounter, Player_X, Player_Y, '='))
-        );    
-    Current_X > 0, Current_Y > 0 -> (
-        NextCounter is CurrentCounter + 1,
-        retract(counter(_)),
-        assertz(counter(NextCounter)),
-        dig
-        )    
-    ).
 
 /* W movement, goes upwards */
 % Enter House
