@@ -53,88 +53,100 @@ goatAnimal(GoatDurationList,2).
 */
 
 ranch :- (
-  write('You have these animals: \n'),
-  cowAnimal(_, Cow),
-  sheepAnimal(_, Sheep),
-  goatAnimal(_, Goat),
-  write('Cow = '),
-  write(Cow),
-  write('\n'),
-
-  write('Sheep = '),
-  write(Sheep),
-  write('\n'),
-
-  write('Goat = '),
-  write(Goat),
-  write('\n'),
-
-  write('What do you want to do? \n')
+  interiorObject(Player_X, Player_Y, Karakter),
+  (Karakter == 'R' -> (
+    write('You have these animals: \n'),
+    cowAnimal(_, Cow),
+    sheepAnimal(_, Sheep),
+    goatAnimal(_, Goat),
+    write('Cow = '),
+    write(Cow),
+    write('\n'),
+    
+    write('Sheep = '),
+    write(Sheep),
+    write('\n'),
+    
+    write('Goat = '),
+    write(Goat),
+    write('\n'),
+    
+    write('What do you want to do? \n')  
+  ))
 ).
 
 cow :- (
-  cowAnimal(CowList, CowLength),
-  (CowLength>0 -> (
-    write('You can do these to your cow\n'),
-    write('1. Take milk\n'),
-    write('2. Take meat\n'),
-    read(Choice),
-    (Choice =:= 1 -> (
-      list_zero(CowList, Zero),
-      (Zero>0 -> (
-        list_replace(0, 1, CowList, NewCowList),
+  interiorObject(Player_X, Player_Y, Karakter),
+  (Karakter == 'R' -> (
+    cowAnimal(CowList, CowLength),
+    (CowLength>0 -> (
+      write('You can do these to your cow\n'),
+      write('1. Take milk\n'),
+      write('2. Take meat\n'),
+      read(Choice),
+      (Choice =:= 1 -> (
+        list_zero(CowList, Zero),
+        (Zero>0 -> (
+          list_replace(0, 1, CowList, NewCowList),
 
-        assertz(cowAnimal(NewCowList, CowLength)),
+          assertz(cowAnimal(NewCowList, CowLength)),
+          retract(cowAnimal(CowList, CowLength)),
+
+          write('Congratulations, you get '),
+          write(Zero),
+          write(' milk \n'),
+
+          addExp(3)
+        ); write('Your cow hasnt produced any milk\n Check again tomorrow\n'))
+
+      ); Choice =:=2 -> (
         retract(cowAnimal(CowList, CowLength)),
-
         write('Congratulations, you get '),
-        write(Zero),
-        write(' milk \n'),
+        write(CowLength),
+        write(' beef \n'),
 
         addExp(3)
-      ); write('Your cow hasnt produced any milk\n Check again tomorrow\n'))
-      
-    ); Choice =:=2 -> (
-      retract(cowAnimal(CowList, CowLength)),
-      write('Congratulations, you get '),
-      write(CowLength),
-      write(' beef \n'),
-
-      addExp(3)
-    ))
-  ); write('You dont have any cow! \n'))
+      ))
+    ); write('You dont have any cow! \n'))
+  ))
 ).
 
 sheep :- (
-  sheepAnimal(SheepList, SheepLength),
-  (SheepLength>0 -> (
-    list_zero(SheepList, Zero),
-    (Zero>0 -> (
-      list_replace(0, 1, SheepList, NewSheepList),
-
-      assertz(sheepAnimal(NewSheepList, SheepLength)),
-      retract(sheepAnimal(SheepList, SheepLength)),
-
-      write('Congratulations, you get '),
-      write(Zero),
-      write(' wool \n'),
-
-      addExp(3)
-    ); write('Your sheep hasnt produced any wool\n Check again tomorrow\n'))
-  ); write('You dont have any sheep! \n'))
+  interiorObject(Player_X, Player_Y, Karakter),
+  (Karakter == 'R' -> (
+    sheepAnimal(SheepList, SheepLength),
+    (SheepLength>0 -> (
+      list_zero(SheepList, Zero),
+      (Zero>0 -> (
+        list_replace(0, 1, SheepList, NewSheepList),
+      
+        assertz(sheepAnimal(NewSheepList, SheepLength)),
+        retract(sheepAnimal(SheepList, SheepLength)),
+      
+        write('Congratulations, you get '),
+        write(Zero),
+        write(' wool \n'),
+      
+        addExp(3)
+      ); write('Your sheep hasnt produced any wool\n Check again tomorrow\n'))
+    ); write('You dont have any sheep! \n'))
+  ))
 ).
 
 goat :- (
-  goatAnimal(GoatList, GoatLength),
-  (GoatLength>0 -> (
-    retract(goatAnimal(GoatList, GoatLength)),
-
-    write('Congratulations, you get '),
-    write(GoatLength),
-    write(' goat meat \n'),
-
-    addExp(3)
-  ); write('You dont have any goat! \n'))
+  interiorObject(Player_X, Player_Y, Karakter),
+  (Karakter == 'R' -> (
+    goatAnimal(GoatList, GoatLength),
+    (GoatLength>0 -> (
+      retract(goatAnimal(GoatList, GoatLength)),
+    
+      write('Congratulations, you get '),
+      write(GoatLength),
+      write(' goat meat \n'),
+    
+      addExp(3)
+    ); write('You dont have any goat! \n'))
+  ))
 ).
 
 updateRanch :- (
