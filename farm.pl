@@ -1,18 +1,22 @@
 /* File : farm.pl */
 /* Store farming information */
+:- dynamic(counter/1).
 
 /* Format tanaman: plant(Type, GrowthDuration, BuyPrice, SellPrice) */
 /* Type 1=kentang, 2=labu, 3=tomat, 4=semangka, 5=brokoli, 6=anggur, 7=gandum, 8=jagung, 9=nanas, 10=durian*/
-plant(1, 8, 50, 220).
-plant(2, 8, 65, 200).
-plant(3, 14, 60, 160).
-plant(4, 20, 750, 3500).
-plant(5, 12, 30, 110).
-plant(6, 10, 500, 1500).
-plant(7, 3, 70, 250).
-plant(8, 16, 125, 900).
-plant(9, 18, 1000, 4000).
-plant(10, 15, 1250, 5000).
+plantItem(1, 8, 50, 220).
+plantItem(2, 8, 65, 200).
+plantItem(3, 14, 60, 160).
+plantItem(4, 20, 750, 3500).
+plantItem(5, 12, 30, 110).
+plantItem(6, 10, 500, 1500).
+plantItem(7, 3, 70, 250).
+plantItem(8, 16, 125, 900).
+plantItem(9, 18, 1000, 4000).
+plantItem(10, 15, 1250, 5000).
+
+/* Dig ground */
+counter(1).
 
 dig:-
   interiorObject(Player_X, Player_Y, 'P'),
@@ -48,7 +52,7 @@ plant:-(
   tilledGround(Counter, Player_X, Player_Y, _, _),
   retract(tilledGround(Counter, _, _, _, _)),
 
-  plant(TypePlant, Duration, _, _),
+  plantItem(TypePlant, Duration, _, _),
   assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration)),
   write('Successfully planted '),
   writeTypePlant(TypePlant)
@@ -57,6 +61,18 @@ plant:-(
 updateFarm :- (
   tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration),
   Duration_now is Duration - 1,
+
+  write(Counter),
+  write('\n'),
+  write(Player_X),
+  write('\n'),
+  write(Player_Y),
+  write('\n'),
+  write(Duration),
+  write('\n'),
+  write(Duration_now),
+  write('\n'),
+
   retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration)),
   assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration_now))
 ).
@@ -64,7 +80,7 @@ updateFarm :- (
 harvest(PosisiX, PosisiY) :- (
   tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration),
   (Duration<1 -> (
-    plant(Type, _,_, SellPrice),
+    plantItem(Type, _,_, SellPrice),
     write(SellPrice),
     retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration)),
     assertz(tilledGround(Counter, 0, 0, 0, 0))
