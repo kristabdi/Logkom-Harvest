@@ -41,14 +41,8 @@ playerChoose(3) :-
     asserta(game_start(1)).
 
 addLevel:-
-    write('                                               \n'),
-    write('                                               \n'),
-    write('                                               \n'),
-    write('                                               \n'),
-    write('                                               \n'),
-    write('             █░░ █▀▀ █░█ █▀▀ █░░   █░█ █▀█ █   \n'),
-    write('             █▄▄ ██▄ ▀▄▀ ██▄ █▄▄   █▄█ █▀▀ ▄   \n'),
-    write('                                               \n'),
+    write('█░░ █▀▀ █░█ █▀▀ █░░   █░█ █▀█ █ \n'),
+    write('█▄▄ ██▄ ▀▄▀ ██▄ █▄▄   █▄█ █▀▀ ▄ \n'),
     player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold),
     Level_Now is Level + 1,
     Gold_Now is Gold + Level*50,

@@ -95,7 +95,7 @@ farmCompleted(TypeQuest) :-
 
 fishCompleted(TypeQuest) :-
     TypeQuest =:= 2, !,
-    quest(_,0,_s), nl,
+    quest(_,0,_), nl,
     write('▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄ █\n'), nl,
     write('░█░ █▀█ ▄█ █░█ ▄█   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀ ▄\n'), nl,
     write('You got some rewards!\n'),
