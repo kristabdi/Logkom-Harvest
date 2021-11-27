@@ -1,89 +1,120 @@
+/* TODO integrate inventory */
+
 /* File : ranch.pl */
 /* Store ranching information */
-:- dynamic(ranchItem/2).
-:- dynamic(count/1).
+:- dynamic(cowAnimal/2).
+:- dynamic(sheepAnimal/2).
+:- dynamic(goatAnimal/2).
 
+list_member(X,[X|_]).
+list_member(X,[_|TAIL]) :- list_member(X,TAIL).
+
+list_length([],0).
+list_length([_|TAIL],N) :- list_length(TAIL,N1), N is N1 + 1.
+
+list_zero([],0) :- !.
+list_zero([H|TAIL],N) :- (
+  list_zero(TAIL,N1),
+  ((H < 1) -> (N is N1 + 1); N is N1)
+).
+
+list_nonzero([],0) :- !.
+list_nonzero([H|TAIL],N) :- (
+  list_nonzero(TAIL,N1),
+  ((H > 0) -> (N is N1 + 1); N is N1)
+).
+
+list_delete(A, [A|B], B).
+list_delete(A, [B, C|D], [B|E]) :-
+  list_delete(A, [C|D], E).
+
+list_replace(A, X, [A|B], [X|B]).
+list_replace(A, X, [B, C|D], [B|E]) :-
+  list_replace(A, X, [C|D], E).
 
 /* Format animal(Type, Produk, HargaProduk, Cooldown) */
 /* Type 1=cow, 2=sheep, 3=goat */
 /* Produk 1=milk, 2=wool, 3=meat */ 
 animal(1,1, 500, 1).
+animal(1,3, 7500,0).
 animal(2,2, 700, 3).
 animal(3,3, 5000, 0).
 
-/* ranch(Type, RemainingDuration) */
+/* 
+cowAnimal(CowDurationList,2).
+sheepAnimal(SheepDurationList,4).
+goatAnimal(GoatDurationList,2). 
+*/
 
-ranchItem(1, 1).
-ranchItem(1, 0).
-ranchItem(2, 2).
-
-/* TODO Gimana caranya print type pakai nomor? */
 ranch :- (
-  write('Berikut hewan yang kamu punya: \n'),
-  (ranchItem(Type, Duration),
-  (Type =:= 1 -> (
-    write('cow\n')
-  );Type =:= 2 -> (
-    write('sheep\n')
-  ); Type =:= 3 -> (
-    write('goat\n')
-  )), fail),
+  write('You have these animals: \n'),
+  cowAnimal(_, Cow),
+  sheepAnimal(_, Sheep),
+  goatAnimal(_, Goat),
+  write('Cow = '),
+  write(Cow),
+  write('\n'),
 
-  write('Apa yang ingin dilakukan \n')
+  write('Sheep = '),
+  write(Sheep),
+  write('\n'),
+
+  write('Goat = '),
+  write(Goat),
+  write('\n'),
+
+  write('What do you want to do? \n')
 ).
 
 cow :- (
-  assertz(count(0)),
-  (ranchItem(1, Duration),
-  count(X),
-  Duration < 1 -> (
-    NewX is X+1,
-    retract(count(X)),
-    assertz(count(NewX)),
-    retract(ranchItem(1, Duration)),
-    assertz(ranchItem(1,1))
-  )),
-  count(Y),
-  write(Y),
-  (Y > 0 -> (
-    write('You get '),
-    write(Y),
-    write(' milk\n')
-  );
-    write('No milk collected\n')
-  ),
-  
-  retract(count(Y))
+  cowAnimal(CowList, CowLength),
+  (CowLength>0 -> (
+    write('You can do these to your cow\n'),
+    write('1. Take milk\n'),
+    write('2. Take meat\n'),
+    read(Choice),
+    (Choice =:= 1 -> (
+      list_zero(CowList, Zero),
+      list_replace(0, 1, CowList, NewCowList),
+
+      assertz(cowAnimal(NewCowList, CowLength)),
+      retract(cowAnimal(CowList, CowLength)),
+
+      write('Congratulations, you get '),
+      write(Zero),
+      write(' milk \n')
+    ); Choice =:=2 -> (
+      retract(cowAnimal(CowList, CowLength)),
+
+      write('Congratulations, you get '),
+      write(CowLength),
+      write(' beef \n')
+    ))
+  ); write('You dont have any cow! \n'))
 ).
 
 sheep :- (
-  assertz(count(0)),
-  (ranchItem(2, Duration),
-  count(X),
-  Duration < 1 -> (
-    NewX is X+1,
-    retract(count(X)),
-    assertz(count(NewX)),
-    retract(ranchItem(2, Duration)),
-    assertz(ranchItem(2,3))
-  )),
-  count(Y),
-  write(Y),
-  (Y > 0 -> (
-    write('You get '),
-    write(Y),
-    write(' wool\n')
-  );
-    write('No wool collected\n')
-  ),
-  retract(count(Y))
+  sheepAnimal(SheepList, SheepLength),
+  (SheepLength>0 -> (
+    list_zero(SheepList, Zero),
+    list_replace(0, 1, SheepList, NewSheepList),
+
+    assertz(sheepAnimal(NewSheepList, SheepLength)),
+    retract(sheepAnimal(SheepList, SheepLength)),
+
+    write('Congratulations, you get '),
+    write(Zero),
+    write(' wool \n')
+  ); write('You dont have any sheep! \n'))
 ).
 
 goat :- (
-  (\+ranchItem(3,_) -> (
-    write('You dont have any goat\n')
-  );
-    write('You have got a goat meat'),
-    retract(ranchItem(3,_))
-  )
+  goatAnimal(GoatList, GoatLength),
+  (GoatLength>0 -> (
+    retract(goatAnimal(GoatList, GoatLength)),
+
+    write('Congratulations, you get '),
+    write(GoatLength),
+    write(' goat meat \n')
+  ); write('You dont have any goat! \n'))
 ).

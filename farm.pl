@@ -50,9 +50,6 @@ dig:-
         )    
     ).
 
-dig:-
-    write('You cannot dig anymore ground!').
-
 /* PROTOTYPE FUNGSI PLANT */
 plant:-
     write('Which plant?'), nl,
