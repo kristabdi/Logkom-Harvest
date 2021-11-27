@@ -2,7 +2,7 @@
 
 /* Setup dynamic predicate */
 :- dynamic(interiorObject/3).
-:- dynamic(tilledGround/4).
+:- dynamic(tilledGround/5).
 
 /* MAP SIZE (with fences) */
 map_size(17,17).
