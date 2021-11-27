@@ -31,7 +31,7 @@ insert_items(ItemsId) :-
     retract(items_inventory(ItemsList, ItemsCount)), !.
 
 /* Procedure to remove items from inventory */
-delete_pokemon(SlotId) :-
+delete_items(SlotId) :-
     items_inventory(PokeList,PokeCount),
 
     NewItemsCount is ItemsCount-1,
