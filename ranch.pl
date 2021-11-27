@@ -2,9 +2,6 @@
 
 /* File : ranch.pl */
 /* Store ranching information */
-
-:- include('player.pl').
-
 :- dynamic(cowAnimal/2).
 :- dynamic(sheepAnimal/2).
 :- dynamic(goatAnimal/2).

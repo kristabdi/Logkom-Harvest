@@ -1,8 +1,6 @@
 /* File : fish.pl */
 /* Store fishing information */
 
-:- include('player.pl').
-
 /* Format fishItem(id, lvlRequrement, sellPrice) */
 /* id: 1=zonk, 2=sandal, 3=ember, 4=lele, 5=mujair, 6=kakap, 7=gurame, 8=belut, 9=kepiting,
 10= lobster, 11=arwana */
@@ -19,7 +17,8 @@ fishItem(10, 8, 1250).
 fishItem(11, 10, 2500).
 
 fish :- (
-  player(_,_,_,Lvl, _,_,_,_),
+  write('Halo'),
+  player(_,_,_,Lvl,_, _,_,_,_,_),
   (Lvl =:= 1 -> (
     random(1, 4, Type)
   );Lvl =:= 2 -> (
