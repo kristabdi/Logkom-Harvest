@@ -32,6 +32,12 @@ list_replace(A, X, [A|B], [X|B]).
 list_replace(A, X, [B, C|D], [B|E]) :-
   list_replace(A, X, [C|D], E).
 
+list_reduce([], []).
+list_reduce([H|T], [X|New]) :- (
+  list_reduce(T, New),
+  X is H - 1
+).
+
 /* Format animal(Type, Produk, HargaProduk, Cooldown) */
 /* Type 1=cow, 2=sheep, 3=goat */
 /* Produk 1=milk, 2=wool, 3=meat */ 
@@ -40,7 +46,7 @@ animal(1,3, 7500,0).
 animal(2,2, 700, 3).
 animal(3,3, 5000, 0).
 
-/* 
+/*
 cowAnimal(CowDurationList,2).
 sheepAnimal(SheepDurationList,4).
 goatAnimal(GoatDurationList,2). 
@@ -117,4 +123,24 @@ goat :- (
     write(GoatLength),
     write(' goat meat \n')
   ); write('You dont have any goat! \n'))
+).
+
+updateRanch :- (
+  cowAnimal(CowList, CowLength),
+  list_reduce(CowList,NewCowList),
+
+  assertz(cowAnimal(NewCowList, CowLength)),
+  retract(cowAnimal(CowList, CowLength)),
+
+  sheepAnimal(SheepList, SheepLength),
+  list_reduce(SheepList,NewSheepList),
+
+  assertz(sheepAnimal(NewSheepList, SheepLength)),
+  retract(sheepAnimal(SheepList, SheepLength)),
+
+  goatAnimal(GoatList, GoatLength),
+  list_reduce(GoatList,NewGoatList),
+
+  assertz(goatAnimal(NewGoatList, GoatLength)),
+  retract(goatAnimal(GoatList, GoatLength)),
 ).
