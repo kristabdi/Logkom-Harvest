@@ -55,7 +55,7 @@ interiorObject(8, 12, 'M').
 interiorObject(12, 13, 'Q').
 
 /* Setup player position */
-interiorObject(2, 2, 'P').
+interiorObject(10, 10, 'P').
 
 /* Setup tilled land */
 % tilledGround(Counter, X, Y, PlantType, Duration, Boolean if tile is dugged)

@@ -90,22 +90,19 @@ tasks :-
     write('You have not started the game! \n'),
 	write('Type \'start\' to start the game... \n').
 
-farmCompleted(TypeQuest) :-
-    TypeQuest =:= 1, !,
+farmCompleted:-
     quest(0,_,_,_,_,_), nl,
     write('TASKS COMPLETED!!!'), nl,
     write('You got some rewards!\n'),
     addExp(1).
 
-fishCompleted(TypeQuest) :-
-    TypeQuest =:= 2, !,
+fishCompleted:-
     quest(_,_,0,_,_,_), nl,
     write('TASKS COMPLETED!!!'), nl,
     write('You got some rewards!\n'),
     addExp(2).
 
-ranchCompleted(TypeQuest) :-
-    TypeQuest =:= 3, !,
+ranchCompleted:-
     quest(_,_,_,_,0,_), nl,
     write('TASKS COMPLETED!!!'), nl,
     write('You got some rewards!\n'),
@@ -124,32 +121,31 @@ questCompleted :-
 finishQuest(_,_) :-
     isQuestFinished, !.
 
-finishQuest(TypeQuest, TypePlant) :-
-    TypeQuest =:= 1,
+finishQuest(1, TypePlant) :-
     quest(TempX,TypeX,Y,TypeY,Z,TypeZ),
     TypePlant =:= TypeX -> (
         X is TempX - 1
     ),
-    retract(TempX,TypeX,Y,TypeY,Z,TypeZ),
+    retract(quest(TempX,TypeX,Y,TypeY,Z,TypeZ)),
     asserta(quest(X, TypeX, Y, TypeY, Z, TypeZ)),
     addExp(1),
     farmCompleted, !,
     questCompleted, !.
 
-finishQuest(TypeQuest, TypeFish) :-
-    TypeQuest =:= 2,
+finishQuest(2, TypeFish) :-
     quest(X,TypeX,TempY,TypeY,Z,TypeZ),
+    write(TypeFish), nl,
+    write(TypeY), nl,
     TypeFish =:= TypeY -> (
         Y is TempY - 1
     ),
     retract(quest(X,TypeX,TempY,TypeY,Z,TypeZ)),
-    asserta(qquest(X,TypeX,Y,TypeY,Z,TypeZ)),
+    asserta(quest(X,TypeX,Y,TypeY,Z,TypeZ)),
     addExp(2),
     fishCompleted, !,
     questCompleted, !.
 
-finishQuest(TypeQuest, TypeRanch) :-
-    TypeQuest =:= 3,
+finishQuest(3, TypeRanch) :-
     quest(X,TypeX,Y,TypeY,TempZ,TypeZ),
     TypeRanch =:= TypeZ -> (
         Z is TempZ - 1

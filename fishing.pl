@@ -2,7 +2,9 @@
 /* Store fishing information */
 
 :- dynamic(lvlMod/1).
+:- dynamic(random_out/1).
 
+random_out(0).
 lvlMod(0).
 fish :- (
     player(_,_,_,Lvl,_, _,_,_,_,_),
@@ -51,6 +53,9 @@ fish :- (
         )
       )
     )),
+
+    retract(random_out(_)),
+    assertz(random_out(Type)),
     Id is Type+8,
     finishQuest(2, Id), !,
     write('You got '),
@@ -89,29 +94,10 @@ fish :- (
       assertz(lvlMod(NewLvl))
     )),
     
-    lvlMod(CurLvl),
-    (CurLvl =:= 1 -> (
-      random(1, 4, Type)
-    );CurLvl =:= 2 -> (
-      random(1, 6, Type)
-    );CurLvl =:= 3 -> (
-      random(1, 8, Type)
-    );CurLvl =:= 4 ->(
-      random(1, 9, Type)
-    );CurLvl > 4 -> (
-      CurLvl < 7 -> (
-        random(1, 10, Type)
-      );CurLvl > 7 -> (
-        CurLvl < 9 -> (
-          random(1, 11, Type)
-        ); CurLvl > 9 -> (
-          random(1, 12, Type)
-        )
-      )
-    )),
-    
+    random_out(Type),
     write('You got '),
     Id is Type+8,
+    write(Id), nl,
     (Type =:= 1 -> (
       write('nothing\n')
     );

@@ -216,15 +216,15 @@ updateRanch :- (
 writeTypeRanch(TypeRanch) :-
   (
   TypeRanch =:= 40 -> (
-    write('cow\n')
+    write('cow milk\n')
   )
   ;
   TypeRanch =:= 41 -> (
-    write('sheep\n')
+    write('cow meat\n')
   )
   ;
   TypeRanch =:= 42 -> (
-    write('goat\n')
+    write('goat meat\n')
   )
   ;
   TypeRanch =:= 43 -> (
