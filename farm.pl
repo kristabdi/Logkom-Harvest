@@ -80,7 +80,7 @@ harvest(PosisiX, PosisiY) :- (
     write('Im not ready ~plant\n')
   )),
 
-  finishQuest(1)
+  finishQuest(1, TypePlant)
 ).
 
 writeTypePlant(TypePlant) :-

@@ -92,7 +92,7 @@ farmCompleted(TypeQuest) :-
 
 fishCompleted(TypeQuest) :-
     TypeQuest =:= 2, !,
-    quest(_,_0,_,_,_), nl,
+    quest(_,_,0,_,_,_), nl,
     write('▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄ █\n'), nl,
     write('░█░ █▀█ ▄█ █░█ ▄█   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀ ▄\n'), nl,
     write('You got some rewards!\n'),
@@ -100,7 +100,7 @@ fishCompleted(TypeQuest) :-
 
 ranchCompleted(TypeQuest) :-
     TypeQuest =:= 3, !,
-    quest(_,_,,_,_0,_), nl,
+    quest(_,_,,_,_,0,_), nl,
     write('▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄ █\n'), nl,
     write('░█░ █▀█ ▄█ █░█ ▄█   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀ ▄\n'), nl,
     write('You got some rewards!\n'),
@@ -119,34 +119,43 @@ questCompleted :-
 
 questCompleted :- !.
 
-finishQuest(_) :-
+finishQuest(_,_) :-
     isQuestFinished, fail.
 
-finishQuest(TypeQuest) :-
+finishQuest(TypeQuest, TypePlant) :-
     TypeQuest =:= 1,
     quest(TempX,TypeX,Y,TypeY,Z,TypeZ),
-    X is TempX - 1,
+    TypePlant =:= TypeX -> (
+        X is TempX - 1
+    ),
     retract(TempX,TypeX,Y,TypeY,Z,TypeZ),
     asserta(quest(X, TypeX, Y, TypeY, Z, TypeZ)),
+    addExp(1),
     farmCompleted, !,
     questCompleted, !.
 
-finishQuest(TypeQuest) :-
+finishQuest(TypeQuest, TypeFish) :-
     TypeQuest =:= 2,
     quest(X,TypeX,TempY,TypeY,Z,TypeZ),
-    Y is TempY - 1,
+    TypeFish =:= TypeY -> (
+        Y is TempY - 1
+    ),
     retract(quest(X,TypeX,TempY,TypeY,Z,TypeZ)),
     asserta(qquest(X,TypeX,Y,TypeY,Z,TypeZ)),
+    addExp(2),
     fishCompleted, !,
     questCompleted, !.
 
-finishQuest(TypeQuest) :-
+finishQuest(TypeQuest, TypeRanch) :-
     TypeQuest =:= 3,
     quest(X,TypeX,Y,TypeY,TempZ,TypeZ),
-    Z is TempZ - 1,
+    TypeRanch =:= TypeZ -> (
+        Z is TempZ - 1
+    ),
     retract(quest(X,TypeX,Y,TypeY,TempZ,TypeZ)),
     asserta(quest(X,TypeX,Y,TypeY,Z,TypeZ)),
+    addExp(3),
     ranchCompleted, !,
     questCompleted, !.
 
-finishQuest(_) :- !.
+finishQuest(_,_) :- !.
