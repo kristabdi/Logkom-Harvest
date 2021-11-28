@@ -36,7 +36,14 @@ itemCount([[_, Count]|T], Total) :-
     Total is Count + Temp.
 
 /* drop(X, Y) membuang X sebanyak Y dari inventory jika ada */
-drop(Item) :- drop(Item, 1).
+dropItem :-
+    write("What do you want to drop?"), nl,
+    inv,
+    write('>'), read(X),
+    write("How many do you want to drop?"), nl,
+    write('>'), read(Y),
+    drop(X,Y).
+    
 drop(_, Count) :- Count =< 0, !, write('Item count must be more than 0'), fail.
 drop(Item, Count) :-
     inventory(Inv),
