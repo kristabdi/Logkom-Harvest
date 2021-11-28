@@ -52,7 +52,7 @@ reset_time:-
     retract(current_time(X)),
     assertz(current_time(Y)),
     days_count(CurrentDay),
-    NextDay is CurrentDay + 1,
+    NextDay is CurrentDay + 100,
     retract(days_count(_)),
     assertz(days_count(NextDay)),
     updateFarm,
@@ -69,3 +69,19 @@ time:-
     write(' Days and '),
     write(Minutes),
     write(' Minutes.').
+
+checkGoalTime :- 
+    days_count(Days),
+    Days =:= 365 -> (
+        \+ checkGoalGold, !,
+        write('GAME OVER!'), nl,
+        write('You did not manage to collect more than 20000 Gold under one year.') , nl,
+        write('GAME OVER!') ,nl,
+        quit
+    )
+    ;
+    Days =:= 365 -> (
+        checkGoalGold, !,
+        write('GAME OVER!'), nl,
+        quit
+    ).

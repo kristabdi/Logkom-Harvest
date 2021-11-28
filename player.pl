@@ -47,7 +47,8 @@ addLevel:-
     Level_Now is Level + 1,
     Gold_Now is Gold + Level*50,
     retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold)),
-    asserta(player(Role, Level_Now, Level_Now, Level_Now, Level_Now, 0, 0, 0, Gold_Now)).
+    asserta(player(Role, Level_Now, Level_Now, Level_Now, Level_Now, 0, 0, 0, 0, Gold_Now)),
+    checkGoalGold.
 
 
 addExp(X) :-
@@ -198,10 +199,17 @@ status :-
     write('You haven\'t opened the game! \n'),
     write('Type \'openGame\' to open the game. \n').
 
+
 checkGoalGold :- 
-    player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold),
+    player(_, _, _, _, _, _, _, _, _, Gold),
+    (
     Gold >= 20000 -> (
         write('You have finished the game!'), nl,
         write('You have collected more than 20000 Gold under one year. Congratulations.') , nl,
         quit
-    ).
+    )
+    ;
+    Gold < 20000 -> (
+        !
+    )
+).
