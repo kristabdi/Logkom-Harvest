@@ -5,12 +5,31 @@
 /* inventory(X) berarti player memiliki inventory X yang berisi nama dan jumlah item */
 :- dynamic(inventory/1).
 
+inventory(Inv).
+
 /* Menuliskan isi inventory pada layar */
-inventory :- inventory(Inv), printInventory(Inv).
+inv :-  inventory(Inv), printInventory(Inv).
+
 printInventory([]) :- !.
+
 printInventory([[Name, Count]|T]) :-
     write(Count), write(' '), write(Name), nl,
     printInventory(T).
+
+invSeed :- inventory(Inv), printInventorySeed(Inv).
+
+printInventorySeed([]) :- !.
+
+printInventorySeed([[Name, Count]|T]) :-
+    item(Name, Id, _),
+    write(Name),
+    ( Id > 19 , Id < 30 ->
+        (write(Count), write(' '), write(Name), nl
+        ;
+        write('anjing'),nl
+        )
+    ),
+    
 
 /* itemCount(X, Y) berarti dalam inventory X terdapat Y item */
 itemCount([], 0).
@@ -44,7 +63,7 @@ drop(Item, Count) :-
 /* addItem(X, Y) menambahkan X sebanyak Y ke dalam inventory */
 addItem(_, Count) :- Count =< 0, !, write('Item count must be more than 0'), fail.
 addItem(Item, Count) :-
-    item(Item, _),
+    item(Item, _, _),
     inventory(Inv),
     itemCount(Inv, IC),
     (Count + IC =< 100 ->
