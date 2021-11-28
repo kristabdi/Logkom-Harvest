@@ -58,7 +58,7 @@ interiorObject(12, 13, 'Q').
 interiorObject(2, 2, 'P').
 
 /* Setup tilled land */
-% tilledGround(Counter, X, Y, PlantType, Duration, Boolean)
+% tilledGround(Counter, X, Y, PlantType, Duration, Boolean if plant exist)
 tilledGround(1, 0, 0, 0, 0, 0).
 tilledGround(2, 0, 0, 0, 0, 0).
 tilledGround(3, 0, 0, 0, 0, 0).

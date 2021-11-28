@@ -52,7 +52,7 @@ reset_time:-
     retract(current_time(X)),
     assertz(current_time(Y)),
     days_count(CurrentDay),
-    NextDay is CurrentDay + 100,
+    NextDay is CurrentDay + 1,
     retract(days_count(_)),
     assertz(days_count(NextDay)),
     updateFarm,

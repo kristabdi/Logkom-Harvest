@@ -89,15 +89,15 @@ plant:-(
 ).
 
 updateFarm :- (
-  tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration),
+  tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, 1),
   Duration_now is Duration - 1,
 
-  retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration)),
-  assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration_now))
+  retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, _)),
+  assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration_now, 1))
 ).
 
 harvest :- (
-  tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration),
+  tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, 1),
   (Duration<1 -> (
     item(Name, TypePlant, _),
     addItem(Name, 1),
@@ -105,8 +105,8 @@ harvest :- (
     write('You got a '),
     writeTypePlant(TypePlant),
 
-    retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration)),
-    assertz(tilledGround(Counter, 0, 0, 0, 0))
+    retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, _)),
+    assertz(tilledGround(Counter, 0, 0, 0, 0, 0))
   );(
     write('Im not ready ~plant\n')
   )),
