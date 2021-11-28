@@ -69,8 +69,7 @@ enter_questing:-
     read(X),
     (
     X =:= 1 -> (
-        questing, !
-        % ini mengarah ke function questing nanti
+        quest, !
     );
     X =:= 2 -> (
         !

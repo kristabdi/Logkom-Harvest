@@ -4,21 +4,25 @@
 :- include('fishing.pl').
 :- include('farm.pl').
 
-startQuest :-
-    asserta(quest(0,0,0,0,0,0)),!.
+quest(0,0,0,0,0,0).
 
 isQuestFinished :-
     quest(0,_,0,_,0,_).
 
 quest :-
-    startQuest,
+    write('anjing rila 1'),
     isQuestFinished,
+    write('anjing rila 2'),
     player(_, Level, _, _, _, _, _, _, _, _),
+    write('anjing rila 3'),
     questLevel(Level),
-    tasks, !.
+    write('anjing rila 4'),
+    tasks.
 
 quest :-
+    write('anjing rila 5'),
     \+ isQuestFinished, nl,
+    write('anjing rila 6'),
     write('You have an on-going quest!'), nl.
 
 /*add (Jumlah, TipeItem) */
@@ -26,19 +30,19 @@ addFarming(N, T) :-
     quest(TempX, _, Y, TypeY, Z, TypeZ),
     retract(quest(TempX, _, Y, TypeY, Z, TypeZ)),
     X is N + TempX,
-    asserta(quest(X, T, Y, TypeY, Z, TypeZ)),!.
+    asserta(quest(X, T, Y, TypeY, Z, TypeZ)).
 
 addFishing(N, T) :-
     quest(X, TypeX, TempY, _, Z, TypeZ),
     retract(quest(X, TypeX, TempY, _, Z, TypeZ)),
     Y is N + TempY,
-    asserta(quest(X, TypeX, Y, T, Z, TypeZ)),!.
+    asserta(quest(X, TypeX, Y, T, Z, TypeZ)).
 
 addRanching(N, T) :-
     quest(X, TypeX, Y, TypeY, TempZ, _),
     retract(quest(X, TypeX, Y, TypeY, TempZ, _)),
     Z is N + TempZ,
-    asserta(quest(X, TypeX, Y, TypeY, Z, T)),!.
+    asserta(quest(X, TypeX, Y, TypeY, Z, T)).
 
 questLevel(Level) :-
     Level =< 3,
@@ -88,7 +92,7 @@ farmCompleted(TypeQuest) :-
     write('▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄ █\n'), nl,
     write('░█░ █▀█ ▄█ █░█ ▄█   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀ ▄\n'), nl,
     write('You got some rewards!\n'),
-    addExp(1),!.
+    addExp(1).
 
 fishCompleted(TypeQuest) :-
     TypeQuest =:= 2, !,
@@ -96,11 +100,11 @@ fishCompleted(TypeQuest) :-
     write('▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄ █\n'), nl,
     write('░█░ █▀█ ▄█ █░█ ▄█   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀ ▄\n'), nl,
     write('You got some rewards!\n'),
-    addExp(2),!.
+    addExp(2).
 
 ranchCompleted(TypeQuest) :-
     TypeQuest =:= 3, !,
-    quest(_,_,,_,_,0,_), nl,
+    quest(_,_,_,_,0,_), nl,
     write('▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄ █\n'), nl,
     write('░█░ █▀█ ▄█ █░█ ▄█   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀ ▄\n'), nl,
     write('You got some rewards!\n'),
@@ -117,10 +121,8 @@ questCompleted :-
     retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold)),
     asserta(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, NGold)).
 
-questCompleted :- !.
-
 finishQuest(_,_) :-
-    isQuestFinished, fail.
+    isQuestFinished, !.
 
 finishQuest(TypeQuest, TypePlant) :-
     TypeQuest =:= 1,
@@ -157,5 +159,3 @@ finishQuest(TypeQuest, TypeRanch) :-
     addExp(3),
     ranchCompleted, !,
     questCompleted, !.
-
-finishQuest(_,_) :- !.
