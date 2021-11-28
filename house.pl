@@ -33,42 +33,10 @@ house:-
         house
     );
     X =:= 2 -> (
-        % Pull facts
-        days_count(CurrentDay),
-        save_counter(DayCounter),
-        save_list(SavedFiles),
-
-        % Insert current day to the list
-        insertAt(SavedFiles,CurrentDay,DayCounter,Temp),
-        retract(save_list(_)),
-        assertz(save_list(Temp)),
-        NextCounter is DayCounter + 1,
-        retract(save_counter(_)),
-        assertz(save_counter(NextCounter)),
-
-        % Converting user input to txt
-        number_atom(CurrentDay, ConvertedSaveString),
-        atom_concat(ConvertedSaveString, '.txt', ConvertedSaveName),
-        saveDay(ConvertedSaveName),
-        house
+        writeDiary
     );
     X =:= 3 -> (
-        write('Type the day number you want to rejoice to!'), nl,
-        write('Stored diaries:'),
-        save_list(SavedList), 
-        write(SavedList), nl,
-        read(UserDay),
-
-        % Delete chosen day from list
-        deleteElmt(UserDay, SavedList, Temp),
-        retract(save_list(_)),
-        assertz(save_list(Temp)),
-
-        % Converting user input to txt
-        number_atom(UserDay, ConvertedLoadString),
-        atom_concat(ConvertedLoadString, '.txt', ConvertedLoadName),
-        loadDay(ConvertedLoadName),
-        house
+        readDiary
     );
     X =:= 4 -> (
         !    
@@ -78,6 +46,7 @@ house:-
 sleep:-
     write('Wakey wakey, rise and shine!'), nl,
     write('A brand new day has arrived!'), nl,
+    time, nl,
     reset_time.
 
 % DEBUGGING PURPOSES
