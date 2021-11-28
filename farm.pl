@@ -2,18 +2,18 @@
 /* Store farming information */
 :- dynamic(counter/1).
 
-/* Format tanaman: plant(Type, GrowthDuration, BuyPrice, SellPrice) */
+/* Format tanaman: seed(Type, GrowthDuration) */
 /* Type 1=kentang, 2=labu, 3=tomat, 4=semangka, 5=brokoli, 6=anggur, 7=gandum, 8=jagung, 9=nanas, 10=durian*/
-plantItem(1, 8, 50, 220).
-plantItem(2, 8, 65, 200).
-plantItem(3, 14, 60, 160).
-plantItem(4, 20, 750, 3500).
-plantItem(5, 12, 30, 110).
-plantItem(6, 10, 500, 1500).
-plantItem(7, 3, 70, 250).
-plantItem(8, 16, 125, 900).
-plantItem(9, 18, 1000, 4000).
-plantItem(10, 15, 1250, 5000).
+seed(20, 8).
+seed(21, 8).
+seed(22, 14).
+seed(23, 20).
+seed(24, 12).
+seed(24, 10).
+seed(25, 3).
+seed(26, 16).
+seed(28, 18).
+seed(29, 15).
 
 /* Dig ground */
 counter(1).
@@ -48,13 +48,16 @@ dig:-
 plant:-(
   tilledGround(_, X, Y, _, _),
   (X==Player_X , Y==Player_Y -> (
+    /* TODO Write inventory */
+
     write('Which plant?'), nl,
     read(TypePlant),
+    
     interiorObject(Player_X, Player_Y, 'P'),
     tilledGround(Counter, Player_X, Player_Y, _, _),
     retract(tilledGround(Counter, _, _, _, _)),
 
-    plantItem(TypePlant, Duration, _, _),
+    seed(TypePlant, Duration),
     assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration)),
     write('Successfully planted '),
     writeTypePlant(TypePlant)
@@ -72,8 +75,11 @@ updateFarm :- (
 harvest(PosisiX, PosisiY) :- (
   tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration),
   (Duration<1 -> (
-    plantItem(TypePlant, _,_, SellPrice),
-    write(SellPrice),
+    Id is TypePlant+10,
+    item(_, Id, SellPrice),
+    
+    /* TODO Masukkan ke inventory*/
+
     retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration)),
     assertz(tilledGround(Counter, 0, 0, 0, 0))
   );(

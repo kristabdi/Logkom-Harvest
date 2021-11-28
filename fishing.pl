@@ -1,21 +1,6 @@
 /* File : fish.pl */
 /* Store fishing information */
 
-/* Format fishItem(id, lvlRequrement, sellPrice) */
-/* id: 1=zonk, 2=sandal, 3=ember, 4=lele, 5=mujair, 6=kakap, 7=gurame, 8=belut, 9=kepiting,
-10= lobster, 11=arwana */
-fishItem(1, 1, 0).
-fishItem(2, 1, 5).
-fishItem(3, 1, 5).
-fishItem(4, 2, 300).
-fishItem(5, 2, 400).
-fishItem(6, 3, 600).
-fishItem(7, 3, 600).
-fishItem(7, 4, 750).
-fishItem(9, 6, 900).
-fishItem(10, 8, 1250).
-fishItem(11, 10, 2500).
-
 fish :- (
   interiorObject(Player_X, Player_Y, Karakter),
   (Karakter == 'o' -> (
@@ -42,46 +27,10 @@ fish :- (
     
     write('You got '),
     writeTypeFish(Type),
-
-    (Type =:= 2 -> (
-      fishItem(Type, _, SellPrice),
-      assertz(inventory(Type, SellPrice))
-    );
-    Type =:= 3 -> (
-      fishItem(Type, _, SellPrice),
-      assertz(inventory(Type, SellPrice))
-    );
-    Type =:= 4 -> (
-      fishItem(Type, _, SellPrice),
-      assertz(inventory(Type, SellPrice))
-    );
-    Type =:= 5 -> (
-      fishItem(Type, _, SellPrice),
-      assertz(inventory(Type, SellPrice))
-    );
-    Type =:= 6 -> (
-      fishItem(Type, _, SellPrice),
-      assertz(inventory(Type, SellPrice))
-    );
-    Type =:= 7 -> (
-      fishItem(Type, _, SellPrice),
-      assertz(inventory(Type, SellPrice))
-    );
-    Type =:= 8 -> (
-      fishItem(Type, _, SellPrice),
-      assertz(inventory(Type, SellPrice))
-    );
-    Type =:= 9 -> (
-      fishItem(Type, _, SellPrice),
-      assertz(inventory(Type, SellPrice))
-    );
-    Type =:= 10 -> (
-      fishItem(Type, _, SellPrice),
-      assertz(inventory(Type, SellPrice))
-    );
-    Type =:= 11 -> (
-      fishItem(Type, _, SellPrice),
-      assertz(inventory(Type, SellPrice))
+    (Type =\= 1 -> (
+      Id is Type+8,
+      item(Name, Id, SellPrice),
+      addItem(Name, 1)
     )),
 
     addExp(2)
