@@ -26,14 +26,14 @@ buy :-
 
 buyEquipment :-
     write('What do you want to buy?'), nl,
-    write('1. Level 2 Hoe'), nl,
-    write('2. Level 3 Hoe'), nl,
-    write('3. Level 4 Hoe'), nl,
-    write('4. Level 5 Hoe'), nl,
-    write('5. Level 2 Fishing Rod'), nl,
-    write('6. Level 3 Fishing Rod'), nl,
-    write('7. Level 4 Fishing Rod'), nl,
-    write('8. Level 5 Fishing Rod'), nl,
+    write('1. Level 2 Hoe (5000)'), nl,
+    write('2. Level 3 Hoe (7000)'), nl,
+    write('3. Level 4 Hoe (9000)'), nl,
+    write('4. Level 5 Hoe (11000)'), nl,
+    write('5. Level 2 Fishing Rod (5000)'), nl,
+    write('6. Level 3 Fishing Rod (7000)'), nl,
+    write('7. Level 4 Fishing Rod (9000)'), nl,
+    write('8. Level 5 Fishing Rod (11000)'), nl,
     write('9. Exit'), nl,
     write('>'), read(X),
     (X == 1 -> buyEq('Level 2 Hoe')
@@ -62,16 +62,16 @@ buyEq(Item) :-
 
 buySeed :- 
     write('What do you want to buy?'), nl,
-    write('1. Biji Kentang'), nl,
-    write('2. Biji Labu'), nl,
-    write('3. Biji Tomat'), nl,
-    write('4. Biji Semangka'), nl,
-    write('5. Biji Brokoli'), nl,
-    write('6. Biji Anggur'), nl,
-    write('7. Biji Gandum'), nl,
-    write('8. Biji Jagung'), nl,
-    write('9. Biji Nanas'), nl,
-    write('10. Biji Durian'), nl,
+    write('1. Biji Kentang (50)'), nl,
+    write('2. Biji Labu (65)'), nl,
+    write('3. Biji Tomat (60)'), nl,
+    write('4. Biji Semangka (750)'), nl,
+    write('5. Biji Brokoli (30)'), nl,
+    write('6. Biji Anggur (500)'), nl,
+    write('7. Biji Gandum (70)'), nl,
+    write('8. Biji Jagung (125)'), nl,
+    write('9. Biji Nanas (1000)'), nl,
+    write('10. Biji Durian (1250)'), nl,
     write('11. Exit'), nl,
     write('>'), read(X),
     (X == 1 -> buySd('Biji Kentang')
@@ -104,9 +104,9 @@ buySd(Item) :-
 
 buyAnimal :- 
     write('What do you want to buy?'), nl,
-    write('1. Cow'), nl,
-    write('2. Sheep'), nl,
-    write('3. Goat'), nl,
+    write('1. Cow (3000)'), nl,
+    write('2. Sheep (2000)'), nl,
+    write('3. Goat (1500)'), nl,
     write('4. Exit'), nl,
     write('>'), read(X),
     (X == 1 -> buyCow
@@ -127,7 +127,7 @@ buyCow :-
         NewCowLength is CowLength + 1,
         retract(cowAnimal(CowList, CowLength)),
         assertz(cowAnimal(NewCowList, NewCowLength)),
-        write('You bought '), write(X), write(' Cow')
+        write('You bought 1 Cow')
     ;
         write('You do not have enough gold')
     ).
@@ -144,7 +144,7 @@ buySheep :-
         NewSheepLength is SheepLength + 1,
         retract(sheepAnimal(SheepList, SheepLength)),
         assertz(sheepAnimal(NewSheepList, NewSheepLength)),
-        write('You bought '), write(X), write(' Sheep')
+        write('You bought 1 Sheep')
     ;
         write('You do not have enough gold')
     ).
@@ -161,22 +161,24 @@ buyGoat :-
         NewGoatLength is GoatLength + 1,
         retract(goatAnimal(GoatList, GoatLength)),
         assertz(goatAnimal(NewGoatList, NewGoatLength)),
-        write('You bought '), write(X), write(' Goat')
+        write('You bought 1 Goat')
     ;
         write('You do not have enough gold')
     ).
 
 sell :-
     player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold),
-    write('What do you want to sell?'),
+    write('What do you want to sell?'), nl,
     inv,
     write('>'), read(X),
-    write('How many?'), read(Y),
+    write('How many?'), nl,
+    write('>'), read(Y),
     drop(X,Y), !,
     item(X, Id, Price),
     Gold_Now is Gold + Y*Price,
     retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold)),
     assertz(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold_Now)).
+    write('Successfully sold '), write(Y), write(' '), write(X), write(' for '), write(Y*Price), write(' gold').
 
 exitStore :-
     write('Thank you for coming').

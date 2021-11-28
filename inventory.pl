@@ -37,10 +37,10 @@ itemCount([[_, Count]|T], Total) :-
 
 /* drop(X, Y) membuang X sebanyak Y dari inventory jika ada */
 dropItem :-
-    write("What do you want to drop?"), nl,
+    write('What do you want to drop?'), nl,
     inv,
     write('>'), read(X),
-    write("How many do you want to drop?"), nl,
+    write('How many do you want to drop?'), nl,
     write('>'), read(Y),
     drop(X,Y).
     
