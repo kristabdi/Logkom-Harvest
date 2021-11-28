@@ -51,6 +51,8 @@ plant:-(
   (X==Player_X , Y==Player_Y -> (
     /* TODO Write inventory */
 
+    
+
     write('Which plant?'), nl,
     read(TypePlant),
 
@@ -73,6 +75,7 @@ updateFarm :- (
   assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration_now))
 ).
 
+/* TODO gausah kasih param */
 harvest(PosisiX, PosisiY) :- (
   tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration),
   (Duration<1 -> (

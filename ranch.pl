@@ -4,27 +4,11 @@
 :- dynamic(sheepAnimal/2).
 :- dynamic(goatAnimal/2).
 
-list_member(X,[X|_]).
-list_member(X,[_|TAIL]) :- list_member(X,TAIL).
-
-list_length([],0).
-list_length([_|TAIL],N) :- list_length(TAIL,N1), N is N1 + 1.
-
 list_zero([],0) :- !.
 list_zero([H|TAIL],N) :- (
   list_zero(TAIL,N1),
   ((H < 1) -> (N is N1 + 1); N is N1)
 ).
-
-list_nonzero([],0) :- !.
-list_nonzero([H|TAIL],N) :- (
-  list_nonzero(TAIL,N1),
-  ((H > 0) -> (N is N1 + 1); N is N1)
-).
-
-list_delete(A, [A|B], B).
-list_delete(A, [B, C|D], [B|E]) :-
-  list_delete(A, [C|D], E).
 
 list_replace(A, X, [A|B], [X|B]).
 list_replace(A, X, [B, C|D], [B|E]) :-
@@ -102,6 +86,7 @@ cow :- (
 
       ); Choice =:=2 -> (
         retract(cowAnimal(CowList, CowLength)),
+        assertz(cowAnimal([], 0)),
         write('Congratulations, you get '),
         write(CowLength),
         write(' beef \n'),
@@ -146,7 +131,8 @@ goat :- (
     goatAnimal(GoatList, GoatLength),
     (GoatLength>0 -> (
       retract(goatAnimal(GoatList, GoatLength)),
-    
+      assertz(goatAnimal([], 0)),
+      
       write('Congratulations, you get '),
       write(GoatLength),
       write(' goat meat \n'),
