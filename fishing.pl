@@ -38,48 +38,43 @@ fish :- (
 ).
 
 writeTypeFish(TypeFish) :-
-  (
-  TypeFish =:= 1 -> (
-    write('nothing\n')
-  )
-  ;
-  TypeFish =:= 2 -> (
+  TypeFish =:= 10 -> (
     write('sandal\n')
   )
   ;
-  TypeFish =:= 3 -> (
+  TypeFish =:= 11 -> (
     write('ember\n')
   )
   ;
-  TypeFish =:= 4 -> (
+  TypeFish =:= 12 -> (
     write('lele\n')
   )
   ;
-  TypeFish =:= 5 -> (
+  TypeFish =:= 13 -> (
     write('mujair\n')
   )
   ;
-  TypeFish =:= 6 -> (
+  TypeFish =:= 14 -> (
     write('kakap\n')
   )
   ;
-  TypeFish =:= 7 -> (
+  TypeFish =:= 15 -> (
     write('gurame\n')
   )
   ;
-  TypeFish =:= 8 -> (
+  TypeFish =:= 16 -> (
     write('belut\n')
   )
   ;
-  TypeFish =:= 9 -> (
+  TypeFish =:= 17 -> (
     write('kepiting\n')
   )
   ;
-  TypeFish =:= 10 -> (
+  TypeFish =:= 18 -> (
     write('lobster\n')
   )
   ;
-  TypeFish =:= 11 -> (
+  TypeFish =:= 19 -> (
     write('arwana\n')
   )
 ).

@@ -2,7 +2,7 @@
 :- include('player.pl').
 :- include('farm.pl').
 :- include('fishing.pl').
-:- include('farm.pl').
+:- include('ranch.pl').
 
 quest(0,0,0,0,0,0).
 
@@ -46,15 +46,15 @@ addRanching(N, T) :-
 
 questLevel(Level) :-
     Level =< 3,
-    random(1,10,TypeX), random(1,3,X), addFarming(X, TypeX),
-    random(1,11,TypeY), random(1,2,Y), addFishing(Y, TypeY),
-    random(1,3,TypeZ), random(1,2,Z), addRanching(Z, TypeZ).
+    random(30,39,TypeX), random(1,3,X), addFarming(X, TypeX),
+    random(10,19,TypeY), random(1,2,Y), addFishing(Y, TypeY),
+    random(40,43,TypeZ), random(1,2,Z), addRanching(Z, TypeZ).
 
 questLevel(Level) :-
     Level =< 7,
-    random(1,10,TypeX), random(1,5,X), addFarming(X, TypeX),
-    random(1,11,TypeY), random(1,4,Y), addFishing(Y, TypeY),
-    random(1,3,TypeZ), random(1,4,Z), addRanching(Z, TypeZ).
+    random(30,39,TypeX), random(1,5,X), addFarming(X, TypeX),
+    random(10,19,TypeY), random(1,4,Y), addFishing(Y, TypeY),
+    random(40,43,TypeZ), random(1,4,Z), addRanching(Z, TypeZ).
 
 questLevel(Level) :-
     Level =< 10,
