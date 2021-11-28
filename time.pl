@@ -30,7 +30,8 @@ add_time:-
         MinutesUpdate is Limit - X,
         retract(current_time(X)),
         assertz(current_time(MinutesUpdate)),
-        updateFarm
+        updateFarm,
+        updateRanch
         );
     X + Y =:= Limit -> (
         DayUpdate is CurrentDay + 1,
@@ -54,7 +55,8 @@ reset_time:-
     NextDay is CurrentDay + 1,
     retract(days_count(_)),
     assertz(days_count(NextDay)),
-    updateFarm.
+    updateFarm,
+    updateRanch.
 
 /* Time checking and reset minutes */
 
