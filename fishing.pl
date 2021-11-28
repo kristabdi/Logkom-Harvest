@@ -8,7 +8,7 @@ fish :- (
     player(_,_,_,Lvl,_, _,_,_,_,_),
     retract(lvlMod(_)),
     assertz(lvlMod(Lvl)),
-
+    
     (isInInventory(9) -> (
       NewLvl is Lvl+5,
       retract(lvlMod(_)),
@@ -22,7 +22,7 @@ fish :- (
       retract(lvlMod(_)),
       assertz(lvlMod(NewLvl))
     );isInInventory(6) -> (
-      NewLvl is Lvl+1,
+      NewLvl is Lvl+2,
       retract(lvlMod(_)),
       assertz(lvlMod(NewLvl))
     )),

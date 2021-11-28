@@ -56,9 +56,6 @@ plant:-(
     write('Which Id?'), nl,
     read(TypePlant),
 
-    tilledGround(Counter, Player_X, Player_Y, _, _, _),
-    retract(tilledGround(Counter, _, _, _, _, _)),
-
     seed(TypePlant, Duration),
     retract(durationMod(_)),
     assertz(durationMod(Duration)),
@@ -76,11 +73,10 @@ plant:-(
       retract(durationMod(_)),
       assertz(durationMod(NewDuration))
     );isInInventory(1) -> (
-      NewDuration is Duration//1,
+      NewDuration is Duration//2,
       retract(durationMod(_)),
       assertz(durationMod(NewDuration))
     )),
-    
     durationMod(CurDur),
     assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, CurDur, 1)),
     write('Successfully planted '),
@@ -89,7 +85,7 @@ plant:-(
 ).
 
 updateFarm :- (
-  tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, 1),
+  tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, _),
   Duration_now is Duration - 1,
 
   retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, _)),

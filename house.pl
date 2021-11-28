@@ -65,13 +65,3 @@ fairy:-
             enter_questing, fail    
         )
     ).
-
-% DEBUGGING PURPOSES
-%ranch:-
-%    write('This is the ranch').
-
-marketplace:-
-    write('This is the marketplace').
-
-questing:-
-    write('This is the questing area').

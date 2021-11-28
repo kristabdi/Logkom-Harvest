@@ -31,21 +31,21 @@ add_time:-
         retract(current_time(X)),
         assertz(current_time(MinutesUpdate)),
         updateFarm,
-        updateRanch,
-        checkGoalTime
+        updateRanch
+        %checkGoalTime
         );
     X + Y =:= Limit -> (
         DayUpdate is CurrentDay + 1,
         retract(days_count(CurrentDay)),
         assertz(days_count(DayUpdate)),
-        reset_time,
-        checkGoalTime
+        reset_time
+        %checkGoalTime
         );
     X + Y < Limit -> (
         Time_Now is X + Y,
         retract(current_time(X)),
-        assertz(current_time(Time_Now)),
-        checkGoalTime
+        assertz(current_time(Time_Now))
+        %checkGoalTime
         )
     ).  
 
@@ -59,8 +59,8 @@ reset_time:-
     retract(days_count(_)),
     assertz(days_count(NextDay)),
     updateFarm,
-    updateRanch,
-    checkGoalTime.
+    updateRanch.
+    %checkGoalTime.
 
 /* Time checking and reset minutes */
 

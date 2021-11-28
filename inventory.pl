@@ -1,6 +1,3 @@
-/* include modul lain */
-:- include('items.pl').
-
 /* Deklarasi predikat inventory() sebagai dynamic */
 /* inventory(X) berarti player memiliki inventory X yang berisi nama dan jumlah item */
 :- dynamic(inventory/1).
@@ -87,5 +84,4 @@ addItem(Item, Count) :-
 isInInventory(Id) :-
     item(Item,Id, _),
     inventory(Inv),
-    itemCount(Inv, IC),
-    member([Item, CountInv], Inv).
+    member([Item, _], Inv).

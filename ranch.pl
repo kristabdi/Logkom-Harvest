@@ -16,7 +16,6 @@ list_replace(A, X, [B, C|D], [B|E]) :-
 
 list_reduce([], []).
 list_reduce([H|T], [X|New]) :- (
-  write('halaw juga'),
   list_reduce(T, New),
   X is H - 1
 ).
@@ -144,7 +143,6 @@ goat :- (
 
 updateRanch :- (
   cowAnimal(CowList, CowLength),
-  write('halaw'),
   list_reduce(CowList,NewCowList),
 
   assertz(cowAnimal(NewCowList, CowLength)),

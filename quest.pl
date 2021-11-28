@@ -1,8 +1,4 @@
 :- dynamic(quest/6).
-:- include('player.pl').
-:- include('farm.pl').
-:- include('fishing.pl').
-:- include('ranch.pl').
 
 quest(0,0,0,0,0,0).
 
