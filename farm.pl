@@ -75,8 +75,7 @@ updateFarm :- (
   assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration_now))
 ).
 
-/* TODO gausah kasih param */
-harvest(PosisiX, PosisiY) :- (
+harvest :- (
   tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration),
   (Duration<1 -> (
     item(Name, TypePlant, _),
