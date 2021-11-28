@@ -49,11 +49,8 @@ dig:-
 plant:-(
   tilledGround(_, X, Y, _, _),
   (X==Player_X , Y==Player_Y -> (
-    /* TODO Write inventory */
-
-    
-
-    write('Which plant?'), nl,
+    printInventorySeed,  
+    write('Which Id?'), nl,
     read(TypePlant),
 
     interiorObject(Player_X, Player_Y, 'P'),

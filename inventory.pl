@@ -24,9 +24,9 @@ printInventorySeed([[Name, Count]|T]) :-
     item(Name, Id, _),
     write(Name),
     ( Id > 19 , Id < 30 ->
-        (write(Count), write(' '), write(Name), nl
+        (write(Count), write(' '), write(Id),write(' '),write(Name), nl
         ;
-        write('anjing'),nl
+        write('You dont have any seed!\n'),nl
         )
     ),
     
