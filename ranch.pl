@@ -20,19 +20,15 @@ list_reduce([H|T], [X|New]) :- (
   X is H - 1
 ).
 
-/* Format animal(Type, Produk, HargaProduk, Cooldown) */
-/* Type 1=cow, 2=sheep, 3=goat */
-/* Produk 1=milk, 2=wool, 3=meat */ 
-animal(1,1, 500, 1).
-animal(1,3, 7500,0).
-animal(2,2, 700, 3).
-animal(3,3, 5000, 0).
-
 /*
 cowAnimal(CowDurationList,2).
 sheepAnimal(SheepDurationList,4).
 goatAnimal(GoatDurationList,2). 
 */
+
+cowAnimal([],0).
+sheepAnimal([],0).
+goatAnimal([],0). 
 
 ranch :- (
   interiorObject(Player_X, Player_Y, Karakter),
@@ -132,7 +128,7 @@ goat :- (
     (GoatLength>0 -> (
       retract(goatAnimal(GoatList, GoatLength)),
       assertz(goatAnimal([], 0)),
-      
+
       write('Congratulations, you get '),
       write(GoatLength),
       write(' goat meat \n'),

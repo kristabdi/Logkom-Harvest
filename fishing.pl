@@ -1,25 +1,50 @@
 /* File : fish.pl */
 /* Store fishing information */
 
+:- dynamic(LvlMod/1).
+
+LvlMod(0).
 fish :- (
   interiorObject(Player_X, Player_Y, Karakter),
   (Karakter == 'o' -> (
     player(_,_,_,Lvl,_, _,_,_,_,_),
-    (Lvl =:= 1 -> (
+    retract(LvlMod(_)),
+    assertz(LvlMod(Lvl)),
+
+    (isInInventory(4) -> (
+      NewLvl is Lvl+5,
+      retract(LvlMod(_)),
+      assertz(LvlMod(NewLvl))
+    );isInInventory(3) -> (
+      NewLvl is Lvl+4,
+      retract(LvlMod(_)),
+      assertz(LvlMod(NewLvl))
+    );isInInventory(2) -> (
+      NewLvl is Lvl+3,
+      retract(LvlMod(_)),
+      assertz(LvlMod(NewLvl))
+    );isInInventory(1) -> (
+      NewLvl is Lvl+1,
+      retract(LvlMod(_)),
+      assertz(LvlMod(NewLvl))
+    )),
+    
+    LvlMod(CurLvl),
+    (CurLvl =:= 1 -> (
       random(1, 4, Type)
-    );Lvl =:= 2 -> (
+    );CurLvl =:= 2 -> (
       random(1, 6, Type)
-    );Lvl =:= 3 -> (
+    );CurLvl =:= 3 -> (
       random(1, 8, Type)
-    );Lvl =:= 4 ->(
+    );CurLvl =:= 4 ->(
       random(1, 9, Type)
-    );Lvl > 4 -> (
-      Lvl < 7 -> (
+    );CurLvl > 4 -> (
+      CurLvl < 7 -> (
         random(1, 10, Type)
-      );Lvl > 7 -> (
-        Lvl < 9 -> (
+      );CurLvl > 7 -> (
+        CurLvl < 9 -> (
           random(1, 11, Type)
-        ); Lvl > 9 -> (
+        ); CurLvl > 9 -> (
           random(1, 12, Type)
         )
       )

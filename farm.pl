@@ -99,7 +99,7 @@ harvest :- (
   tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration),
   (Duration<1 -> (
     item(Name, TypePlant, _),
-    addItem(TypePlant, 1),
+    addItem(Name, 1),
 
     write('You got a '),
     writeTypePlant(TypePlant),
