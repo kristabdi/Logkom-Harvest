@@ -72,7 +72,7 @@ updateFarm :- (
 harvest(PosisiX, PosisiY) :- (
   tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration),
   (Duration<1 -> (
-    plantItem(Type, _,_, SellPrice),
+    plantItem(TypePlant, _,_, SellPrice),
     write(SellPrice),
     retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration)),
     assertz(tilledGround(Counter, 0, 0, 0, 0))
