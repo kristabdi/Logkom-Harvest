@@ -14,7 +14,6 @@ house:-
         % If chances is 3, player will meet the fairy, able to jump anywhere
         (
             Chances =:= 3 -> (
-                write('Went here'),
                 fairy, fail   
             );
             Chances =\= 3 -> (

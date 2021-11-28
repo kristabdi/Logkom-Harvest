@@ -22,19 +22,19 @@ counter(1).
 dig:-
   interiorObject(Player_X, Player_Y, 'P'),
   counter(CurrentCounter),
-  tilledGround(CurrentCounter, Current_X, Current_Y, _, _),
+  tilledGround(CurrentCounter, Current_X, Current_Y, _, _, _),
 
   % Fill tilledGround facts
   (
   Current_X =:= 0, Current_Y =:= 0, CurrentCounter =< 15 -> (
       % Check location to see if there is already digged ground there
       (
-      tilledGround(_, Player_X, Player_Y, _, _) -> (
+      tilledGround(_, Player_X, Player_Y, _, _, 1) -> (
           write('You already dugged a land here! Move somewhere else!'), !   
       );
       (
-          retract(tilledGround(_, _, _, _,_)),
-          assertz(tilledGround(CurrentCounter, Player_X, Player_Y, 0, 0))
+          retract(tilledGround(_, _, _, _,_, _)),
+          assertz(tilledGround(CurrentCounter, Player_X, Player_Y, 0, 0, 1))
       )
       )
       );    
@@ -46,17 +46,18 @@ dig:-
       )    
   ).
 
+inventory(Inv).
 durationMod(0).
 plant:-(
-  tilledGround(_, X, Y, _, _),
-  (X==Player_X , Y==Player_Y -> (
-    printInventorySeed,  
+  interiorObject(Player_X, Player_Y, 'P'),
+  tilledGround(_, X, Y, _, _, 1),
+  (X=:=Player_X , Y=:=Player_Y -> (
+    printInventorySeed(Inv),  
     write('Which Id?'), nl,
     read(TypePlant),
 
-    interiorObject(Player_X, Player_Y, 'P'),
-    tilledGround(Counter, Player_X, Player_Y, _, _),
-    retract(tilledGround(Counter, _, _, _, _)),
+    tilledGround(Counter, Player_X, Player_Y, _, _, _),
+    retract(tilledGround(Counter, _, _, _, _, _)),
 
     seed(TypePlant, Duration),
     retract(durationMod(_)),
@@ -81,7 +82,7 @@ plant:-(
     )),
     
     durationMod(CurDur),
-    assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, CurDur)),
+    assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, CurDur, 1)),
     write('Successfully planted '),
     writeTypePlant(TypePlant)
   ); write('You havent tilled the ground yet!\n'))

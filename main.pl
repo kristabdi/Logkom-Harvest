@@ -11,7 +11,7 @@ read_job :-
     playerChoose(JobNumber),
     write(', lets start! Good luck!'), nl.
 
-startGame :-
+start:-
     ['diary.pl'],
     ['farm.pl'],
     ['fishing.pl'],
@@ -64,6 +64,10 @@ help:-
     write('Farming Commands:'), nl,
     write('8. dig    : dig a ground for planting'), nl,
     write('9. plant  : plant a seed inside a digged ground'), nl,
+    write('Ranching Commands:'), nl,
+    write('10. cow   : check your cows'), nl,
+    write('11. sheep : check your sheep'), nl,
+    write('12. goat  : check your goat'), nl,
     write('Other Commands:'), nl,
     write('8. help   : show this help menu'), nl.
 

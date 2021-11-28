@@ -1,35 +1,33 @@
 /* File : fish.pl */
 /* Store fishing information */
 
-:- dynamic(LvlMod/1).
+:- dynamic(lvlMod/1).
 
-LvlMod(0).
+lvlMod(0).
 fish :- (
-  interiorObject(Player_X, Player_Y, Karakter),
-  (Karakter == 'o' -> (
     player(_,_,_,Lvl,_, _,_,_,_,_),
-    retract(LvlMod(_)),
-    assertz(LvlMod(Lvl)),
+    retract(lvlMod(_)),
+    assertz(lvlMod(Lvl)),
 
-    (isInInventory(4) -> (
+    (isInInventory(9) -> (
       NewLvl is Lvl+5,
-      retract(LvlMod(_)),
-      assertz(LvlMod(NewLvl))
-    );isInInventory(3) -> (
+      retract(lvlMod(_)),
+      assertz(lvlMod(NewLvl))
+    );isInInventory(8) -> (
       NewLvl is Lvl+4,
-      retract(LvlMod(_)),
-      assertz(LvlMod(NewLvl))
-    );isInInventory(2) -> (
+      retract(lvlMod(_)),
+      assertz(lvlMod(NewLvl))
+    );isInInventory(7) -> (
       NewLvl is Lvl+3,
-      retract(LvlMod(_)),
-      assertz(LvlMod(NewLvl))
-    );isInInventory(1) -> (
+      retract(lvlMod(_)),
+      assertz(lvlMod(NewLvl))
+    );isInInventory(6) -> (
       NewLvl is Lvl+1,
-      retract(LvlMod(_)),
-      assertz(LvlMod(NewLvl))
+      retract(lvlMod(_)),
+      assertz(lvlMod(NewLvl))
     )),
     
-    LvlMod(CurLvl),
+    lvlMod(CurLvl),
     (CurLvl =:= 1 -> (
       random(1, 4, Type)
     );CurLvl =:= 2 -> (
@@ -61,7 +59,6 @@ fish :- (
     ),
 
     finishQuest(2, Id)
-  ); write('Youre not at a river!\n'))
 ).
 
 writeTypeFish(TypeFish) :- (

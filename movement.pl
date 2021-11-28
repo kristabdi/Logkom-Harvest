@@ -1,7 +1,7 @@
 /* Reset player position */
 reset_player_pos:-
     retract(interiorObject(_,_,'P')),
-    assertz(interiorObject(8,7,'P')).
+    assertz(interiorObject(8,6,'P')).
 
 /* When player hit the fence perimeter */
 hit_fence :-
@@ -24,7 +24,7 @@ hit_river :-
         reset_player_pos
     )
 ).
-    
+
 enter_house:-
     write('Do you wish to enter your house?'), nl,
     write('1. Yes'), nl,
@@ -32,7 +32,7 @@ enter_house:-
     read(X),
     (
     X =:= 1 -> (
-        house
+        house, !
     );
     X =:= 2 -> (
         !
@@ -76,7 +76,8 @@ enter_questing:-
     read(X),
     (
     X =:= 1 -> (
-        quest, !
+        questing, !
+        % ini mengarah ke function questing nanti
     );
     X =:= 2 -> (
         !
