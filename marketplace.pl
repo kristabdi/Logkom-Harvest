@@ -167,11 +167,16 @@ buyGoat :-
     ).
 
 sell :-
+    player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold),
     write('What do you want to sell?'),
     inv,
     write('>'), read(X),
-    write('How many?'), read(Y).
-
+    write('How many?'), read(Y),
+    drop(X,Y), !,
+    item(X, Id, Price),
+    Gold_Now is Gold + Y*Price,
+    retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold)),
+    assertz(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold_Now)).
 
 exitStore :-
     write('Thank you for coming').
