@@ -53,7 +53,7 @@ read_job :-
     write('2. Fisherman'), nl,
     write('3. Rancher'), nl,
     read(JobNumber),
-    (   playerChoose(Job),
+    (   playerChoose(JobNumber),
         write(', let’s start! Good luck!'), nl, !
     ;   write('Not a valid choice, try again...'), nl, fail
     ).
