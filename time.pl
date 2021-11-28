@@ -31,18 +31,21 @@ add_time:-
         retract(current_time(X)),
         assertz(current_time(MinutesUpdate)),
         updateFarm,
-        updateRanch
+        updateRanch,
+        checkGoalTime
         );
     X + Y =:= Limit -> (
         DayUpdate is CurrentDay + 1,
         retract(days_count(CurrentDay)),
         assertz(days_count(DayUpdate)),
-        reset_time
+        reset_time,
+        checkGoalTime
         );
     X + Y < Limit -> (
         Time_Now is X + Y,
         retract(current_time(X)),
-        assertz(current_time(Time_Now))
+        assertz(current_time(Time_Now)),
+        checkGoalTime
         )
     ).  
 
@@ -56,7 +59,8 @@ reset_time:-
     retract(days_count(_)),
     assertz(days_count(NextDay)),
     updateFarm,
-    updateRanch.
+    updateRanch,
+    checkGoalTime.
 
 /* Time checking and reset minutes */
 
@@ -72,7 +76,8 @@ time:-
 
 checkGoalTime :- 
     days_count(Days),
-    Days =:= 365 -> (
+    % If 1 year passed and still not 20000 gold
+    Days > 365 -> (
         \+ checkGoalGold, !,
         write('GAME OVER!'), nl,
         write('You did not manage to collect more than 20000 Gold under one year.') , nl,
@@ -80,8 +85,6 @@ checkGoalTime :-
         quit
     )
     ;
-    Days =:= 365 -> (
-        checkGoalGold, !,
-        write('GAME OVER!'), nl,
-        quit
+    Days < 365 -> (
+        !
     ).
