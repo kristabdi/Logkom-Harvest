@@ -1,6 +1,6 @@
 /* Masuk store */
-store :- game_start(0),!, write('The game has not started, type "start." to play the game').
-store :-
+marketplace :- game_start(0),!, write('The game has not started, type "start." to play the game').
+marketplace :-
     write('What do you want to do?'), nl,
     write('1. Buy'), nl,
     write('2. Sell'), nl,
