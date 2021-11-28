@@ -97,7 +97,7 @@ cow :- (
           item(Name, 40, _),
           addItem(Name, Zero),
 
-          addExp(3)
+          finishQuest(3, 40)
         ); write('Your cow hasnt produced any milk\n Check again tomorrow\n'))
 
       ); Choice =:=2 -> (
@@ -109,7 +109,7 @@ cow :- (
         item(Name, 41, _),
         addItem(Name, CowLength),
 
-        addExp(3)
+        finishQuest(3, 41)
       ))
     ); write('You dont have any cow! \n'))
   ))
@@ -134,7 +134,7 @@ sheep :- (
         item(Name, 43, _),
         addItem(Name, Zero),
       
-        addExp(3)
+        finishQuest(3, 43)
       ); write('Your sheep hasnt produced any wool\n Check again tomorrow\n'))
     ); write('You dont have any sheep! \n'))
   ))
@@ -154,7 +154,7 @@ goat :- (
       item(Name, 42, _),
       addItem(Name, GoatLength),
     
-      addExp(3)
+      finishQuest(3, 42)
     ); write('You dont have any goat! \n'))
   ))
 ).
