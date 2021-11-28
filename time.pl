@@ -60,7 +60,7 @@ reset_time:-
     NextDay is CurrentDay + 1,
     retract(days_count(_)),
     assertz(days_count(NextDay)),
-    updateFarm(Counter),
+    (\+ updateFarm(Counter)),
     updateRanch.
     %checkGoalTime.
 

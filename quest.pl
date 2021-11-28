@@ -109,7 +109,7 @@ ranchCompleted(TypeQuest) :-
     quest(_,_,_,_,0,_), nl,
     write('TASKS COMPLETED!!!'), nl,
     write('You got some rewards!\n'),
-    addExp(3),!.
+    addExp(3).
 
 questCompleted :-
     quest(0,_,0,_,0,_), nl,

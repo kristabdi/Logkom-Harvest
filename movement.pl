@@ -11,7 +11,7 @@ hit_river :-
     read(X),
     (
     X =:= 1 -> (
-        fish, !
+        fish
     );
     X =:= 2 -> (
         write('You cannot walk above the water, are you trying to drown yourself?'), nl
@@ -25,7 +25,7 @@ enter_house:-
     read(X),
     (
     X =:= 1 -> (
-        house, !
+        house
     );
     X =:= 2 -> (
         !
@@ -39,7 +39,7 @@ enter_ranch:-
     read(X),
     (
     X =:= 1 -> (
-        ranch, !
+        ranch
     );
     X =:= 2 -> (
         !
@@ -53,7 +53,7 @@ enter_market:-
     read(X),
     (
     X =:= 1 -> (
-        marketplace, !
+        marketplace
     );
     X =:= 2 -> (
         !
@@ -67,7 +67,7 @@ enter_questing:-
     read(X),
     (
     X =:= 1 -> (
-        quest, !
+        quest
     );
     X =:= 2 -> (
         !

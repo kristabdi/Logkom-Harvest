@@ -8,7 +8,9 @@ house:-
     read(X),
     (
     X =:= 1 -> (
-        sleep
+        write('Sleeping...'),
+        sleep,
+        house
     );
     X =:= 2 -> (
         writeDiary,

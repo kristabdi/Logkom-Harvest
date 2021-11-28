@@ -49,8 +49,7 @@ dig:-
 durationMod(0).
 plant:-(
   interiorObject(Player_X, Player_Y, 'P'),
-  tilledGround(Counter, X, Y, _, _, 1),
-  (X=:=Player_X , Y=:=Player_Y -> (
+  (tilledGround(Counter, Player_X, Player_Y, _, _, 1) -> (
     invSeed,  
     write('Which Id?'), nl,
     read(TypePlant),
@@ -113,6 +112,7 @@ updateFarm(Counter) :- (
 harvest :- (
   tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, 1),
   (Duration<1 -> (
+    finishQuest(1, TypePlant), !,
     item(Name, TypePlant, _),
     addItem(Name, 1),
 
@@ -125,9 +125,26 @@ harvest :- (
     
   );(
     write('Im not ready ~plant\n')
-  )),
+  ))
 
-  finishQuest(1, TypePlant)
+  ;
+
+  tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, 1),
+  (Duration<1 -> (
+    item(Name, TypePlant, _),
+    addItem(Name, 1),
+
+    retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, 1)),
+    assertz(tilledGround(Counter, 0, 0, 0, 0, 0)),
+
+    write('You got a '),
+    writeTypePlant(TypePlant)
+
+    
+  );(
+    write('Im not ready ~plant\n')
+  ))  
+
 ).
 
 writeTypePlant(TypePlant) :-

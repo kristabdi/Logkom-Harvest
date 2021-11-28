@@ -65,27 +65,65 @@ cow :- (
         assertz(cowAnimal(NewCowList, CowLength)),
         retract(cowAnimal(CowList, CowLength)),
 
+        finishQuest(3, 40), !,
+
         write('Congratulations, you get '),
         write(Zero),
         write(' milk \n'),
 
         item(Name, 40, _),
-        addItem(Name, Zero),
-
-        finishQuest(3, 40)
+        addItem(Name, Zero)
+        
       ); write('Your cow hasnt produced any milk\n Check again tomorrow\n'))
-
     ); Choice =:=2 -> (
       retract(cowAnimal(CowList, CowLength)),
       assertz(cowAnimal([], 0)),
+
+      finishQuest(3, 41), !,
+
       write('Congratulations, you get '),
       write(CowLength),
       write(' beef \n'),
 
       item(Name, 41, _),
-      addItem(Name, CowLength),
+      addItem(Name, CowLength)
+    ))
+  ); write('You dont have any cow! \n'))
 
-      finishQuest(3, 41)
+  ;
+
+  cowAnimal(CowList, CowLength),
+  (CowLength>0 -> (
+    write('You can do these to your cow\n'),
+    write('1. Take milk\n'),
+    write('2. Take meat\n'),
+    read(Choice),
+    (Choice =:= 1 -> (
+      list_zero(CowList, Zero),
+      (Zero>0 -> (
+        list_replace(0, 1, CowList, NewCowList),
+
+        assertz(cowAnimal(NewCowList, CowLength)),
+        retract(cowAnimal(CowList, CowLength)),
+
+        write('Congratulations, you get '),
+        write(Zero),
+        write(' milk \n'),
+
+        item(Name, 40, _),
+        addItem(Name, Zero)
+        
+      ); write('Your cow hasnt produced any milk\n Check again tomorrow\n'))
+    ); Choice =:=2 -> (
+      retract(cowAnimal(CowList, CowLength)),
+      assertz(cowAnimal([], 0)),
+
+      write('Congratulations, you get '),
+      write(CowLength),
+      write(' beef \n'),
+
+      item(Name, 41, _),
+      addItem(Name, CowLength)
     ))
   ); write('You dont have any cow! \n'))
 ).
@@ -104,10 +142,25 @@ sheep :- (
       write(Zero),
       write(' wool \n'),
 
+      finishQuest(3, 43), !,
+
       item(Name, 43, _),
-      addItem(Name, Zero),
+      addItem(Name, Zero)
+
+      ;
+
+      list_replace(0, 1, SheepList, NewSheepList),
     
-      finishQuest(3, 43)
+      assertz(sheepAnimal(NewSheepList, SheepLength)),
+      retract(sheepAnimal(SheepList, SheepLength)),
+    
+      write('Congratulations, you get '),
+      write(Zero),
+      write(' wool \n'),
+
+      item(Name, 43, _),
+      addItem(Name, Zero)
+    
     ); write('Your sheep hasnt produced any wool\n Check again tomorrow\n'))
   ); write('You dont have any sheep! \n'))
 ).
@@ -122,10 +175,21 @@ goat :- (
     write(GoatLength),
     write(' goat meat \n'),
 
+    finishQuest(3, 42), !,
+
     item(Name, 42, _),
-    addItem(Name, GoatLength),
+    addItem(Name, GoatLength)
+  ;
+    retract(goatAnimal(GoatList, GoatLength)),
+    assertz(goatAnimal([], 0)),
+
+    write('Congratulations, you get '),
+    write(GoatLength),
+    write(' goat meat \n'),
+
+    item(Name, 42, _),
+    addItem(Name, GoatLength)
   
-    finishQuest(3, 42)
   ); write('You dont have any goat! \n'))
 ).
 
