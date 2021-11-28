@@ -4,21 +4,21 @@
 :- dynamic(save_counter/1).
 
 % diaries(Counter, Day, Message)
-diaries(1, -1, Message).
-diaries(2, -1, Message).
-diaries(3, -1, Message).
-diaries(4, -1, Message).
-diaries(5, -1, Message).
-diaries(6, -1, Message).
-diaries(7, -1, Message).
-diaries(8, -1, Message).
-diaries(9, -1, Message).
-diaries(10, -1, Message).
-diaries(11, -1, Message).
-diaries(12, -1, Message).
-diaries(13, -1, Message).
-diaries(14, -1, Message).
-diaries(15, -1, Message).
+diaries(1, -1, _).
+diaries(2, -1, _).
+diaries(3, -1, _).
+diaries(4, -1, _).
+diaries(5, -1, _).
+diaries(6, -1, _).
+diaries(7, -1, _).
+diaries(8, -1, _).
+diaries(9, -1, _).
+diaries(10, -1, _).
+diaries(11, -1, _).
+diaries(12, -1, _).
+diaries(13, -1, _).
+diaries(14, -1, _).
+diaries(15, -1, _).
 
 /* List Data Type */
 /* InsertAt */
@@ -72,4 +72,5 @@ readDiary:-
     write('Which entry do you want to read?'), nl,
     read(UserDay),
     diaries(_, UserDay, Message),
-    write(Message).
+    write('Here is your diary for that day!'), nl,
+    write(Message), nl.
