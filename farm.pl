@@ -19,6 +19,7 @@ seed(29, 15).
 counter(1).
 
 dig:-
+  /* TODO beda hoe apakah beda? */
   interiorObject(Player_X, Player_Y, 'P'),
   counter(CurrentCounter),
   tilledGround(CurrentCounter, Current_X, Current_Y, _, _),
@@ -52,7 +53,7 @@ plant:-(
 
     write('Which plant?'), nl,
     read(TypePlant),
-    
+
     interiorObject(Player_X, Player_Y, 'P'),
     tilledGround(Counter, Player_X, Player_Y, _, _),
     retract(tilledGround(Counter, _, _, _, _)),
@@ -74,11 +75,14 @@ updateFarm :- (
 
 harvest(PosisiX, PosisiY) :- (
   tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration),
+  Id is TypePlant+10,
   (Duration<1 -> (
-    Id is TypePlant+10,
-    item(_, Id, SellPrice),
-    
-    /* TODO Masukkan ke inventory*/
+    item(Name, Id, _),
+    addItem(Id, 1),
+
+    write('You got a '),
+    write(Name),
+    write('\n'),
 
     retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration)),
     assertz(tilledGround(Counter, 0, 0, 0, 0))
@@ -86,7 +90,7 @@ harvest(PosisiX, PosisiY) :- (
     write('Im not ready ~plant\n')
   )),
 
-  finishQuest(1, TypePlant)
+  finishQuest(1, Id)
 ).
 
 writeTypePlant(TypePlant) :-
