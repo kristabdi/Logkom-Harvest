@@ -7,23 +7,36 @@
 quest(0,0,0,0,0,0).
 
 isQuestFinished :-
-    quest(0,_,0,_,0,_).
+    quest(X,_,Y,_,Z,_),
+    X =:= 0,
+    Y =:= 0,
+    Z =:= 0.
 
 quest :-
-    write('anjing rila 1'),
     isQuestFinished,
-    write('anjing rila 2'),
+    retract(quest(_,_,_,_,_,_)),
+    asserta(quest(0,0,0,0,0,0)),
     player(_, Lvl, _, _, _, _, _, _, _, _),
-    write('anjing rila 3'),
     questLevel(Lvl),
-    write('anjing rila 4'),
-    tasks.
+    tasks, !.
 
-quest :-
-    write('anjing rila 5'),
-    \+ isQuestFinished, nl,
-    write('anjing rila 6'),
-    write('You have an on-going quest!'), nl.
+quest :- (
+    quest(X, TypeX, Y, TypeY, Z, TypeZ),
+    X > 0 -> (
+        format('X : ~d', [X]),
+        write('You have an on-going quest!\n')
+    )
+    ;
+    Y > 0 -> (
+        format('Y: ~d', [Y]),
+        write('You have an on-going quest!\n')
+    )
+    ;
+    Z > 0 -> (
+        format('Z : ~d', [Z]),
+        write('You have an on-going quest!\n')
+    )
+).
 
 /*add (Jumlah, TipeItem) */
 addFarming(N, T) :-
@@ -45,43 +58,48 @@ addRanching(N, T) :-
     asserta(quest(X, TypeX, Y, TypeY, Z, T)).
 
 questLevel(Level) :-
-    Level =< 3,
+    Level =< 3, !,
     random(30,39,TypeX), random(1,3,X), addFarming(X, TypeX),
     random(10,19,TypeY), random(1,2,Y), addFishing(Y, TypeY),
     random(40,43,TypeZ), random(1,2,Z), addRanching(Z, TypeZ).
 
 questLevel(Level) :-
-    Level =< 7,
+    Level =< 7, !,
     random(30,39,TypeX), random(1,5,X), addFarming(X, TypeX),
     random(10,19,TypeY), random(1,4,Y), addFishing(Y, TypeY),
     random(40,43,TypeZ), random(1,4,Z), addRanching(Z, TypeZ).
 
 questLevel(Level) :-
-    Level =< 10,
-    random(1,10,TypeX), random(1,8,X), addFarming(X, TypeX),
-    random(1,11,TypeY), random(1,8,Y), addFishing(Y, TypeY),
-    random(1,3,TypeZ), random(1,8,Z), addRanching(Z, TypeZ).
+    Level =< 10, !,
+    random(30,39,TypeX), random(1,8,X), addFarming(X, TypeX),
+    random(10,19,TypeY), random(1,8,Y), addFishing(Y, TypeY),
+    random(40,43,TypeZ), random(1,8,Z), addRanching(Z, TypeZ).
 
 tasks :-
+    write('rila 4'),
     game_start(1), !,
-    isQuestFinished, nl,
-    write('▀█▀ ▄▀█ █▀ █▄▀ █▀  ▀\n'), nl,
-    write(' █░ █▀█ ▄█ █░█ ▄█  ▄\n'), nl,
+    write('rila 5'),
+    \+ isQuestFinished, !,
+    write('rila 6'),
+    quest(X, TypeX, Y, TypeY, Z, TypeZ),
+    write('TASKS : '),
+    write('Here are the tasks that you need to do.\n'),
+    write('You need to collect : \n'),
+    format('- ~d ', [X]), writeTypePlant(TypeX),
+    format('- ~d ', [Y]), writeTypeFish(TypeY),
+    format('- ~d ', [Z]), writeTypeRanch(TypeZ).
+
+tasks :-
+    write('rila 1'),
+    game_start(1), !,
+    write('rila 2'),
+    isQuestFinished, !,
+    write('rila 3'),
+    write('TASKS : '), nl,
     write('You do not have any tasks to complete!\n'), nl.
 
-tasks :-
-    game_start(1), !,
-    \+ isQuestFinished,
-    quest(X, TypeX, Y, TypeY, Z, TypeZ),
-    write('▀█▀ ▄▀█ █▀ █▄▀ █▀  ▀\n'), nl,
-    write(' █░ █▀█ ▄█ █░█ ▄█  ▄\n'), nl,
-    write('Here are the tasks that you need to do.\n'),nl,
-    write('You need to collect : \n'),nl,
-    format('- ~d', [X]), writeTypePlant(TypeX),
-    format('- ~d', [Y]), writeTypeFish(TypeY),
-    format('- ~d', [Z]), writeTypeRanch(TypeZ).
-
 tasks :- 
+    write('rila 7'),
     game_start(0), !,
     write('You have not started the game! \n'),
 	write('Type \'start\' to start the game... \n').
@@ -89,31 +107,27 @@ tasks :-
 farmCompleted(TypeQuest) :-
     TypeQuest =:= 1, !,
     quest(0,_,_,_,_,_), nl,
-    write('▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄ █\n'), nl,
-    write('░█░ █▀█ ▄█ █░█ ▄█   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀ ▄\n'), nl,
+    write('TASKS COMPLETED!!!'), nl,
     write('You got some rewards!\n'),
     addExp(1).
 
 fishCompleted(TypeQuest) :-
     TypeQuest =:= 2, !,
     quest(_,_,0,_,_,_), nl,
-    write('▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄ █\n'), nl,
-    write('░█░ █▀█ ▄█ █░█ ▄█   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀ ▄\n'), nl,
+    write('TASKS COMPLETED!!!'), nl,
     write('You got some rewards!\n'),
     addExp(2).
 
 ranchCompleted(TypeQuest) :-
     TypeQuest =:= 3, !,
     quest(_,_,_,_,0,_), nl,
-    write('▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄ █\n'), nl,
-    write('░█░ █▀█ ▄█ █░█ ▄█   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀ ▄\n'), nl,
+    write('TASKS COMPLETED!!!'), nl,
     write('You got some rewards!\n'),
     addExp(3),!.
 
 questCompleted :-
     quest(0,_,0,_,0,_), nl,
-    write('▀█▀ ▄▀█ █▀ █▄▀ █▀   █▀▀ █▀█ █▀▄▀█ █▀█ █░░ █▀▀ ▀█▀ █▀▀ █▀▄ █\n'), nl,
-    write('░█░ █▀█ ▄█ █░█ ▄█   █▄▄ █▄█ █░▀░█ █▀▀ █▄▄ ██▄ ░█░ ██▄ █▄▀ ▄\n'), nl,
+    write('QUESTS COMPLETED!!!'), nl,
     player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold),
     NGold is Gold + 25*Level,
     write('You got some rewards!\n'),

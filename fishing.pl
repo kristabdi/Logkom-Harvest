@@ -37,7 +37,7 @@ fish :- (
   ); write('Youre not at a river!\n'))
 ).
 
-writeTypeFish(TypeFish) :-
+writeTypeFish(TypeFish) :- (
   TypeFish =:= 10 -> (
     write('sandal\n')
   )
