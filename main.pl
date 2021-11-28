@@ -25,6 +25,7 @@ start:-
     ['ranch.pl'],
     ['time.pl'],
     ['quest.pl'],
+    nl, nl,
     write('Harvest!!'), nl, 
     write('Harvest Star!!!'), nl,
     write(''), nl,

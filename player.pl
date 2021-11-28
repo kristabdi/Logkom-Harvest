@@ -158,11 +158,11 @@ addExp(X) :-
 
 checkLevelUp(0) :-
     player(_, Level, _, _, _, EXP, _, _, _, _),
-    EXP < Level * 100, !.
+    EXP < Level * 50, !.
 
 checkLevelUp(1) :-
     player(_, Level, _, _, _, EXP, _, _, _, _),
-    EXP >= Level * 100,
+    EXP >= Level * 50,
     Level < 10,
     addLevel, !.
 
@@ -203,13 +203,13 @@ status :-
 checkGoalGold :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
     (
-    Gold >= 20000 -> (
+    Gold >= 40000 -> (
         write('You have finished the game!'), nl,
         write('You have collected more than 20000 Gold under one year. Congratulations.') , nl,
         quit
     )
     ;
-    Gold < 20000 -> (
+    Gold < 40000 -> (
         !
     )
 ).
