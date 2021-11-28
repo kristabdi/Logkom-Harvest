@@ -13,9 +13,9 @@ quest :-
     write('anjing rila 1'),
     isQuestFinished,
     write('anjing rila 2'),
-    player(_, Level, _, _, _, _, _, _, _, _),
+    player(_, Lvl, _, _, _, _, _, _, _, _),
     write('anjing rila 3'),
-    questLevel(Level),
+    questLevel(Lvl),
     write('anjing rila 4'),
     tasks.
 

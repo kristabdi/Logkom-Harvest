@@ -7,7 +7,6 @@
 
 
 /* Create global level constant */
-max_level(10).
 game_start(0).
 
 /* Player dan Level Awal */
@@ -162,22 +161,20 @@ checkLevelUp(0) :-
 checkLevelUp(1) :-
     player(_, Level, _, _, _, EXP, _, _, _, _),
     EXP >= Level * 100,
+    Level < 10,
     addLevel, !.
 
 writejob(X) :-
     X=:=1, !,
     write('Farmer').
 
-
 writejob(X) :-
     X =:= 2, !,
     write('Fisherman').
 
-
 writejob(X) :-
     X =:= 3, !,
     write('Rancher').
-
 
 status :-
     game_start(1), !,
