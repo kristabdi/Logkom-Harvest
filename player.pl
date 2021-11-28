@@ -178,20 +178,33 @@ writejob(X) :-
 
 status :-
     game_start(1), !,
+    write('anjing rila 7'),
     player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold),
+    write('anjing rila 8'),
     write('█▀ ▀█▀ ▄▀█ ▀█▀ █░█ █▀\n'),
     write('▄█ ░█░ █▀█ ░█░ █▄█ ▄█\n'), nl, nl,
+    write('anjing rila 9'),
     write('Your status: '),
+    write('anjing rila 11'),
     writejob(Role), nl,
+    write('anjing rila 12'),
     format('Level: ~d', [Level]), nl,
+    write('anjing rila 13'),
     format('Level farming: ~d', [FarmLevel]), nl,
+    write('anjing rila 14'),
     format('Exp farming: ~d', [EXPFarm]), nl,
+    write('anjing rila 15'),
     format('Level fishing: ~d', [FishLevel]), nl,
+    write('anjing rila 16'),
     format('Exp fishing: ~d', [EXPFarm]), nl,
+    write('anjing rila 17'),
     format('Level ranching: ~d', [RanchLevel]), nl,
+    write('anjing rila 18'),
     format('Exp ranching: ~d', [EXPRanch]), nl,
+    write('anjing rila 19'),
     MaxExp is Level*100,
     format('Exp: ~d/~d\n', [Exp, MaxExp]),
+    write('anjing rila 20'),
     format('Gold: ~d', [Gold]), nl.
 
 status :-
