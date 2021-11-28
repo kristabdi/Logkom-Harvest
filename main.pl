@@ -26,15 +26,12 @@ startGame :-
     ['time.pl'],
     ['quest.pl'],
     write('Harvest!!'), nl, 
-    write(''), nl,
     write('Harvest Star!!!'), nl,
     write(''), nl,
     write('Let us play and pay our debts together'), nl,
-    write(''), nl,
     write('Welcome to Harvest Star'), nl,
     write(''), nl,
     write('Please use the command \'help.\' to list all the available commands'), nl,
-    write(''), nl,
     write('Enjoy the game!'),
     
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'), nl,
@@ -69,3 +66,8 @@ help:-
     write('9. plant  : plant a seed inside a digged ground'), nl,
     write('Other Commands:'), nl,
     write('8. help   : show this help menu'), nl.
+
+quit :- 
+    nl,nl,
+    write('Game has ended. See you soon.') ,nl,nl,
+    halt.

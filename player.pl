@@ -197,3 +197,11 @@ status :-
     game_start(0), ! ,
     write('You haven\'t opened the game! \n'),
     write('Type \'openGame\' to open the game. \n').
+
+checkGoalGold :- 
+    player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold),
+    Gold >= 20000 -> (
+        write('You have finished the game!'), nl,
+        write('You have collected more than 20000 Gold under one year. Congratulations.') , nl,
+        quit
+    ).
