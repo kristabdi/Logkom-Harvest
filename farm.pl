@@ -75,14 +75,12 @@ updateFarm :- (
 
 harvest(PosisiX, PosisiY) :- (
   tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration),
-  Id is TypePlant+10,
   (Duration<1 -> (
-    item(Name, Id, _),
-    addItem(Id, 1),
+    item(Name, TypePlant, _),
+    addItem(TypePlant, 1),
 
     write('You got a '),
-    write(Name),
-    write('\n'),
+    writeTypePlant(TypePlant),
 
     retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration)),
     assertz(tilledGround(Counter, 0, 0, 0, 0))
@@ -90,7 +88,7 @@ harvest(PosisiX, PosisiY) :- (
     write('Im not ready ~plant\n')
   )),
 
-  finishQuest(1, Id)
+  finishQuest(1, TypePlant)
 ).
 
 writeTypePlant(TypePlant) :-

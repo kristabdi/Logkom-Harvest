@@ -26,12 +26,14 @@ fish :- (
     )),
     
     write('You got '),
-    writeTypeFish(Type),
     Id is Type+8,
-    (Type =\= 1 -> (
+    (Type =:= 1 -> (
+      write('nothing\n')
+    );
+      writeTypeFish(Id),
       item(Name, Id, SellPrice),
       addItem(Name, 1)
-    )),
+    ),
 
     finishQuest(2, Id)
   ); write('Youre not at a river!\n'))
