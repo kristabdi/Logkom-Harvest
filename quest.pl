@@ -23,17 +23,14 @@ quest :-
 quest :- (
     quest(X, TypeX, Y, TypeY, Z, TypeZ),
     X > 0 -> (
-        format('X : ~d', [X]),
         write('You have an on-going quest!\n')
     )
     ;
     Y > 0 -> (
-        format('Y: ~d', [Y]),
         write('You have an on-going quest!\n')
     )
     ;
     Z > 0 -> (
-        format('Z : ~d', [Z]),
         write('You have an on-going quest!\n')
     )
 ).
@@ -76,11 +73,8 @@ questLevel(Level) :-
     random(40,43,TypeZ), random(1,8,Z), addRanching(Z, TypeZ).
 
 tasks :-
-    write('rila 4'),
     game_start(1), !,
-    write('rila 5'),
     \+ isQuestFinished, !,
-    write('rila 6'),
     quest(X, TypeX, Y, TypeY, Z, TypeZ),
     write('TASKS : '),
     write('Here are the tasks that you need to do.\n'),
@@ -90,16 +84,12 @@ tasks :-
     format('- ~d ', [Z]), writeTypeRanch(TypeZ).
 
 tasks :-
-    write('rila 1'),
     game_start(1), !,
-    write('rila 2'),
     isQuestFinished, !,
-    write('rila 3'),
     write('TASKS : '), nl,
     write('You do not have any tasks to complete!\n'), nl.
 
 tasks :- 
-    write('rila 7'),
     game_start(0), !,
     write('You have not started the game! \n'),
 	write('Type \'start\' to start the game... \n').
