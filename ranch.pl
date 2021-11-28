@@ -1,5 +1,3 @@
-/* TODO integrate inventory */
-
 /* File : ranch.pl */
 /* Store ranching information */
 :- dynamic(cowAnimal/2).
@@ -96,6 +94,9 @@ cow :- (
           write(Zero),
           write(' milk \n'),
 
+          item(Name, 40, _),
+          addItem(Name, Zero),
+
           addExp(3)
         ); write('Your cow hasnt produced any milk\n Check again tomorrow\n'))
 
@@ -104,6 +105,9 @@ cow :- (
         write('Congratulations, you get '),
         write(CowLength),
         write(' beef \n'),
+
+        item(Name, 41, _),
+        addItem(Name, CowLength),
 
         addExp(3)
       ))
@@ -126,6 +130,9 @@ sheep :- (
         write('Congratulations, you get '),
         write(Zero),
         write(' wool \n'),
+
+        item(Name, 43, _),
+        addItem(Name, Zero),
       
         addExp(3)
       ); write('Your sheep hasnt produced any wool\n Check again tomorrow\n'))
@@ -143,6 +150,9 @@ goat :- (
       write('Congratulations, you get '),
       write(GoatLength),
       write(' goat meat \n'),
+
+      item(Name, 42, _),
+      addItem(Name, GoatLength),
     
       addExp(3)
     ); write('You dont have any goat! \n'))
