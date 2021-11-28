@@ -46,13 +46,12 @@ dig:-
       )    
   ).
 
-inventory(Inv).
 durationMod(0).
 plant:-(
   interiorObject(Player_X, Player_Y, 'P'),
-  tilledGround(_, X, Y, _, _, 1),
+  tilledGround(Counter, X, Y, _, _, 1),
   (X=:=Player_X , Y=:=Player_Y -> (
-    printInventorySeed(Inv),  
+    invSeed,  
     write('Which Id?'), nl,
     read(TypePlant),
 
@@ -60,36 +59,55 @@ plant:-(
     retract(durationMod(_)),
     assertz(durationMod(Duration)),
 
-    (isInInventory(4) -> (
+    (
+      isInInventory(4) -> (
       NewDuration is Duration//5,
       retract(durationMod(_)),
       assertz(durationMod(NewDuration))
-    );isInInventory(3) -> (
+    );
+      isInInventory(3) -> (
       NewDuration is Duration//4,
       retract(durationMod(_)),
       assertz(durationMod(NewDuration))
-    );isInInventory(2) -> (
+    );
+      isInInventory(2) -> (
       NewDuration is Duration//3,
       retract(durationMod(_)),
       assertz(durationMod(NewDuration))
-    );isInInventory(1) -> (
+    );
+      isInInventory(1) -> (
       NewDuration is Duration//2,
       retract(durationMod(_)),
       assertz(durationMod(NewDuration))
-    )),
+    );
+      isInInventory(0) -> (
+      NewDuration is Duration//1,
+      retract(durationMod(_)),
+      assertz(durationMod(NewDuration))
+    ),
+
     durationMod(CurDur),
-    assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, CurDur, 1)),
+    NewTypePlant is TypePlant + 10,
+    retract(tilledGround(Counter, _, _, _, _, _)),
+    assertz(tilledGround(Counter, Player_X, Player_Y, NewTypePlant, CurDur, 1)),
     write('Successfully planted '),
-    writeTypePlant(TypePlant)
-  ); write('You havent tilled the ground yet!\n'))
+    writeTypePlant(NewTypePlant),
+    item(Name, TypePlant, _),
+    drop(Name, 1)
+    )
+  );
+  write('You havent tilled the ground yet!\n')
+  )
 ).
 
-updateFarm :- (
-  tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, _),
+updateFarm(Counter) :- (
+  tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, 1),
   Duration_now is Duration - 1,
 
-  retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, _)),
-  assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration_now, 1))
+  retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, 1)),
+  assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration_now, 1)),
+  NextCounter is Counter + 1,
+  updateFarm(NextCounter)
 ).
 
 harvest :- (
@@ -98,11 +116,13 @@ harvest :- (
     item(Name, TypePlant, _),
     addItem(Name, 1),
 
-    write('You got a '),
-    writeTypePlant(TypePlant),
+    retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, 1)),
+    assertz(tilledGround(Counter, 0, 0, 0, 0, 0)),
 
-    retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, _)),
-    assertz(tilledGround(Counter, 0, 0, 0, 0, 0))
+    write('You got a '),
+    writeTypePlant(TypePlant)
+
+    
   );(
     write('Im not ready ~plant\n')
   )),

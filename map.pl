@@ -155,39 +155,39 @@ print_point(X, Y) :-
     X > 0,
     Y < H-1,
     Y > 0,
-    tilledGround(_, X, Y, PlantType, _, _), !,
+    tilledGround(_, X, Y, PlantType, _, 1), !,
     (
     PlantType =:= 0 -> (
         write('= '), !
     );
-    PlantType =:= 1 -> (
+    PlantType =:= 30 -> (
         write('K '), !
     );
-    PlantType =:= 2 -> (
+    PlantType =:= 31 -> (
         write('L '), !   
     );
-    PlantType =:= 3 -> (
+    PlantType =:= 32 -> (
         write('T '), !       
     );
-    PlantType =:= 4 -> (
+    PlantType =:= 33 -> (
         write('S '), !    
     );
-    PlantType =:= 5 -> (
+    PlantType =:= 34 -> (
         write('B '), !    
     );  
-    PlantType =:= 6 -> (
+    PlantType =:= 35 -> (
         write('A '), !    
     ); 
-    PlantType =:= 7 -> (
+    PlantType =:= 36 -> (
         write('G '), !    
     ); 
-    PlantType =:= 8 -> (
+    PlantType =:= 37 -> (
         write('J '), !   
     ); 
-    PlantType =:= 9 -> (
+    PlantType =:= 38 -> (
         write('N '), !    
     );
-    PlantType =:= 10 -> (
+    PlantType =:= 39 -> (
         write('D '), !    
     )             
     ),

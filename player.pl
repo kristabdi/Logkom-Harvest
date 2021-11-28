@@ -158,7 +158,7 @@ addExp(X) :-
 
 checkLevelUp(0) :-
     player(_, Level, _, _, _, EXP, _, _, _, _),
-    Exp < Lvl * 100, !.
+    EXP < Level * 100, !.
 
 checkLevelUp(1) :-
     player(_, Level, _, _, _, EXP, _, _, _, _),
@@ -188,7 +188,7 @@ status :-
     format('Level farming: ~d', [FarmLevel]), nl,
     format('Exp farming: ~d', [EXPFarm]), nl,
     format('Level fishing: ~d', [FishLevel]), nl,
-    format('Exp fishing: ~d', [EXPFarm]), nl,
+    format('Exp fishing: ~d', [EXPFish]), nl,
     format('Level ranching: ~d', [RanchLevel]), nl,
     format('Exp ranching: ~d', [EXPRanch]), nl,
     format('Exp: ~d/~d', [EXP, MaxExp]), nl,

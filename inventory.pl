@@ -2,7 +2,7 @@
 /* inventory(X) berarti player memiliki inventory X yang berisi nama dan jumlah item */
 :- dynamic(inventory/1).
 
-inventory(Inv).
+inventory(_).
 
 /* Menuliskan isi inventory pada layar */
 inv :-  inventory(Inv), printInventory(Inv).

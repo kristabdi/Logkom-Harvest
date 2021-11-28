@@ -1,8 +1,3 @@
-/* Reset player position */
-reset_player_pos:-
-    retract(interiorObject(_,_,'P')),
-    assertz(interiorObject(8,6,'P')).
-
 /* When player hit the fence perimeter */
 hit_fence :-
     write('You hit the fence, check where you are on the map.\n'),
@@ -16,12 +11,10 @@ hit_river :-
     read(X),
     (
     X =:= 1 -> (
-        fish, reset_player_pos, !
+        fish, !
     );
     X =:= 2 -> (
-        write('You cannot walk above the water, are you trying to drown yourself?'), nl,
-        write('Teleported because you are trying to drown yourself'), nl,
-        reset_player_pos
+        write('You cannot walk above the water, are you trying to drown yourself?'), nl
     )
 ).
 
@@ -47,7 +40,6 @@ enter_ranch:-
     (
     X =:= 1 -> (
         ranch, !
-        % ini mengarah ke function ranch nanti
     );
     X =:= 2 -> (
         !
@@ -62,7 +54,6 @@ enter_market:-
     (
     X =:= 1 -> (
         marketplace, !
-        % ini mengarah ke function marketplace nanti
     );
     X =:= 2 -> (
         !
@@ -77,7 +68,6 @@ enter_questing:-
     (
     X =:= 1 -> (
         quest, !
-        % ini mengarah ke function questing nanti
     );
     X =:= 2 -> (
         !

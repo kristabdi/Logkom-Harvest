@@ -17,7 +17,7 @@ quest :-
     tasks, !.
 
 quest :- (
-    quest(X, TypeX, Y, TypeY, Z, TypeZ),
+    quest(X, _, Y, _, Z, _),
     X > 0 -> (
         write('You have an on-going quest!\n')
     )

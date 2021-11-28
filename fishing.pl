@@ -8,7 +8,7 @@ fish :- (
     player(_,_,_,Lvl,_, _,_,_,_,_),
     retract(lvlMod(_)),
     assertz(lvlMod(Lvl)),
-    
+
     (isInInventory(9) -> (
       NewLvl is Lvl+5,
       retract(lvlMod(_)),
@@ -23,6 +23,10 @@ fish :- (
       assertz(lvlMod(NewLvl))
     );isInInventory(6) -> (
       NewLvl is Lvl+2,
+      retract(lvlMod(_)),
+      assertz(lvlMod(NewLvl))
+    );isInInventory(5) -> (
+      NewLvl is Lvl+1,
       retract(lvlMod(_)),
       assertz(lvlMod(NewLvl))
     )),
@@ -54,7 +58,7 @@ fish :- (
       write('nothing\n')
     );
       writeTypeFish(Id),
-      item(Name, Id, SellPrice),
+      item(Name, Id, _),
       addItem(Name, 1)
     ),
 

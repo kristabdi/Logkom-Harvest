@@ -16,6 +16,7 @@ days_count(0).
 /* Tasks duration in minutes */
 walking_time(30).
 
+farm_counter(1).
 /* Current time */
 add_time:-
     current_time(X),
@@ -50,6 +51,7 @@ add_time:-
     ).  
 
 reset_time:-
+    farm_counter(Counter),
     current_time(X),
     start_time(Y),
     retract(current_time(X)),
@@ -58,7 +60,7 @@ reset_time:-
     NextDay is CurrentDay + 1,
     retract(days_count(_)),
     assertz(days_count(NextDay)),
-    updateFarm,
+    updateFarm(Counter),
     updateRanch.
     %checkGoalTime.
 

@@ -46,9 +46,12 @@ start:-
     write('% 8. help   : show this help menu                                              %'), nl,
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'), nl,
 
+    addItem('Level 1 Hoe', 1),
+    addItem('Level 1 Fishing Rod', 1),
     retract(game_start(_)),
     asserta(game_start(1)),
     read_job.
+    
 
 
 help:-
