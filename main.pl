@@ -1,8 +1,7 @@
 /* File : Main.pl */
 /* Main program */
 startGame :-
-    ['save.pl'],
-    ['load.pl'],
+    ['diary.pl'],
     ['farm.pl'],
     ['fishing.pl'],
     ['house.pl'],
