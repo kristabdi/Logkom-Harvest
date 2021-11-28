@@ -16,19 +16,20 @@ printInventory([[Name, Count]|T]) :-
     write(Count), write(' '), write(Name), nl,
     printInventory(T).
 
+/* Menuliskan isi inventory yang tipenya seed pada layar */
 invSeed :- inventory(Inv), printInventorySeed(Inv).
 
 printInventorySeed([]) :- !.
 
 printInventorySeed([[Name, Count]|T]) :-
     item(Name, Id, _),
-    write(Name),
     ( Id > 19 , Id < 30 ->
-        (write(Count), write(' '), write(Name), nl
-        ;
-        write('anjing'),nl
-        )
-    ),
+        write(Count), write(' '), write(Name), nl, printInventorySeed(T)
+    ; Id < 20 ->
+        printInventorySeed(T)
+    ; Id > 29 ->
+        printInventorySeed(T)
+    ).
     
 
 /* itemCount(X, Y) berarti dalam inventory X terdapat Y item */
@@ -82,3 +83,9 @@ addItem(Item, Count) :-
         write('Failed to add item, inventory full')
     ).
 
+/* Mengecek apakah item ada di inventory */
+isInInventory(Item) :-
+    item(Item, _, _),
+    inventory(Inv),
+    itemCount(Inv, IC),
+    member([Item, CountInv], Inv).
