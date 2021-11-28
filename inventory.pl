@@ -84,8 +84,8 @@ addItem(Item, Count) :-
     ).
 
 /* Mengecek apakah item ada di inventory */
-isInInventory(Item) :-
-    item(Item, _, _),
+isInInventory(Id) :-
+    item(Item,Id, _),
     inventory(Inv),
     itemCount(Inv, IC),
     member([Item, CountInv], Inv).

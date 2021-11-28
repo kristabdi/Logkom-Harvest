@@ -1,6 +1,7 @@
 /* File : farm.pl */
 /* Store farming information */
 :- dynamic(counter/1).
+:- dynamic(durationMod/1).
 
 /* Format tanaman: seed(Type, GrowthDuration) */
 /* Type 1=kentang, 2=labu, 3=tomat, 4=semangka, 5=brokoli, 6=anggur, 7=gandum, 8=jagung, 9=nanas, 10=durian*/
@@ -19,7 +20,6 @@ seed(29, 15).
 counter(1).
 
 dig:-
-  /* TODO beda hoe apakah beda? */
   interiorObject(Player_X, Player_Y, 'P'),
   counter(CurrentCounter),
   tilledGround(CurrentCounter, Current_X, Current_Y, _, _),
@@ -46,6 +46,7 @@ dig:-
       )    
   ).
 
+durationMod(0).
 plant:-(
   tilledGround(_, X, Y, _, _),
   (X==Player_X , Y==Player_Y -> (
@@ -58,7 +59,29 @@ plant:-(
     retract(tilledGround(Counter, _, _, _, _)),
 
     seed(TypePlant, Duration),
-    assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration)),
+    retract(durationMod(_)),
+    assertz(durationMod(Duration)),
+
+    (isInInventory(4) -> (
+      NewDuration is Duration//5,
+      retract(durationMod(_)),
+      assertz(durationMod(NewDuration))
+    );isInInventory(3) -> (
+      NewDuration is Duration//4,
+      retract(durationMod(_)),
+      assertz(durationMod(NewDuration))
+    );isInInventory(2) -> (
+      NewDuration is Duration//3,
+      retract(durationMod(_)),
+      assertz(durationMod(NewDuration))
+    );isInInventory(1) -> (
+      NewDuration is Duration//1,
+      retract(durationMod(_)),
+      assertz(durationMod(NewDuration))
+    )),
+    
+    durationMod(CurDur),
+    assertz(tilledGround(Counter, Player_X, Player_Y, TypePlant, CurDur)),
     write('Successfully planted '),
     writeTypePlant(TypePlant)
   ); write('You havent tilled the ground yet!\n'))
