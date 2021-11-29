@@ -92,7 +92,7 @@ buySd(Item) :-
     player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold),
     item(Item, Id, Price),
     Price_Now is X*Price,
-    (Gold >= Price ->
+    (Gold >= Price_Now ->
         Gold_Now is Gold - Price_Now,
         retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold)),
         assertz(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold_Now)),
@@ -177,8 +177,10 @@ sell :-
     item(X, Id, Price),
     Gold_Now is Gold + Y*Price,
     retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold)),
-    assertz(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold_Now)).
-    write('Successfully sold '), write(Y), write(' '), write(X), write(' for '), write(Y*Price), write(' gold').
+    assertz(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold_Now)),
+    MultipliedPrice is Y * Price,
+    write('Successfully sold '), write(Y), write(' '), write(X), write(' for '), write(MultipliedPrice), write(' gold'), nl,
+    checkGoalGold, !.
 
 exitStore :-
     write('Thank you for coming').

@@ -66,6 +66,7 @@ cow :- (
         retract(cowAnimal(CowList, CowLength)),
 
         finishQuest(3, 40), !,
+        addExp(3),
 
         write('Congratulations, you get '),
         write(Zero),
@@ -80,6 +81,7 @@ cow :- (
       assertz(cowAnimal([], 0)),
 
       finishQuest(3, 41), !,
+      addExp(3),
 
       write('Congratulations, you get '),
       write(CowLength),
@@ -105,6 +107,8 @@ cow :- (
 
         assertz(cowAnimal(NewCowList, CowLength)),
         retract(cowAnimal(CowList, CowLength)),
+        
+        addExp(3),
 
         write('Congratulations, you get '),
         write(Zero),
@@ -117,6 +121,8 @@ cow :- (
     ); Choice =:=2 -> (
       retract(cowAnimal(CowList, CowLength)),
       assertz(cowAnimal([], 0)),
+
+      addExp(3),
 
       write('Congratulations, you get '),
       write(CowLength),
@@ -143,6 +149,7 @@ sheep :- (
       write(' wool \n'),
 
       finishQuest(3, 43), !,
+      addExp(3),
 
       item(Name, 43, _),
       addItem(Name, Zero)
@@ -153,7 +160,9 @@ sheep :- (
     
       assertz(sheepAnimal(NewSheepList, SheepLength)),
       retract(sheepAnimal(SheepList, SheepLength)),
-    
+      
+      addExp(3),
+
       write('Congratulations, you get '),
       write(Zero),
       write(' wool \n'),
@@ -176,6 +185,7 @@ goat :- (
     write(' goat meat \n'),
 
     finishQuest(3, 42), !,
+    addExp(3),
 
     item(Name, 42, _),
     addItem(Name, GoatLength)
@@ -183,6 +193,8 @@ goat :- (
     retract(goatAnimal(GoatList, GoatLength)),
     assertz(goatAnimal([], 0)),
 
+    addExp(3),
+    
     write('Congratulations, you get '),
     write(GoatLength),
     write(' goat meat \n'),

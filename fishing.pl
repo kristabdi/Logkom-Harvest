@@ -58,6 +58,7 @@ fish :- (
     assertz(random_out(Type)),
     Id is Type+8,
     finishQuest(2, Id), !,
+    addExp(2),
     write('You got '),
     
     (Type =:= 1 -> (
@@ -95,9 +96,9 @@ fish :- (
     )),
     
     random_out(Type),
+    addExp(2),
     write('You got '),
     Id is Type+8,
-    write(Id), nl,
     (Type =:= 1 -> (
       write('nothing\n')
     );

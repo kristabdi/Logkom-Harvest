@@ -91,19 +91,19 @@ tasks :-
 	write('Type \'start\' to start the game... \n').
 
 farmCompleted:-
-    quest(0,_,_,_,_,_), nl,
+    quest(0,_,_,_,_,_), !, nl,
     write('TASKS COMPLETED!!!'), nl,
     write('You got some rewards!\n'),
     addExp(1).
 
 fishCompleted:-
-    quest(_,_,0,_,_,_), nl,
+    quest(_,_,0,_,_,_), !, nl,
     write('TASKS COMPLETED!!!'), nl,
     write('You got some rewards!\n'),
     addExp(2).
 
 ranchCompleted:-
-    quest(_,_,_,_,0,_), nl,
+    quest(_,_,_,_,0,_), !,  nl,
     write('TASKS COMPLETED!!!'), nl,
     write('You got some rewards!\n'),
     addExp(3).
@@ -112,31 +112,29 @@ questCompleted :-
     quest(0,_,0,_,0,_), nl,
     write('QUESTS COMPLETED!!!'), nl,
     player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold),
-    NGold is Gold + 25*Level,
+    NGold is Gold + 200*Level,
     write('You got some rewards!\n'),
     format('Current Gold: ~d\n', [NGold]),
     retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold)),
-    asserta(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, NGold)).
+    asserta(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, NGold)),
+    (\+ checkGoalGold). 
 
 finishQuest(_,_) :-
     isQuestFinished, !.
 
 finishQuest(1, TypePlant) :-
     quest(TempX,TypeX,Y,TypeY,Z,TypeZ),
-    TypePlant =:= TypeX -> (
+    TypePlant =:= TypeX, TempX > 0 -> (
         X is TempX - 1
     ),
     retract(quest(TempX,TypeX,Y,TypeY,Z,TypeZ)),
     asserta(quest(X, TypeX, Y, TypeY, Z, TypeZ)),
-    addExp(1),
     farmCompleted, !,
     questCompleted, !.
 
 finishQuest(2, TypeFish) :-
     quest(X,TypeX,TempY,TypeY,Z,TypeZ),
-    write(TypeFish), nl,
-    write(TypeY), nl,
-    TypeFish =:= TypeY -> (
+    TypeFish =:= TypeY, TempY > 0 -> (
         Y is TempY - 1
     ),
     retract(quest(X,TypeX,TempY,TypeY,Z,TypeZ)),
@@ -147,7 +145,7 @@ finishQuest(2, TypeFish) :-
 
 finishQuest(3, TypeRanch) :-
     quest(X,TypeX,Y,TypeY,TempZ,TypeZ),
-    TypeRanch =:= TypeZ -> (
+    TypeRanch =:= TypeZ, TempZ > 0 -> (
         Z is TempZ - 1
     ),
     retract(quest(X,TypeX,Y,TypeY,TempZ,TypeZ)),

@@ -163,7 +163,6 @@ checkLevelUp(0) :-
 checkLevelUp(1) :-
     player(_, Level, _, _, _, EXP, _, _, _, _),
     EXP >= Level * 50,
-    Level < 10,
     addLevel, !.
 
 writejob(X) :-
@@ -181,7 +180,7 @@ writejob(X) :-
 status :-
     game_start(1), !,
     player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold),
-    MaxExp is Level*100,
+    MaxExp is Level*50,
     write('Your status: '),
     writejob(Role), nl,
     format('Level: ~d', [Level]), nl,
@@ -203,13 +202,13 @@ status :-
 checkGoalGold :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
     (
-    Gold >= 40000 -> (
+    Gold >= 5000 -> (
         write('You have finished the game!'), nl,
         write('You have collected more than 20000 Gold under one year. Congratulations.') , nl,
         quit
     )
     ;
-    Gold < 40000 -> (
+    Gold < 5000 -> (
         !
     )
 ).

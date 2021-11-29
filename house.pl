@@ -8,7 +8,7 @@ house:-
     read(X),
     (
     X =:= 1 -> (
-        write('Sleeping...'),
+        write('Sleeping...'), nl,
         sleep,
         house
     );

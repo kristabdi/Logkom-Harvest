@@ -110,11 +110,14 @@ updateFarm(Counter) :- (
 ).
 
 harvest :- (
+  interiorObject(Player_X, Player_Y, 'P'),
   tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, 1),
   (Duration<1 -> (
     finishQuest(1, TypePlant), !,
     item(Name, TypePlant, _),
     addItem(Name, 1),
+
+    addExp(1),
 
     retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, 1)),
     assertz(tilledGround(Counter, 0, 0, 0, 0, 0)),
@@ -133,6 +136,8 @@ harvest :- (
   (Duration<1 -> (
     item(Name, TypePlant, _),
     addItem(Name, 1),
+
+    addExp(1),
 
     retract(tilledGround(Counter, Player_X, Player_Y, TypePlant, Duration, 1)),
     assertz(tilledGround(Counter, 0, 0, 0, 0, 0)),
