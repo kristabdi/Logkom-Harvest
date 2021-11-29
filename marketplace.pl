@@ -49,7 +49,7 @@ buyEquipment :-
 
 buyEq(Item) :- 
     player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold),
-    item(Item, Id, Price),
+    item(Item, _, Price),
     (Gold >= Price ->
         (isFull ->
         (write('Cannot Buy. Inventory is Full.'))
@@ -94,7 +94,7 @@ buySeed :-
 buySd(Item) :-
     write('How many do you want to buy?'), nl, write('>'), read(X),
     player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold),
-    item(Item, Id, Price),
+    item(Item, _, Price),
     Price_Now is X*Price,
     (Gold >= Price_Now ->
         (isFullIfAdd(X) ->

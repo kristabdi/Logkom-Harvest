@@ -74,6 +74,21 @@ tilledGround(12, 0, 0, 0, 0, 0).
 tilledGround(13, 0, 0, 0, 0, 0).
 tilledGround(14, 0, 0, 0, 0, 0).
 tilledGround(15, 0, 0, 0, 0, 0).
+tilledGround(16, 0, 0, 0, 0, 0).
+tilledGround(17, 0, 0, 0, 0, 0).
+tilledGround(18, 0, 0, 0, 0, 0).
+tilledGround(19, 0, 0, 0, 0, 0).
+tilledGround(20, 0, 0, 0, 0, 0).
+tilledGround(21, 0, 0, 0, 0, 0).
+tilledGround(22, 0, 0, 0, 0, 0).
+tilledGround(23, 0, 0, 0, 0, 0).
+tilledGround(24, 0, 0, 0, 0, 0).
+tilledGround(25, 0, 0, 0, 0, 0).
+tilledGround(26, 0, 0, 0, 0, 0).
+tilledGround(27, 0, 0, 0, 0, 0).
+tilledGround(28, 0, 0, 0, 0, 0).
+tilledGround(29, 0, 0, 0, 0, 0).
+tilledGround(30, 0, 0, 0, 0, 0).
 
 /* Map command */
 map :- 

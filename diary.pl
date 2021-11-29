@@ -19,6 +19,21 @@ diaries(12, -1, _).
 diaries(13, -1, _).
 diaries(14, -1, _).
 diaries(15, -1, _).
+diaries(16, -1, _).
+diaries(17, -1, _).
+diaries(18, -1, _).
+diaries(19, -1, _).
+diaries(20, -1, _).
+diaries(21, -1, _).
+diaries(22, -1, _).
+diaries(23, -1, _).
+diaries(24, -1, _).
+diaries(25, -1, _).
+diaries(26, -1, _).
+diaries(27, -1, _).
+diaries(28, -1, _).
+diaries(29, -1, _).
+diaries(30, -1, _).
 
 /* List Data Type */
 /* InsertAt */

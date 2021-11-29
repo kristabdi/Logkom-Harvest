@@ -26,7 +26,7 @@ dig:-
 
   % Fill tilledGround facts
   (
-  Current_X =:= 0, Current_Y =:= 0, CurrentCounter =< 15 -> (
+  Current_X =:= 0, Current_Y =:= 0, CurrentCounter =< 30 -> (
       % Check location to see if there is already digged ground there
       (
       tilledGround(_, Player_X, Player_Y, _, _, 1) -> (
