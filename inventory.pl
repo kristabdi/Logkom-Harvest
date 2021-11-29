@@ -102,3 +102,11 @@ isInInventory(Id) :-
     item(Item,Id, _),
     inventory(Inv),
     member([Item, _], Inv).
+
+isFull :-
+    inventory(Inv), itemCount(Inv, Total),
+    Total =:= 100.
+
+isFullIfAdd(Plus) :-
+    inventory(Inv), itemCount(Inv, Total),
+    Total + Plus >= 100.

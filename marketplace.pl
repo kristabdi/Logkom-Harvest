@@ -51,11 +51,15 @@ buyEq(Item) :-
     player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold),
     item(Item, Id, Price),
     (Gold >= Price ->
+        (isFull ->
+        (write('Cannot Buy. Inventory is Full.'))
+        ;( 
         Gold_Now is Gold - Price,
         retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold)),
         assertz(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold_Now)),
         addItem(Item, 1),
-        write('You bought 1 '), write(Item)
+        write('You bought 1 '), write(Item))
+        )
     ;
         write('You do not have enough gold')
     ).
@@ -88,16 +92,20 @@ buySeed :-
     ).
 
 buySd(Item) :-
-    write('How many do you want to buy?'), read(X),
+    write('How many do you want to buy?'), nl, write('>'), read(X),
     player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold),
     item(Item, Id, Price),
     Price_Now is X*Price,
     (Gold >= Price_Now ->
+        (isFullIfAdd(X) ->
+        (write('Cannot Buy. Inventory is Full.'))
+        ;( 
         Gold_Now is Gold - Price_Now,
         retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold)),
         assertz(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold_Now)),
         addItem(Item, X),
-        write('You bought '), write(X), write(' '), write(Item)
+        write('You bought '), write(X), write(' '), write(Item))
+        )
     ;
         write('You do not have enough gold')
     ).
