@@ -1,4 +1,9 @@
 # Tugas Besar Logika Komputasional: Harvest Star
+```
+ _   _   ____  _____ __  __ ____   ____  _____      ____  _____  ____  _____ 
+| |_| | / () \ | () )\ \/ /| ===| (_ (_`|_   _|    (_ (_`|_   _|/ () \ | () )
+|_| |_|/__/\__\|_|\_\ \__/ |____|.__)__)  |_|     .__)__)  |_| /__/\__\|_|\_\
+```
 ## Setup
 1. Download dan install GNU Prolog
 2. Buka terminal di directory tempat penyimpanan yang diinginkan
