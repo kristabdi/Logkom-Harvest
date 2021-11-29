@@ -66,11 +66,12 @@ help:-
     write('Inventory Commands:'), nl,
     write('13. inv      : show your full inventory'), nl,
     write('14. invSeed  : show your seed inventory'), nl,
+    write('15. dropItem  : drop item from your inventory'), nl,
     write('Quest Commands:'), nl,
-    write('15. tasks    : show your current active quest tasks'), nl,
+    write('16. tasks    : show your current active quest tasks'), nl,
     write('Other Commands:'), nl,
-    write('16. time     : show current game time'), nl,
-    write('17. help     : show this help menu'), nl.
+    write('17. time     : show current game time'), nl,
+    write('18. help     : show this help menu'), nl.
 
 quit :- 
     nl,nl,
