@@ -202,13 +202,13 @@ status :-
 checkGoalGold :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
     (
-    Gold >= 5000 -> (
+    Gold >= 30000 -> (
         write('You have finished the game!'), nl,
-        write('You have collected more than 20000 Gold under one year. Congratulations.') , nl,
+        write('You have collected more than 30000 Gold under one year. Congratulations.') , nl,
         quit
     )
     ;
-    Gold < 5000 -> (
+    Gold < 30000 -> (
         !
     )
 ).

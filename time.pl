@@ -82,12 +82,12 @@ time:-
 
 checkGoalTime :- 
     days_count(Days),
-    % If 1 year passed and still not 20000 gold
+    % If 1 year passed and still not 30000 gold
     (
     Days >= 365 -> (
         checkGoalGold, !,
         write('GAME OVER!'), nl,
-        write('You did not manage to collect more than 20000 Gold under one year.') , nl,
+        write('You did not manage to collect more than 30000 Gold under one year.') , nl,
         write('GAME OVER!') ,nl,
         quit
     )
