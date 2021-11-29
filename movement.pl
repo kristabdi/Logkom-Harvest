@@ -274,3 +274,6 @@ d:-
     assertz(interiorObject(NextDX, Y, 'P')),
     add_time,
     map.
+
+d:-
+    hit_fence.
