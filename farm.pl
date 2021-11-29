@@ -49,7 +49,7 @@ dig:-
 durationMod(0).
 plant:-(
   interiorObject(Player_X, Player_Y, 'P'),
-  (tilledGround(Counter, Player_X, Player_Y, _, _, 1) -> (
+  (tilledGround(Counter, Player_X, Player_Y, PlantType, _, 1), PlantType =:= 0 -> (
     invSeed,  
     write('Which Id?'), nl,
     read(TypePlant),
