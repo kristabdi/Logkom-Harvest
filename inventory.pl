@@ -21,7 +21,7 @@ printInventorySeed([]) :- !.
 printInventorySeed([[Name, Count]|T]) :-
     item(Name, Id, _),
     ( Id > 19 , Id < 30 ->
-        write(Count), write(' '), write(Name), nl, printInventorySeed(T)
+        write(Count), write(' '), write(Name), write(' (Id = '), write(Id), write(')') nl, printInventorySeed(T)
     ; Id < 20 ->
         printInventorySeed(T)
     ; Id > 29 ->
