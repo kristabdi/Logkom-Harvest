@@ -58,41 +58,44 @@ plant:-(
     retract(durationMod(_)),
     assertz(durationMod(Duration)),
 
-    (
+    item(Name, TypePlant, _),
+    drop(Name, 1),
+    itemIn(Bool),
+    Bool =:= 1 -> (
+      (
       isInInventory(4) -> (
       NewDuration is Duration//5,
       retract(durationMod(_)),
       assertz(durationMod(NewDuration))
-    );
-      isInInventory(3) -> (
-      NewDuration is Duration//4,
-      retract(durationMod(_)),
-      assertz(durationMod(NewDuration))
-    );
-      isInInventory(2) -> (
-      NewDuration is Duration//3,
-      retract(durationMod(_)),
-      assertz(durationMod(NewDuration))
-    );
-      isInInventory(1) -> (
-      NewDuration is Duration//2,
-      retract(durationMod(_)),
-      assertz(durationMod(NewDuration))
-    );
-      isInInventory(0) -> (
-      NewDuration is Duration//1,
-      retract(durationMod(_)),
-      assertz(durationMod(NewDuration))
-    ),
+      );
+        isInInventory(3) -> (
+        NewDuration is Duration//4,
+        retract(durationMod(_)),
+        assertz(durationMod(NewDuration))
+      );
+        isInInventory(2) -> (
+        NewDuration is Duration//3,
+        retract(durationMod(_)),
+        assertz(durationMod(NewDuration))
+      );
+        isInInventory(1) -> (
+        NewDuration is Duration//2,
+        retract(durationMod(_)),
+        assertz(durationMod(NewDuration))
+      );
+        isInInventory(0) -> (
+        NewDuration is Duration//1,
+        retract(durationMod(_)),
+        assertz(durationMod(NewDuration))
+      ),
 
-    durationMod(CurDur),
-    NewTypePlant is TypePlant + 10,
-    retract(tilledGround(Counter, _, _, _, _, _)),
-    assertz(tilledGround(Counter, Player_X, Player_Y, NewTypePlant, CurDur, 1)),
-    write('Successfully planted '),
-    writeTypePlant(NewTypePlant),
-    item(Name, TypePlant, _),
-    drop(Name, 1)
+      durationMod(CurDur),
+      NewTypePlant is TypePlant + 10,
+      retract(tilledGround(Counter, _, _, _, _, _)),
+      assertz(tilledGround(Counter, Player_X, Player_Y, NewTypePlant, CurDur, 1)),
+      write('Successfully planted '),
+      writeTypePlant(NewTypePlant)
+      )  
     )
   );
   write('You havent tilled the ground yet!\n')

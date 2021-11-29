@@ -1,8 +1,10 @@
 /* Deklarasi predikat inventory() sebagai dynamic */
 /* inventory(X) berarti player memiliki inventory X yang berisi nama dan jumlah item */
 :- dynamic(inventory/1).
+:- dynamic(itemIn/1).
 
 inventory(_).
+itemIn(0).
 
 /* Menuliskan isi inventory pada layar */
 inv :-  inventory(Inv), itemCount(Inv, Total), write('Your Inventory : ('), write(Total), write('/100)'), nl, printInventory(Inv).
@@ -53,16 +55,24 @@ drop(Item, Count) :-
             delete(Inv, [Item, CountInv], TempInv),
             append(TempInv, [[Item, NewCount]], NewInv),
             retract(inventory(Inv)),
-            assertz(inventory(NewInv))
+            assertz(inventory(NewInv)),
+            retract(itemIn(_)),
+            assertz(itemIn(1))
         ; CountInv =:= Count ->
             delete(Inv, [Item, CountInv], NewInv),
             retract(inventory(Inv)),
-            assertz(inventory(NewInv))
+            assertz(inventory(NewInv)),
+            retract(itemIn(_)),
+            assertz(itemIn(1))
         ;
-            write('You do not have that many item in your inventory')
+            write('You do not have that many item in your inventory'),
+            retract(itemIn(_)),
+            assertz(itemIn(1))
         )
     ;
-        write('You do not have that item in your inventory')
+        write('You do not have that item in your inventory'),
+        retract(itemIn(_)),
+        assertz(itemIn(0))
     ).
      
 /* addItem(X, Y) menambahkan X sebanyak Y ke dalam inventory */
