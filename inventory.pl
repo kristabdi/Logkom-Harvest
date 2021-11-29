@@ -5,7 +5,7 @@
 inventory(_).
 
 /* Menuliskan isi inventory pada layar */
-inv :-  inventory(Inv), printInventory(Inv).
+inv :-  inventory(Inv), itemCount(Inv, Total), write('Your Inventory : ('), write(Total), write('/100)'), nl, printInventory(Inv).
 
 printInventory([]) :- !.
 
