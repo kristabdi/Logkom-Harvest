@@ -173,14 +173,38 @@ sell :-
     write('>'), read(X),
     write('How many?'), nl,
     write('>'), read(Y),
-    drop(X,Y), !,
-    item(X, Id, Price),
-    Gold_Now is Gold + Y*Price,
-    retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold)),
-    assertz(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold_Now)),
-    MultipliedPrice is Y * Price,
-    write('Successfully sold '), write(Y), write(' '), write(X), write(' for '), write(MultipliedPrice), write(' gold'), nl,
-    checkGoalGold, !.
+    inventory(Inv),
+    (member([X, CountInv], Inv) ->
+        (CountInv > Y ->
+            NewCount is CountInv - Y,
+            delete(Inv, [X, CountInv], TempInv),
+            append(TempInv, [[X, NewCount]], NewInv),
+            retract(inventory(Inv)),
+            assertz(inventory(NewInv)),
+            item(X, Id, Price),
+            Gold_Now is Gold + Y*Price,
+            retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold)),
+            assertz(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold_Now)),
+            MultipliedPrice is Y * Price,
+            write('Successfully sold '), write(Y), write(' '), write(X), write(' for '), write(MultipliedPrice), write(' gold'), nl,
+            checkGoalGold, !
+        ; CountInv =:= Y ->
+            delete(Inv, [X, CountInv], NewInv),
+            retract(inventory(Inv)),
+            assertz(inventory(NewInv)),
+            item(X, Id, Price),
+            Gold_Now is Gold + Y*Price,
+            retract(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold)),
+            assertz(player(Role, Level, FarmLevel, FishLevel, RanchLevel, EXP, EXPFarm, EXPFish, EXPRanch, Gold_Now)),
+            MultipliedPrice is Y * Price,
+            write('Successfully sold '), write(Y), write(' '), write(X), write(' for '), write(MultipliedPrice), write(' gold'), nl,
+            checkGoalGold, !
+        ;
+            write('You do not have that many item in your inventory')
+        )
+    ;
+        write('You do not have that item in your inventory')
+    ).
 
 exitStore :-
     write('Thank you for coming').
