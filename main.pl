@@ -64,14 +64,14 @@ help:-
     write('12. sheep   : check your sheep'), nl,
     write('13. goat    : check your goat'), nl,
     write('Inventory Commands:'), nl,
-    write('14. inv      : show your full inventory'), nl,
-    write('15. invSeed  : show your seed inventory'), nl,
-    write('16. dropItem  : drop item from your inventory'), nl,
+    write('14. inv     : show your full inventory'), nl,
+    write('15. invSeed : show your seed inventory'), nl,
+    write('16. drop    : drop item from your inventory'), nl,
     write('Quest Commands:'), nl,
-    write('17. tasks    : show your current active quest tasks'), nl,
+    write('17. tasks   : show your current active quest tasks'), nl,
     write('Other Commands:'), nl,
-    write('18. time     : show current game time'), nl,
-    write('19. help     : show this help menu'), nl.
+    write('18. time    : show current game time'), nl,
+    write('19. help    : show this help menu'), nl.
 
 quit :- 
     nl,nl,
