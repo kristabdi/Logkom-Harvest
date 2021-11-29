@@ -60,18 +60,18 @@ help:-
     write('9. plant    : plant a seed inside a digged ground'), nl,
     write('10. harvest : harvest planted seed in the ground when the time is right'), nl,
     write('Ranching Commands:'), nl,
-    write('10. cow     : check your cows'), nl,
-    write('11. sheep   : check your sheep'), nl,
-    write('12. goat    : check your goat'), nl,
+    write('11. cow     : check your cows'), nl,
+    write('12. sheep   : check your sheep'), nl,
+    write('13. goat    : check your goat'), nl,
     write('Inventory Commands:'), nl,
-    write('13. inv      : show your full inventory'), nl,
-    write('14. invSeed  : show your seed inventory'), nl,
-    write('15. dropItem  : drop item from your inventory'), nl,
+    write('14. inv      : show your full inventory'), nl,
+    write('15. invSeed  : show your seed inventory'), nl,
+    write('16. dropItem  : drop item from your inventory'), nl,
     write('Quest Commands:'), nl,
-    write('16. tasks    : show your current active quest tasks'), nl,
+    write('17. tasks    : show your current active quest tasks'), nl,
     write('Other Commands:'), nl,
-    write('17. time     : show current game time'), nl,
-    write('18. help     : show this help menu'), nl.
+    write('18. time     : show current game time'), nl,
+    write('19. help     : show this help menu'), nl.
 
 quit :- 
     nl,nl,
